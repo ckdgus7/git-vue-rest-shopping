@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Board from '../views/Board.vue'
+import BBS from '../views/BBS.vue'
+import Notice from '../views/Notice.vue'
 import Shopping from '../views/Shopping.vue'
 import Memo from '../views/Memo.vue'
 import InterestItem from '../views/InterestItem.vue'
@@ -19,9 +20,14 @@ const routes = [
     component: Home
   },
   {
-    path: '/board',
-    name: 'board',
-    component: Board
+    path: '/bbs',
+    name: 'bbs',
+    component: BBS
+  },
+  {
+    path: '/notice',
+    name: 'notice',
+    component: Notice
   },
   {
     path: '/shopping',

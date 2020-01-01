@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    boardNum: 0,
     boards: [],
     board: {},
     shoppings: [],
@@ -14,6 +15,9 @@ export default new Vuex.Store({
   getters: {
     GET_BOARDS (state) {
       return state.boards;
+    },
+    GET_BOARD_NUM (state) {
+      return state.boardNum;
     }
   },
   mutations: {

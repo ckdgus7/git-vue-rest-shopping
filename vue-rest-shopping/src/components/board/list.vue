@@ -12,19 +12,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr class=" even">
-          <td class="td_num2">1</td>
+        <tr class=" even" v-for="listData in this.GET_BOARDS.list" :key="listData.wr_id">
+          <td class="td_num2">{{ listData.wr_id }}</td>
 
           <td class="td_subject" style="padding-left:0px">
             <div class="bo_tit">
-              <router-link :to="`/board/${this.url_path}/view/1`">테스트 게시글 1번 입니다.</router-link>
-              <span class="new_icon">N<span class="sound_only">새글</span></span>
-              <span class="sound_only">댓글</span><span class="cnt_cmt">1</span><span class="sound_only">개</span>
+              <router-link :to="`/board/${urlPath}/view/${listData.wr_id}`">{{ listData.wr_title }}</router-link>
             </div>
           </td>
-          <td class="td_name sv_use"><span class="sv_guest">admin</span></td>
-          <td class="td_num">1</td>
-          <td class="td_datetime">2019-12-13</td>
+          <td class="td_name sv_use"><span class="sv_guest">{{ listData.wr_user }}</span></td>
+          <td class="td_num">{{ listData.wr_count }}</td>
+          <td class="td_datetime">{{ listData.wr_date }}</td>
         </tr>
       </tbody>
     </table>
@@ -32,8 +30,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
-  props: ['board_data', 'url_path']
+  props: ['urlPath'],
+  
+  computed: {
+    ...mapGetters([
+      'GET_BOARDS'
+    ])
+  },
 }
 </script>
 

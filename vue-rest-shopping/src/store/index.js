@@ -6,7 +6,6 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    boardNum: 0,
     boards: [],
     board: {},
     shoppings: [],
@@ -15,9 +14,6 @@ export default new Vuex.Store({
   getters: {
     GET_BOARDS (state) {
       return state.boards;
-    },
-    GET_BOARD_NUM (state) {
-      return state.boardNum;
     }
   },
   mutations: {
@@ -26,8 +22,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    FETCH_BOARD ({ commit }, bid) {
-      return api.board.FETCH_BOARD(bid)
+    async FETCH_BOARD ({ commit }, bid) {
+      return await api.board.FETCH_BOARD(bid)
         .then(res => {
           commit('FETCH_BOARD', res.data);
         })

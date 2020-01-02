@@ -17,7 +17,7 @@
 
           <td class="td_subject" style="padding-left:0px">
             <div class="bo_tit">
-              <router-link :to="`/board/${urlPath}/view/${listData.wr_id}`">{{ listData.wr_title }}</router-link>
+              <router-link :to="`/board/${this.boardId}/view/${listData.wr_id}`">{{ listData.wr_title }}</router-link>
             </div>
           </td>
           <td class="td_name sv_use"><span class="sv_guest">{{ listData.wr_user }}</span></td>
@@ -30,15 +30,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import boardListMixin from '../../mixin/boardListMixin.js';
 export default {
-  props: ['urlPath'],
-  
-  computed: {
-    ...mapGetters([
-      'GET_BOARDS'
-    ])
+  data () {
+    return {
+      boardId: null
+    }
   },
+  created () {
+    this.boardId = this.GET_BOARDS.board_id;
+  },
+  mixins: [boardListMixin]
 }
 </script>
 

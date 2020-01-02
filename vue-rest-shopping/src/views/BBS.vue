@@ -3,12 +3,12 @@
     <div id="wrapper">
       <div id="container_wr">
         <div id="container">
-          <BoardTitle :board-title="this.boardTitle" />
+          <BoardTitle />
           <div id="bo_list" style="width:100%">
             
-            <BoardTop :board-count="this.boardCount" :url-path="this.urlPath" />
-            <BoardList :url-path="this.urlPath" />
-            <BoardBttom :url-path="this.urlPath" />
+            <BoardTop />
+            <BoardList />
+            <BoardBttom />
           </div>
         </div>
       </div>
@@ -23,14 +23,6 @@ import BoardTop from '../components/board/top.vue';
 import BoardList from '../components/board/list.vue';
 import BoardBttom from '../components/board/bottom.vue';
 export default {
-  data () {
-    return {
-      boardData: null,
-      boardCount: 0,
-      boardTitle: null,
-      urlPath: null
-    }
-  },
   components: {
     BoardTitle,
     BoardTop,
@@ -60,12 +52,8 @@ export default {
     },
     setBoardData (to) {
       this.FETCH_BOARD(this.getBoardNum(to))
-      .then(() => {
-        this.boardData = this.$store.state.boards;
-        this.boardCount = this.boardData.board_count;
-        this.boardTitle = this.boardData.board_title;
-        this.urlPath = this.boardData.board_id;
-      });
+        .then(() => {
+        });
     }
   }
 }

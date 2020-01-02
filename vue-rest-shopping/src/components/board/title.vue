@@ -1,10 +1,11 @@
 <template>
-  <h2 id="container_title"><span>[ {{ this.boardTitle }} ]</span></h2>
+  <h2 id="container_title"><span>[ {{ this.GET_BOARDS.board_title }} ]</span></h2>
 </template>
 
 <script>
+import boardListMixin from '../../mixin/boardListMixin.js';
 export default {
-  props: ['boardTitle']
+  mixins: [boardListMixin]
 }
 </script>
 

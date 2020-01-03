@@ -2,7 +2,7 @@
   <div id="bo_btn_top">
     <ul class="btn_bo_user" v-if="this.GET_BOARDS.board_id === 'bbs'">
       <li>
-        <router-link :to="`/board/${this.GET_BOARDS.board_id}/write`">글쓰기</router-link>
+        <router-link :to="`/board/${GET_BOARDS.board_id}/write`">글쓰기</router-link>
       </li>        	        
     </ul>
   </div>

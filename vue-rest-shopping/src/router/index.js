@@ -2,7 +2,6 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '../store'
 import Home from '../views/Home.vue';
-// import Board from '../views/Board.vue';
 import BBS from '../views/BBS.vue';
 import BBSView from '../views/BBSView.vue';
 import BBSWrite from '../views/BBSWrite.vue';

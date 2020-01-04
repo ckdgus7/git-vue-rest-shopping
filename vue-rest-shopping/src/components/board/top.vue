@@ -1,11 +1,11 @@
 <template>
   <div id="bo_btn_top">
     <div id="bo_list_total">
-      <span>Total <i style="color:red;">{{ this.GET_BOARDS.board_count }}</i>건</span>
+      <span>Total <i style="color:red;">{{ this.GET_BOARD_LIST.board_count }}</i>건</span>
     </div>
-    <ul class="btn_bo_user" v-if="this.GET_BOARDS.board_id === 'bbs'">
+    <ul class="btn_bo_user" v-if="this.GET_BOARD_LIST.board_id === 'bbs'">
       <li>
-        <router-link :to="`/board/${GET_BOARDS.board_id}/write`">글쓰기</router-link>
+        <router-link class="btn_b01 btn" :to="`/board/${GET_BOARD_LIST.board_id}/write`">글쓰기</router-link>
       </li>        	        
     </ul>
   </div>

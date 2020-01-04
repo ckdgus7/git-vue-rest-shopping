@@ -1,5 +1,5 @@
 <template>
-  <h2 id="container_title"><span>[ {{ this.GET_BOARDS.board_title }} ]</span></h2>
+  <h2 id="container_title"><span>[ {{ this.GET_BOARD_LIST.board_title }} ]</span></h2>
 </template>
 
 <script>

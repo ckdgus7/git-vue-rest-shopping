@@ -1,26 +1,23 @@
 import axios from 'axios';
 
 const BASE_URL = '//jswrap.ivyro.net/restapi/';
-const request = (method, url, data) => {
-  return axios({
-    method: method,
-    url: url,
-    data: data
-  });
+const request = (method, url, params) => {
+  // if(data !== null) {
+  //   return axios.get(url, { params: { wr_id: data.wr_id }, timeout: 1000 });
+  // } else {
+    return axios({
+      method,
+      url,
+      params,
+    });
+  // }
 }
 export const board = {
   FETCH_BOARD (bid) {
-    let path = null;
-    const boardId = parseInt(bid);
-    if(boardId === 1) {
-      path = 'boardDataList';
-    } else if(boardId === 2) {
-      path = 'boardNoticeDataList';
-    }
-    return request('GET', `${BASE_URL}${path}.php`);
+    return request('GET', `${BASE_URL}boardDataList.php`, {bid});
   },
-  DETAIL_BOARD () {
-
+  DETAIL_BOARD ({bid, wr_id}) {
+    return request('GET', `${BASE_URL}boardDataDetail.php`, {bid, wr_id});
   },
   REGISTER_BOARD () {
 

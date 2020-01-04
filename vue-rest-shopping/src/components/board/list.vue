@@ -12,12 +12,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr class=" even" v-for="listData in this.GET_BOARDS.list" :key="listData.wr_id">
+        <tr class=" even" v-for="listData in this.GET_BOARD_LIST.list" :key="listData.wr_id">
           <td class="td_num2">{{ listData.wr_id }}</td>
 
           <td class="td_subject" style="padding-left:0px">
             <div class="bo_tit">
-              <router-link :to="`/board/${GET_BOARDS.board_id}/view/${listData.wr_id}`">{{ listData.wr_title }}</router-link>
+              <router-link :to="`/board/${GET_BOARD_LIST.board_id}/view/${listData.wr_id}`">{{ listData.wr_title }}</router-link>
             </div>
           </td>
           <td class="td_name sv_use"><span class="sv_guest">{{ listData.wr_user }}</span></td>

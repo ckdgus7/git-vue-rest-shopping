@@ -2,12 +2,12 @@
   <div id="wrapper">
     <div id="container_wr">
       <div id="container">
-        <h2 id="container_title"><span title="테스트 게시글 1번 입니다. &gt; 자유게시판">자유게시판</span></h2>
+        <h2 id="container_title"><span>{{ this.GET_BOARD_LIST.board_title }}</span></h2>
         <!-- 게시물 읽기 시작 { -->
         <article id="bo_v" style="width:100%">
           <header>
-            <h2 id="bo_v_title">
-              <span class="bo_v_tit">테스트 게시글 1번 입니다.</span>
+            <h2>
+              <span class="bo_v_tit">{{ this.GET_BOARD.wr_title }}</span>
             </h2>
           </header>
           <section id="bo_v_info">
@@ -15,27 +15,34 @@
               <div class="profile_info">
                 <div class="pf_img"><img src="http://jswrap.ivyro.net/img/no_profile.gif" alt="profile_image"></div>
                 <div class="profile_info_ct">
-                  <span class="sound_only">작성자</span> <strong><span class="sv_guest">테스터</span></strong><br>
-                  <span class="sound_only">댓글</span><strong><a href="#bo_vc"> <i class="fa fa-commenting-o" aria-hidden="true"></i> 1건</a></strong>
-                  <span class="sound_only">조회</span><strong><i class="fa fa-eye" aria-hidden="true"></i> 1회</strong>
-                  <strong class="if_date"><span class="sound_only">작성일</span><i class="fa fa-clock-o" aria-hidden="true"></i> 19-12-28 22:04</strong>
+                  <span class="sound_only">작성자</span> 
+                  <strong><span class="sv_guest">{{ this.GET_BOARD.wr_user }}</span></strong><br>
+                  <span class="sound_only">댓글</span>
+                  <strong><a href="#bo_vc"> <i class="fa fa-commenting-o" aria-hidden="true"></i> {{ this.GET_BOARD.wr_comment }}건</a></strong>
+                  <span class="sound_only">조회</span>
+                  <strong><i class="fa fa-eye" aria-hidden="true"></i> {{ this.GET_BOARD.wr_count }}회</strong>
+                  <strong class="if_date">
+                    <span class="sound_only">작성일</span><i class="fa fa-clock-o" aria-hidden="true"></i> {{ this.GET_BOARD.wr_date }}
+                  </strong>
               </div>
             </div>
             <!-- 게시물 상단 버튼 시작 { -->
             <div id="bo_v_top">
               <ul class="btn_bo_user bo_v_com">
                 <li>
-                  <a href="" class="btn_b01 btn" title="목록">
-                  <i class="fa fa-list" aria-hidden="true"></i><span class="sound_only">목록</span></a>
+                  <router-link class="btn_b01 btn" :to="`/board/${GET_BOARD_LIST.board_id}`">목록</router-link>
                 </li>
-                <li>
-                  <a href="" class="btn_b01 btn" title="글쓰기">
-                    <i class="fa fa-pencil" aria-hidden="true"></i><span class="sound_only">글쓰기</span></a>
+                <li v-if="this.GET_BOARD_LIST.board_id === 'bbs'">
+                  <router-link class="btn_b01 btn" :to="`/board/${GET_BOARD_LIST.board_id}/write`">글쓰기</router-link>
                 </li>
-                <li>
-                  <ul class="more_opt is_view_btn"> 
-                    <li><a href="">수정<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></li>
-                    <li><a href="" onclick="del(this.href); return false;">삭제<i class="fa fa-trash-o" aria-hidden="true"></i></a></li>
+                <li v-if="this.GET_BOARD_LIST.board_id === 'bbs'">
+                  <ul class="is_view_btn"> 
+                    <li>
+                      <router-link class="btn_b01 btn" :to="`/board/${GET_BOARD_LIST.board_id}/modify/${GET_BOARD.wr_id}`">수정</router-link>
+                    </li>
+                    <li>
+                      <router-link class="btn_b01 btn" :to="`/board/${GET_BOARD_LIST.board_id}/delete/${GET_BOARD.wr_id}`">삭제</router-link>
+                    </li>
                   </ul>
                 </li>
               </ul>
@@ -45,14 +52,11 @@
           <section id="bo_v_atc">
             <h2 id="bo_v_atc_title">본문</h2>
             <!-- 본문 내용 시작 { -->
-            <div id="bo_v_con">테스트 게시글 1번 입니다.
-              <br/>테스트 게시글 1번 입니다.
-              <br/>테스트 게시글 1번 입니다.
-            </div>
+            <div id="bo_v_con" v-html="this.GET_BOARD.wr_content"></div>
             <!-- } 본문 내용 끝 -->
           </section>
           <!-- 댓글 시작 { -->
-          <section id="bo_vc">
+          <section id="bo_vc" v-if="this.GET_BOARD_LIST.board_id === 'bbs'">
             <h2>댓글목록</h2>
             <article id="c_2" >
               <div class="pf_img"><img src="http://jswrap.ivyro.net/img/no_profile.gif" alt="profile_image"></div>
@@ -81,7 +85,7 @@
           </section>
           <!-- } 댓글 끝 -->
           <!-- 댓글 쓰기 시작 { -->
-          <aside id="bo_vc_w" class="bo_vc_w">
+          <aside id="bo_vc_w" class="bo_vc_w" v-if="this.GET_BOARD_LIST.board_id === 'bbs'">
             <h2>댓글쓰기</h2>
             <form name="fviewcomment" id="fviewcomment" action="" method="post" autocomplete="off">
               <span class="sound_only">내용</span>
@@ -108,10 +112,40 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 export default {
+  created () {
+    this.setBoardData(this.$route);
+  },
+  computed: {
+    ...mapGetters([
+      'GET_BOARD_LIST'
+    ]),
+    ...mapGetters([
+      'GET_BOARD'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'DETAIL_BOARD'
+    ]),
+    getBoardNum (to) {
+      let info = {
+        bid: 1,
+        wr_id: to.params.viewid
+      };
+      if(to.params.bid == 'bbs') {
+        info.bid = 1;
+      } else {
+        info.bid = 2;
+      }
+      return info;
+    },
+    setBoardData (to) {
+      this.DETAIL_BOARD(this.getBoardNum(to))
+        .then(() => {
+        });
+    }
+  }
 }
 </script>
-
-<style>
-
-</style>

@@ -2,12 +2,12 @@
   <div id="wrapper">
     <div id="container_wr">
       <div id="container">
-        <h2 id="container_title"><span>{{ this.GET_BOARD_LIST.board_title }}</span></h2>
+        <h2 id="container_title"><span>{{ GET_BOARD_LIST.board_title }}</span></h2>
         <!-- 게시물 읽기 시작 { -->
         <article id="bo_v" style="width:100%">
           <header>
             <h2>
-              <span class="bo_v_tit">{{ this.GET_BOARD.wr_title }}</span>
+              <span class="bo_v_tit">{{ GET_BOARD.wr_title }}</span>
             </h2>
           </header>
           <section id="bo_v_info">
@@ -16,13 +16,13 @@
                 <div class="pf_img"><img src="http://jswrap.ivyro.net/img/no_profile.gif" alt="profile_image"></div>
                 <div class="profile_info_ct">
                   <span class="sound_only">작성자</span> 
-                  <strong><span class="sv_guest">{{ this.GET_BOARD.wr_user }}</span></strong><br>
+                  <strong><span class="sv_guest">{{ GET_BOARD.wr_user }}</span></strong><br>
                   <span class="sound_only">댓글</span>
-                  <strong><a href="#bo_vc"> <i class="fa fa-commenting-o" aria-hidden="true"></i> {{ this.GET_BOARD.wr_comment }}건</a></strong>
+                  <strong><a href="#bo_vc"> <i class="fa fa-commenting-o" aria-hidden="true"></i> {{ GET_BOARD.wr_comment }}건</a></strong>
                   <span class="sound_only">조회</span>
-                  <strong><i class="fa fa-eye" aria-hidden="true"></i> {{ this.GET_BOARD.wr_count }}회</strong>
+                  <strong><i class="fa fa-eye" aria-hidden="true"></i> {{ GET_BOARD.wr_count }}회</strong>
                   <strong class="if_date">
-                    <span class="sound_only">작성일</span><i class="fa fa-clock-o" aria-hidden="true"></i> {{ this.GET_BOARD.wr_date }}
+                    <span class="sound_only">작성일</span><i class="fa fa-clock-o" aria-hidden="true"></i> {{ GET_BOARD.wr_date }}
                   </strong>
               </div>
             </div>
@@ -32,16 +32,16 @@
                 <li>
                   <router-link class="btn_b01 btn" :to="`/board/${GET_BOARD_LIST.board_id}`">목록</router-link>
                 </li>
-                <li v-if="this.GET_BOARD_LIST.board_id === 'bbs'">
+                <li v-if="GET_BOARD_LIST.board_id === 'bbs'">
                   <router-link class="btn_b01 btn" :to="`/board/${GET_BOARD_LIST.board_id}/write`">글쓰기</router-link>
                 </li>
-                <li v-if="this.GET_BOARD_LIST.board_id === 'bbs'">
+                <li v-if="GET_BOARD_LIST.board_id === 'bbs'">
                   <ul class="is_view_btn"> 
                     <li>
-                      <router-link class="btn_b01 btn" :to="`/board/${GET_BOARD_LIST.board_id}/modify/${GET_BOARD.wr_id}`">수정</router-link>
+                      <router-link class="btn_b01 btn" :to="`/board/${GET_BOARD_LIST.board_id}/update/${GET_BOARD.wr_id}`">수정</router-link>
                     </li>
                     <li>
-                      <router-link class="btn_b01 btn" :to="`/board/${GET_BOARD_LIST.board_id}/delete/${GET_BOARD.wr_id}`">삭제</router-link>
+                      <a class="btn_b01 btn" href="" @click.prevent="deleteBoardData()">삭제</a>
                     </li>
                   </ul>
                 </li>
@@ -52,11 +52,11 @@
           <section id="bo_v_atc">
             <h2 id="bo_v_atc_title">본문</h2>
             <!-- 본문 내용 시작 { -->
-            <div id="bo_v_con" v-html="this.GET_BOARD.wr_content"></div>
+            <div id="bo_v_con" v-html="GET_BOARD.wr_content"></div>
             <!-- } 본문 내용 끝 -->
           </section>
           <!-- 댓글 시작 { -->
-          <section id="bo_vc" v-if="this.GET_BOARD_LIST.board_id === 'bbs'">
+          <section id="bo_vc" v-if="GET_BOARD_LIST.board_id === 'qna'">
             <h2>댓글목록</h2>
             <article id="c_2" >
               <div class="pf_img"><img src="http://jswrap.ivyro.net/img/no_profile.gif" alt="profile_image"></div>
@@ -85,7 +85,7 @@
           </section>
           <!-- } 댓글 끝 -->
           <!-- 댓글 쓰기 시작 { -->
-          <aside id="bo_vc_w" class="bo_vc_w" v-if="this.GET_BOARD_LIST.board_id === 'bbs'">
+          <aside id="bo_vc_w" class="bo_vc_w" v-if="GET_BOARD_LIST.board_id === 'qna'">
             <h2>댓글쓰기</h2>
             <form name="fviewcomment" id="fviewcomment" action="" method="post" autocomplete="off">
               <span class="sound_only">내용</span>
@@ -119,7 +119,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'GET_BOARD_LIST'
+      'GET_BOARD_LIST',
     ]),
     ...mapGetters([
       'GET_BOARD'
@@ -127,7 +127,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'DETAIL_BOARD'
+      'DETAIL_BOARD',
+      'DELETE_BOARD'
     ]),
     getBoardNum (to) {
       let info = {
@@ -144,6 +145,15 @@ export default {
     setBoardData (to) {
       this.DETAIL_BOARD(this.getBoardNum(to))
         .then(() => {
+        });
+    },
+    deleteBoardData () {
+      if(!window.confirm('삭제 하시겠습니까?')) return;
+      const bid = this.GET_BOARD_LIST.board_id;
+      const wr_id = this.GET_BOARD.wr_id;
+      this.DELETE_BOARD({bid, wr_id})
+        .then(({ data }) => {
+          this.$router.push(`/board/${data}`);
         });
     }
   }

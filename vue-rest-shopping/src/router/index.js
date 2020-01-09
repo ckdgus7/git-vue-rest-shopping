@@ -5,6 +5,7 @@ import Home from '../views/Home.vue';
 import BBS from '../views/BBS.vue';
 import BBSView from '../views/BBSView.vue';
 import BBSWrite from '../views/BBSWrite.vue';
+import BBSUpdate from '../views/BBSUpdate.vue';
 import Shopping from '../views/Shopping.vue';
 import Memo from '../views/Memo.vue';
 import InterestItem from '../views/InterestItem.vue';
@@ -37,28 +38,17 @@ const routes = [
   {
     path: '/board/:bid/view/:viewid',
     name: 'boardview',
-    component: BBSView,
-    // beforeEnter: (to, from, next) => {
-    //   if(to.path.indexOf('bbs') > -1) {
-    //     store.state.boardNum = 1;
-    //   } else {
-    //     store.state.boardNum = 2;
-    //   }
-    //   next();
-    // }
+    component: BBSView
   },
   {
     path: '/board/:bid/write',
     name: 'boardwrite',
-    component: BBSWrite,
-    // beforeEnter: (to, from, next) => {
-    //   if(to.path.indexOf('bbs') > -1) {
-    //     store.state.boardNum = 1;
-    //   } else {
-    //     store.state.boardNum = 2;
-    //   }
-    //   next();
-    // }
+    component: BBSWrite
+  },
+  {
+    path: '/board/:bid/update/:viewid',
+    name: 'boardupdate',
+    component: BBSUpdate
   },
   {
     path: '/shopping',
@@ -76,28 +66,12 @@ const routes = [
   {
     path: '/memo',
     name: 'memo',
-    component: Memo,
-    // beforeEnter: (to, from, next) => {
-    //   if(to.path.indexOf('bbs') > -1) {
-    //     store.state.boardNum = 1;
-    //   } else {
-    //     store.state.boardNum = 2;
-    //   }
-    //   next();
-    // }
+    component: Memo
   },
   {
     path: '/interest-item',
     name: 'interestItem',
-    component: InterestItem,
-    // beforeEnter: (to, from, next) => {
-    //   if(to.path.indexOf('bbs') > -1) {
-    //     store.state.boardNum = 1;
-    //   } else {
-    //     store.state.boardNum = 2;
-    //   }
-    //   next();
-    // }
+    component: InterestItem
   }
 ];
 

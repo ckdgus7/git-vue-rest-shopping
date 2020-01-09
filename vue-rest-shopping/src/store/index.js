@@ -49,6 +49,15 @@ export default new Vuex.Store({
         .catch(error => {
           console.log(error);
         });
+    },
+    async INSERT_BOARD (_, payload) {
+      return await api.board.INSERT_BOARD(payload);
+    },
+    async UPDATE_BOARD (_, payload) {
+      return await api.board.UPDATE_BOARD(payload);
+    },
+    async DELETE_BOARD (_, payload) {
+      return await api.board.DELETE_BOARD(payload);
     }
   }
 })

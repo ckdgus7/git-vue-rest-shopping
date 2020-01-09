@@ -2,15 +2,11 @@ import axios from 'axios';
 
 const BASE_URL = '//jswrap.ivyro.net/restapi/';
 const request = (method, url, params) => {
-  // if(data !== null) {
-  //   return axios.get(url, { params: { wr_id: data.wr_id }, timeout: 1000 });
-  // } else {
-    return axios({
-      method,
-      url,
-      params,
-    });
-  // }
+  return axios({
+    method,
+    url,
+    params,
+  });
 }
 export const board = {
   FETCH_BOARD (bid) {
@@ -19,17 +15,17 @@ export const board = {
   DETAIL_BOARD ({bid, wr_id}) {
     return request('GET', `${BASE_URL}boardDataDetail.php`, {bid, wr_id});
   },
-  REGISTER_BOARD () {
-
+  INSERT_BOARD ({bid, wr_name, wr_subject, wr_content}) {
+    return request('GET', `${BASE_URL}boardDataInsert.php`, {bid, wr_name, wr_subject, wr_content});
   },
-  UPDATE_BOARD () {
-
+  UPDATE_BOARD ({bid, wr_id, wr_name, wr_subject, wr_content}) {
+    return request('GET', `${BASE_URL}boardDataUpdate.php`, {bid, wr_id, wr_name, wr_subject, wr_content});
   },
-  DELETE_BOARD () {
-
+  DELETE_BOARD ({bid, wr_id}) {
+    return request('GET', `${BASE_URL}boardDataDelete.php`, {bid, wr_id});
   }
 }
-export const shopping = {
+export const shop = {
   FETCH_SHOPPING () {
 
   },

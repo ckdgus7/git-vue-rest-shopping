@@ -23,6 +23,9 @@ export const board = {
   },
   DELETE_BOARD ({bid, wr_id}) {
     return request('GET', `${BASE_URL}boardDataDelete.php`, {bid, wr_id});
+  },
+  UPDATE_POS_BOARD ({bid, wr_id, wr_1}) {
+    return request('GET', `${BASE_URL}boardPosDataUpdate.php`, {bid, wr_id, wr_1});
   }
 }
 export const shop = {

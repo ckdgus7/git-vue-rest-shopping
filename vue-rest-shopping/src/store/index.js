@@ -58,6 +58,15 @@ export default new Vuex.Store({
     },
     async DELETE_BOARD (_, payload) {
       return await api.board.DELETE_BOARD(payload);
+    },
+    async UPDATE_POS_BOARD ({ commit }, payload) {
+      return await api.board.UPDATE_POS_BOARD(payload)
+        .then(res => {
+          commit('FETCH_BOARD', res.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 })

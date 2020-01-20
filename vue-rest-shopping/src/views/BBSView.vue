@@ -115,20 +115,20 @@
 import { mapGetters, mapActions } from 'vuex';
 export default {
   created () {
+    this.FETCH_BOARD(this.$route.params.bid === 'bbs' ? 1 : 2);
     this.setBoardData(this.$route);
   },
   computed: {
     ...mapGetters([
       'GET_BOARD_LIST',
-    ]),
-    ...mapGetters([
       'GET_BOARD'
     ])
   },
   methods: {
     ...mapActions([
       'DETAIL_BOARD',
-      'DELETE_BOARD'
+      'DELETE_BOARD',
+      'FETCH_BOARD'
     ]),
     getBoardNum (to) {
       let info = {

@@ -33,40 +33,31 @@ export default new Vuex.Store({
   },
   actions: {
     async FETCH_BOARD ({ commit }, bid) {
-      return await api.board.FETCH_BOARD(bid)
-        .then(res => {
-          commit('FETCH_BOARD', res.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      const response = await api.board.FETCH_BOARD(bid);
+      commit('FETCH_BOARD', response.data);
+      return response;
     },
     async DETAIL_BOARD ({ commit }, bid) {
-      return await api.board.DETAIL_BOARD(bid)
-        .then(res => {
-          commit('DETAIL_BOARD', res.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      const response = await api.board.DETAIL_BOARD(bid);
+      commit('DETAIL_BOARD', response.data);
+      return response;
     },
     async INSERT_BOARD (_, payload) {
-      return await api.board.INSERT_BOARD(payload);
+      const response = await api.board.INSERT_BOARD(payload);
+      return response;
     },
     async UPDATE_BOARD (_, payload) {
-      return await api.board.UPDATE_BOARD(payload);
+      const response = await api.board.UPDATE_BOARD(payload);
+      return response;
     },
     async DELETE_BOARD (_, payload) {
-      return await api.board.DELETE_BOARD(payload);
+      const response = await api.board.DELETE_BOARD(payload);
+      return response;
     },
     async UPDATE_POS_BOARD ({ commit }, payload) {
-      return await api.board.UPDATE_POS_BOARD(payload)
-        .then(res => {
-          commit('FETCH_BOARD', res.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      const response = await api.board.UPDATE_POS_BOARD(payload);
+      commit('FETCH_BOARD', response.data);
+      return response;
     }
   }
 })

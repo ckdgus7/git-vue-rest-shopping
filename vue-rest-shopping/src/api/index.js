@@ -34,6 +34,9 @@ export const shop = {
   },
   DETAIL_SHOPPING () {
 
+  },
+  INTEREST_SHOP_ITEM() {
+
   }
 }
 

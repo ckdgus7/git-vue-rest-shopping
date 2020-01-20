@@ -13,9 +13,8 @@
       <h1>Memo</h1>
       <ol>
         <li>Memo글 리스트 : http://jswrap.ivyro.net/restapi/memoDataList.php</li>
-        <li>Memo글 등록 : http://jswrap.ivyro.net/restapi/memoDataInsert.php</li>
-        <li>Memo글 수정 : http://jswrap.ivyro.net/restapi/memoDataUpdate.php</li>
-        <li>Memo글 삭제 : http://jswrap.ivyro.net/restapi/memoDataDelete.php</li>
+        <li>plugin : drag&drop [dragula]</li>
+        <li>별도 CRUD는 생성하지 않고 자유게시판 글 내용으로 연동</li>
       </ol>
       <h1>Shopping</h1>
       <ol>

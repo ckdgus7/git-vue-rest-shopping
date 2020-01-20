@@ -15,7 +15,7 @@
 			
 						<div class="bo_w_info write_div">
 							<label for="wr_name" class="sound_only">이름<strong>필수</strong></label>
-							<input type="text" name="wr_name" ref="wr_name" id="wr_name" v-model.trim="wr_name" required class="frm_input half_input required" placeholder="이름">
+							<input type="text" name="wr_name" ref="wr_name" id="wr_name" v-model.trim="this.getBoardUser" required class="frm_input half_input required" placeholder="이름">
 						</div>
 		
 			
@@ -23,7 +23,7 @@
 							<label for="wr_subject" class="sound_only">제목<strong>필수</strong></label>
 						
 							<div id="autosave_wrapper" class="write_div">
-								<input type="text" name="wr_subject" v-model.trim="wr_subject" id="wr_subject" required class="frm_input full_input required" size="50">
+								<input type="text" name="wr_subject" v-model.trim="this.getBoardTitle" id="wr_subject" required class="frm_input full_input required" size="50">
 							</div>
 						
 						</div>
@@ -32,12 +32,12 @@
 							<label for="wr_content" class="sound_only">내용<strong>필수</strong></label>
 							<div class="wr_content ">
 								<span class="sound_only">웹에디터 시작</span>
-								<textarea id="wr_content" name="wr_content" v-model="wr_content" class="" maxlength="65536" style="width:100%;height:300px"></textarea>
+								<textarea id="wr_content" name="wr_content" v-model="this.getBoardContent" class="" maxlength="65536" style="width:100%;height:300px"></textarea>
 								<span class="sound_only">웹 에디터 끝</span>                    
 							</div>
 						</div>
 						<div class="btn_confirm write_div">
-							<a href="" class="btn_cancel btn">취소</a>
+							<a href="" @click.prevent="updateCancel" class="btn_cancel btn">취소</a>
 							<button type="submit" id="btn_submit" accesskey="s" class="btn_submit btn">작성완료</button>
 						</div>
 					</form>
@@ -53,31 +53,61 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import boardListMixin from '../mixin/boardListMixin.js';
+// import boardListMixin from '../mixin/boardListMixin.js';
 export default {
-	mixins: [boardListMixin],
+	// mixins: [boardListMixin],
 	data () {
 		return {
 			wr_name: '',
 			wr_subject: '',
 			wr_content: ''
 		}
-  },
-	mounted () {
-    this.$refs.wr_name.focus();
-    this.wr_name = this.GET_BOARD.wr_user;
-    this.wr_subject = this.GET_BOARD.wr_title;
-    this.wr_content = this.GET_BOARD.wr_content;
+	},
+	created () {
+    this.FETCH_BOARD(this.$route.params.bid === 'bbs' ? 1 : 2);
+    this.setBoardData(this.$route);
 	},
   computed: {
     ...mapGetters([
+      'GET_BOARD_LIST',
       'GET_BOARD'
-    ])
+		]),
+		getBoardUser () {
+			return this.GET_BOARD.wr_user;
+		},
+		getBoardTitle () {
+			return this.GET_BOARD.wr_title;
+		},
+		getBoardContent () {
+			return this.GET_BOARD.wr_content;
+		}
   },
+	mounted () {
+    this.$refs.wr_name.focus();
+	},
 	methods: {
 		...mapActions([
-			'UPDATE_BOARD'
+      'DETAIL_BOARD',
+			'UPDATE_BOARD',
+      'FETCH_BOARD'
 		]),
+    getBoardNum (to) {
+      let info = {
+        bid: 1,
+        wr_id: to.params.viewid
+      };
+      if(to.params.bid == 'bbs') {
+        info.bid = 1;
+      } else {
+        info.bid = 2;
+      }
+      return info;
+    },
+    setBoardData (to) {
+      this.DETAIL_BOARD(this.getBoardNum(to))
+        .then(() => {
+        });
+    },
 		updateBoardData () {
 			const { wr_name,wr_subject,wr_content } = this;
 			const bid = this.GET_BOARD_LIST.board_id;
@@ -86,6 +116,11 @@ export default {
 				.then(({ data }) => {
             this.$router.push(`/board/${data}`);
         });
+		},
+		updateCancel () {
+			const bid = this.$route.params.bid;
+			const viewid = this.$route.params.viewid;
+			this.$router.push(`/board/${bid}/view/${viewid}`);
 		}
 	}
 }

@@ -36,7 +36,7 @@
 							</div>
 						</div>
 						<div class="btn_confirm write_div">
-							<a href="" class="btn_cancel btn">취소</a>
+							<a href="" @click.prevent="insertCancel" class="btn_cancel btn">취소</a>
 							<button type="submit" id="btn_submit" accesskey="s" class="btn_submit btn">작성완료</button>
 						</div>
 					</form>
@@ -51,10 +51,10 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-import boardListMixin from '../mixin/boardListMixin.js';
+import { mapGetters, mapActions } from 'vuex';
+// import boardListMixin from '../mixin/boardListMixin.js';
 export default {
-	mixins: [boardListMixin],
+	// mixins: [boardListMixin],
 	data () {
 		return {
 			wr_name: '',
@@ -62,12 +62,22 @@ export default {
 			wr_content: ''
 		}
 	},
+  created () {
+    this.FETCH_BOARD(this.$route.params.bid === 'bbs' ? 1 : 2);
+  },
+  computed: {
+    ...mapGetters([
+      'GET_BOARD_LIST',
+      'GET_BOARD'
+    ])
+  },
 	mounted () {
 		this.$refs.wr_name.focus();
 	},
 	methods: {
 		...mapActions([
-			'INSERT_BOARD'
+			'INSERT_BOARD',
+      'FETCH_BOARD'
 		]),
 		insertBoardData () {
 			const { wr_name,wr_subject,wr_content } = this;
@@ -76,6 +86,10 @@ export default {
 				.then(({ data }) => {
             this.$router.push(`/board/${data}`);
         });
+		},
+		insertCancel () {
+			const bid = this.$route.params.bid;
+			this.$router.push(`/board/${bid}`);
 		}
 	}
 }

@@ -29,6 +29,12 @@ export default new Vuex.Store({
     },
     DETAIL_BOARD (state, payload) {
       state.board.detailData = payload;
+    },
+    FETCH_SHOPPING (state, payload) {
+      state.board.listDatas = payload;
+    },
+    DETAIL_SHOPPING (state, payload) {
+      state.board.detailData = payload;
     }
   },
   actions: {
@@ -57,6 +63,16 @@ export default new Vuex.Store({
     async UPDATE_POS_BOARD ({ commit }, payload) {
       const response = await api.board.UPDATE_POS_BOARD(payload);
       commit('FETCH_BOARD', response.data);
+      return response;
+    },
+    async FETCH_SHOPPING ({ commit }) {
+      const response = await api.shop.FETCH_SHOPPING();
+      commit('FETCH_SHOPPING', response.data);
+      return response;
+    },
+    async DETAIL_SHOPPING ({ commit }, itid) {
+      const response = await api.shop.DETAIL_SHOPPING(itid);
+      commit('DETAIL_SHOPPING', response.data);
       return response;
     }
   }

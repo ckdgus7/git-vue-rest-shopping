@@ -7,8 +7,8 @@
       <div class="list-section-wrapper">
         <div class="list-section">
           <div class="list-wrapper" 
-            v-for="listData in GET_BOARD_LIST.list" 
-            :key="listData.wr_pos">
+            v-for="(listData, i) in GET_BOARD_LIST.list" 
+            :key="`${i}-${listData.wr_pos}`">
             <div class="list"
                 :data-card-id="listData.wr_id" 
                 :data-card-pos="listData.wr_pos">

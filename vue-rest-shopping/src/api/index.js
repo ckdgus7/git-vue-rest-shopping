@@ -30,10 +30,10 @@ export const board = {
 }
 export const shop = {
   FETCH_SHOPPING () {
-
+    return request('GET', `${BASE_URL}shopDataList.php`);
   },
-  DETAIL_SHOPPING () {
-
+  DETAIL_SHOPPING ({it_id}) {
+    return request('GET', `${BASE_URL}shopDataDetail.php`, {it_id});
   },
   INTEREST_SHOP_ITEM() {
 

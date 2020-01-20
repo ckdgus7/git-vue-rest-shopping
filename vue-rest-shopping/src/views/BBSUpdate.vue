@@ -3,7 +3,7 @@
 	<div id="wrapper">
 		<div id="container_wr">
 			<div id="container">
-				<h2 id="container_title"><span>{{ GET_BOARD_LIST.board_title }} 글쓰기</span></h2>
+				<BoardTitle><template slot="board_title">[ {{ GET_BOARD_LIST.board_title }} 글쓰기 ]</template></BoardTitle>
 				<!-- skin : basic -->
 				<section id="bo_w">
 
@@ -53,9 +53,13 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import BoardTitle from '../components/board/title.vue';
 // import boardListMixin from '../mixin/boardListMixin.js';
 export default {
 	// mixins: [boardListMixin],
+	components: {
+		BoardTitle
+	},
 	data () {
 		return {
 			wr_name: '',

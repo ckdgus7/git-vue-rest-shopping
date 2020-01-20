@@ -1,14 +1,5 @@
 <template>
-  <h2 id="container_title"><span>[ {{ this.GET_BOARD_LIST.board_title }} ]</span></h2>
+  <h2 name="title" id="container_title">
+    <span><slot name="board_title">Board Title</slot></span>
+  </h2>
 </template>
-
-<script>
-import boardListMixin from '../../mixin/boardListMixin.js';
-export default {
-  mixins: [boardListMixin]
-}
-</script>
-
-<style>
-
-</style>

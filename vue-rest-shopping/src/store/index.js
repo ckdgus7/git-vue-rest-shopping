@@ -21,6 +21,12 @@ export default new Vuex.Store({
     },
     GET_BOARD (state) {
       return state.board.detailData;
+    },
+    GET_SHOPPING_LIST (state) {
+      return state.shop.listDatas;
+    },
+    GET_SHOPPING (state) {
+      return state.shop.detailData;
     }
   },
   mutations: {
@@ -31,10 +37,10 @@ export default new Vuex.Store({
       state.board.detailData = payload;
     },
     FETCH_SHOPPING (state, payload) {
-      state.board.listDatas = payload;
+      state.shop.listDatas = payload;
     },
     DETAIL_SHOPPING (state, payload) {
-      state.board.detailData = payload;
+      state.shop.detailData = payload;
     }
   },
   actions: {

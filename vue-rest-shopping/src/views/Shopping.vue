@@ -3,7 +3,7 @@
     <div id="wrapper">
       <div id="container">
         <div class="shop-content">
-          <div id="wrapper_title">상품리스트</div>
+          <div id="wrapper_title">Shopping List</div>
           <div id="sct">
             <ul class="sct sct_10 lists-row">
               <li v-for="(shopList, i) in GET_SHOPPING_LIST.list" :key="`${shopList.it_id}-${i}`" 
@@ -13,7 +13,7 @@
                       <img :src="shopList.it_img" style="width: 230px; height: 153px;">
                     </router-link>
                   <div class="sct_btn list-10-btn">
-                    <button type="button" class="btn_cart sct_cart" :data-it_id="shopList.it_id">
+                    <button type="button" @click.prevent="openCartModal" class="btn_cart sct_cart" :data-it_id="shopList.it_id">
                       <i class="fa fa-shopping-cart" aria-hidden="true"></i> 장바구니
                     </button>
                   </div>
@@ -36,24 +36,30 @@
         </div>
       </div>
     </div>
+    <CartModal v-if="showCartModal" @closeCartLModal="closeCartModal" />
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import shopListMixin from '../mixin/shopListMixin.js';
+import CartModal from '../components/shop/CartModal.vue';
 export default {
-  created () {
-    this.FETCH_SHOPPING();
+  mixins: [shopListMixin],
+  components: {
+    CartModal
   },
-  computed: {
-    ...mapGetters([
-      'GET_SHOPPING_LIST'
-    ])
+  data () {
+    return {
+      showCartModal: false
+    }
   },
   methods: {
-    ...mapActions([
-      'FETCH_SHOPPING'
-    ])
+    openCartModal () {
+      this.showCartModal = true;
+    },
+    closeCartModal () {
+      this.showCartModal = false;
+    }
   }
 }
 </script>

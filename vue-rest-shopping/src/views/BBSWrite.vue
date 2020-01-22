@@ -51,10 +51,10 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-// import boardListMixin from '../mixin/boardListMixin.js';
+import { mapActions } from 'vuex';
+import boardListMixin from '../mixin/boardListMixin.js';
 export default {
-	// mixins: [boardListMixin],
+	mixins: [boardListMixin],
 	data () {
 		return {
 			wr_name: '',
@@ -62,22 +62,12 @@ export default {
 			wr_content: ''
 		}
 	},
-  created () {
-    this.FETCH_BOARD(this.$route.params.bid === 'bbs' ? 1 : 2);
-  },
-  computed: {
-    ...mapGetters([
-      'GET_BOARD_LIST',
-      'GET_BOARD'
-    ])
-  },
 	mounted () {
 		this.$refs.wr_name.focus();
 	},
 	methods: {
 		...mapActions([
-			'INSERT_BOARD',
-      'FETCH_BOARD'
+			'INSERT_BOARD'
 		]),
 		insertBoardData () {
 			const { wr_name,wr_subject,wr_content } = this;

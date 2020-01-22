@@ -112,23 +112,17 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
+import boardListMixin from '../mixin/boardListMixin.js';
 export default {
+  mixins: [boardListMixin],
   created () {
-    this.FETCH_BOARD(this.$route.params.bid === 'bbs' ? 1 : 2);
     this.setBoardData(this.$route);
-  },
-  computed: {
-    ...mapGetters([
-      'GET_BOARD_LIST',
-      'GET_BOARD'
-    ])
   },
   methods: {
     ...mapActions([
       'DETAIL_BOARD',
-      'DELETE_BOARD',
-      'FETCH_BOARD'
+      'DELETE_BOARD'
     ]),
     getBoardNum (to) {
       let info = {

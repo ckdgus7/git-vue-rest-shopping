@@ -52,11 +52,11 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import BoardTitle from '../components/board/title.vue';
-// import boardListMixin from '../mixin/boardListMixin.js';
+import boardListMixin from '../mixin/boardListMixin.js';
 export default {
-	// mixins: [boardListMixin],
+	mixins: [boardListMixin],
 	components: {
 		BoardTitle
 	},
@@ -68,14 +68,9 @@ export default {
 		}
 	},
 	created () {
-    this.FETCH_BOARD(this.$route.params.bid === 'bbs' ? 1 : 2);
     this.setBoardData(this.$route);
 	},
   computed: {
-    ...mapGetters([
-      'GET_BOARD_LIST',
-      'GET_BOARD'
-		]),
 		getBoardUser () {
 			return this.GET_BOARD.wr_user;
 		},
@@ -92,8 +87,7 @@ export default {
 	methods: {
 		...mapActions([
       'DETAIL_BOARD',
-			'UPDATE_BOARD',
-      'FETCH_BOARD'
+			'UPDATE_BOARD'
 		]),
     getBoardNum (to) {
       let info = {

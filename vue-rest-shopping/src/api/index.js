@@ -35,6 +35,18 @@ export const shop = {
   DETAIL_SHOPPING ({it_id}) {
     return request('GET', `${BASE_URL}shopDataDetail.php`, {it_id});
   },
+  FETCH_CART () {
+    return request('GET', `${BASE_URL}shopDataCartList.php`);
+  },
+  INSERT_CART ({it_id, it_name, it_price, it_img}) {
+    return request('GET', `${BASE_URL}shopDataCartInsert.php`, {it_id, it_name, it_price, it_img});
+  },
+  DELETE_CART ({ct_id}) {
+    return request('GET', `${BASE_URL}shopDataCartDelete.php`, {ct_id});
+  },
+  DELETE_ALL_CART () {
+    return request('GET', `${BASE_URL}shopDataCartDelete.php`);
+  },
   INTEREST_SHOP_ITEM() {
 
   }

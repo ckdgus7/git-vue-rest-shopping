@@ -13,6 +13,9 @@ export default new Vuex.Store({
     shop: {
       listDatas: [],
       detailData: {}
+    },
+    cart: {
+      listDatas: []
     }
   },
   getters: {
@@ -27,6 +30,9 @@ export default new Vuex.Store({
     },
     GET_SHOPPING (state) {
       return state.shop.detailData;
+    },
+    GET_CART_LIST (state) {
+      return state.cart.listDatas;
     }
   },
   mutations: {
@@ -41,6 +47,9 @@ export default new Vuex.Store({
     },
     DETAIL_SHOPPING (state, payload) {
       state.shop.detailData = payload;
+    },
+    FETCH_CART (state, payload) {
+      state.cart.listDatas = payload;
     }
   },
   actions: {
@@ -79,6 +88,23 @@ export default new Vuex.Store({
     async DETAIL_SHOPPING ({ commit }, itid) {
       const response = await api.shop.DETAIL_SHOPPING(itid);
       commit('DETAIL_SHOPPING', response.data);
+      return response;
+    },
+    async FETCH_CART ({ commit }) {
+      const response = await api.shop.FETCH_CART();
+      commit('FETCH_CART', response.data);
+      return response;
+    },
+    async INSERT_CART (_, payload) {
+      const response = await api.shop.INSERT_CART(payload);
+      return response;
+    },
+    async DELETE_CART (_, payload) {
+      const response = await api.shop.DELETE_CART(payload);
+      return response;
+    },
+    async DELETE_ALL_CART () {
+      const response = await api.shop.DELETE_ALL_CART();
       return response;
     }
   }

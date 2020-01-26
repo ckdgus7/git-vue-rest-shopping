@@ -18,56 +18,47 @@
                       <th scope="col">상품명</th>
                       <th scope="col">총수량</th>
                       <th scope="col">판매가</th>
-                      <th scope="col">포인트</th>
                       <th scope="col">배송비</th>
                       <th scope="col">소계</th>
                   </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr v-for="(list ,i) in GET_CART_LIST.list" :key="`${list.ct_id}-${i}`">
                       <td class="td_chk chk_box">
                         <label for="ct_chk_0"><span></span><b class="sound_only">상품</b></label>
                       </td>
                       <td class="td_prd">
-                        <div class="sod_img"><img width="80" height="80" alt=""></div>
-                        <!-- <div class="sod_img"><img :src="cart.it_img" width="80" height="80" alt=""></div> -->
+                        <div class="sod_img"><img :src="list.it_img" width="80" height="80" alt=""></div>
                         <div class="sod_name">
-                          <b>카테고리 2 > 상품 3</b>
-                          <div class="sod_opt">
-                            <ul>
-                              <li>카테고리 2 &gt; 상품 3 1개 (+0원)</li>
-                            </ul>
-                          </div>
-                          <!-- <div class="sod_option_btn"><button type="button" @click="deleteCart(cart.it_id)" class="mod_options">비우기</button></div> -->
-                          <div class="sod_option_btn"><button type="button" class="mod_options">비우기</button></div>
+                          <b>{{ list.it_name }}</b>
+                          <div class="sod_option_btn"><button type="button" class="mod_options" @click="deleteCart(list.ct_id, list.it_name)">비우기</button></div>
                         </div>
                       </td>
-                      <td class="td_num">1</td>
-                      <td class="td_numbig">28,000</td>
-                      <td class="td_numbig">0</td>
-                      <td class="td_dvr">선불</td>
-                      <td class="td_numbig text_right"><span id="sell_price_0" class="total_prc">28,000</span></td>
+                      <td class="td_num">{{ list.ct_qty }}</td>
+                      <td class="td_numbig">{{ getPrice(list.ct_price) }}</td>
+                      <td class="td_dvr">후불</td>
+                      <td class="td_numbig text_right"><span id="sell_price_0" class="total_prc">{{ getPrice(list.ct_price) }}</span></td>
                     </tr>
                   </tbody>
                 </table>
                 <div class="btn_cart_del">
                   <!-- <button type="button">선택삭제</button> -->
-                  <button type="button">전체 비우기</button>
+                  <button type="button" @click="deleteAllCart">전체 비우기</button>
                 </div>
               </div>
               <div id="sod_bsk_tot">
                 <ul>
-                  <li class="sod_bsk_dvr">
-                    <span>배송비</span>
-                    <strong>0</strong> 원
-                  </li>
                   <li class="sod_bsk_pt">
                     <span>포인트</span>
                     <strong>0</strong> 점
                   </li>
+                  <li class="sod_bsk_dvr">
+                    <span>배송비</span>
+                    <strong>0</strong> 원
+                  </li>
                   <li class="sod_bsk_cnt">
                     <span>총계 가격</span>
-                    <strong>99,000</strong> 원 
+                    <strong>{{ getTotalPrice(GET_CART_LIST.totalPrice) }}</strong> 원 
                   </li>
                 </ul>
               </div>
@@ -84,23 +75,44 @@
 </template>
 
 <script>
-
+import { formatPrice } from '../../utils/index.js';
+import { mapGetters, mapActions } from 'vuex';
 export default {
+  created () {
+    this.FETCH_CART();
+  },
+  computed: {
+    ...mapGetters([
+      'GET_CART_LIST'
+    ])
+  },
   methods: {
-    deleteCart () {
-
-    },
-    checkAll () {
-      const chk = document.querySelector('#ct_all');
-      const checked = chk.getAttribute('checked');
-      const selectChk = document.querySelector('input[name^=ct_chk]');
-      if(checked) {
-        chk.setAttribute('checked', '');
-        selectChk.setAttribute('checked', '');
-      } else {
-        chk.setAttribute('checked', 'checked');
-        selectChk.setAttribute('checked', 'checked');
+    ...mapActions([
+      'FETCH_CART',
+      'DELETE_CART',
+      'DELETE_ALL_CART'
+    ]),
+    deleteCart (ct_id, it_name) {
+      if( confirm(`${it_name}을(를) 장바구니에서 삭제 하시겠습니까?`) ) {
+        this.DELETE_CART({ct_id})
+          .then(() => {
+            this.FETCH_CART();
+          });
       }
+    },
+    deleteAllCart () {
+      if( confirm(`모든 상품을 장바구니에서 삭제 하시겠습니까?`) ) {
+        this.DELETE_ALL_CART()
+          .then(() => {
+            this.FETCH_CART();
+          });
+      }
+    },
+    getPrice (price) {
+      return formatPrice(price);
+    },
+    getTotalPrice (price) {
+      return formatPrice(price);
     }
   }
 }

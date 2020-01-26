@@ -13,7 +13,7 @@
                       <img :src="shopList.it_img" style="width: 230px; height: 153px;">
                     </router-link>
                   <div class="sct_btn list-10-btn">
-                    <button type="button" @click.prevent="openCartModal" class="btn_cart sct_cart" :data-it_id="shopList.it_id">
+                    <button type="button" @click="openCartModal(shopList)" class="btn_cart sct_cart" :data-it_id="shopList.it_id">
                       <i class="fa fa-shopping-cart" aria-hidden="true"></i> 장바구니
                     </button>
                   </div>
@@ -26,7 +26,7 @@
                   </div>
                   <div class="sct_bottom">
                     <div class="sct_cost">
-                      {{ new Intl.NumberFormat().format(shopList.it_price) }}원
+                      {{ getPirce(shopList.it_price) }}원
                     </div>
                   </div>
                 </div>
@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import { formatPrice } from '../utils/index.js';
 import shopListMixin from '../mixin/shopListMixin.js';
 import CartModal from '../components/shop/CartModal.vue';
 export default {
@@ -54,11 +56,25 @@ export default {
     }
   },
   methods: {
-    openCartModal () {
-      this.showCartModal = true;
+    ...mapActions([
+      'INSERT_CART',
+      'FETCH_CART'
+    ]),
+    openCartModal ({it_id, it_name, it_price, it_img}) {
+      this.INSERT_CART({it_id, it_name, it_price, it_img})
+        .then(() => {
+          this.FETCH_CART();
+        })
+        .then(() => {
+          this.showCartModal = true;
+        });
+      
     },
     closeCartModal () {
       this.showCartModal = false;
+    },
+    getPirce (price) {
+      return formatPrice(price);
     }
   }
 }

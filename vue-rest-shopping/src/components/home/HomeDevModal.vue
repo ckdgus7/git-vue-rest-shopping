@@ -2,40 +2,18 @@
   <Modal @close="closeModal">
     <h3 slot="header">Dev List</h3>
     <div slot="body">
-      Ing...
-      <!-- <h1>Board</h1>
+      <h1>Folder</h1>
       <ol>
-        <li>게시글 리스트 : http://jswrap.ivyro.net/restapi/boardDataList</li>
-        <li>게시글 상세보기 : http://jswrap.ivyro.net/restapi/boardDataView</li>
-        <li>게시글 등록 : http://jswrap.ivyro.net/restapi/boardDataRegister</li>
-        <li>게시글 수정 : http://jswrap.ivyro.net/restapi/boardDataUpdate</li>
-        <li>게시글 삭제 : http://jswrap.ivyro.net/restapi/boardDataDelete</li>
+        <li>api : API CRUD Axios 연결</li>
+        <li>assets : Image 등 Asset Data</li>
+        <li>components : Page들에서 사용될 컴포넌트</li>
+        <li>mixin : component에서 공통 호출 함수</li>
+        <li>router : Link Page 정의 및 네비게이션 가드 설정</li>
+        <li>store : vuex를 통한 state, getters, mutations, actions 정의</li>
+        <li>utils : 수식 등 공통 함수 정의</li>
+        <li>views : router에서 지정된 Page List</li>
       </ol>
-      <h1>Shopping</h1>
-      <ol>
-        <li>쇼핑 상품 리스트 : http://jswrap.ivyro.net/restapi/shoppingList</li>
-        <li>쇼핑 상품 상세보기 : http://jswrap.ivyro.net/restapi/shoppingView</li>
-      </ol>
-      <h1>Shopping</h1>
-      <ol>
-        <li>Memo 리스트 : http://jswrap.ivyro.net/restapi/memoList</li>
-        <li>Memo 등록 : http://jswrap.ivyro.net/restapi/memoResister</li>
-        <li>Memo 수정 : http://jswrap.ivyro.net/restapi/memoDataUpdate</li>
-        <li>Memo 삭제 : http://jswrap.ivyro.net/restapi/memoDataDelete</li>
-      </ol>
-      <h1>Shopping</h1>
-      <ol>
-        <li>Memo 리스트 : http://jswrap.ivyro.net/restapi/memoList</li>
-        <li>Memo 등록 : http://jswrap.ivyro.net/restapi/memoResister</li>
-        <li>Memo 수정 : http://jswrap.ivyro.net/restapi/memoDataUpdate</li>
-        <li>Memo 삭제 : http://jswrap.ivyro.net/restapi/memoDataDelete</li>
-      </ol> -->
     </div>
-    <!-- <template slot="footer">
-      <button class="modal-default-button" @click="$emit('close')">
-        CLOSE
-      </button>
-    </template> -->
   </Modal>
 </template>
 
@@ -43,7 +21,6 @@
 
 import Modal from '../Modal.vue';
 export default {
-  props: ['propsdata'],
   components: {
     Modal
   },
@@ -59,5 +36,12 @@ export default {
 .modal-default-button {
   padding: 10px;
   float: right;
+}
+ol li {
+  line-height: 30px;
+}
+h1 {
+  color: blueviolet;
+  font-size: 16px;
 }
 </style>

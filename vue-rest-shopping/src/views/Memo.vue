@@ -76,7 +76,6 @@ export default {
   },
   methods: {
     ...mapActions([
-      'FETCH_BOARD',
 			'UPDATE_POS_BOARD'
     ]),
     setBoardData (num) {

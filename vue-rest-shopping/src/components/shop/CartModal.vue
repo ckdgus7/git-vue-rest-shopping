@@ -37,7 +37,7 @@
                       <td class="td_num">{{ list.ct_qty }}</td>
                       <td class="td_numbig">{{ getPrice(list.ct_price) }}</td>
                       <td class="td_dvr">후불</td>
-                      <td class="td_numbig text_right"><span id="sell_price_0" class="total_prc">{{ getPrice(list.ct_price) }}</span></td>
+                      <td class="td_numbig text_right"><span id="sell_price_0" class="total_prc">{{ getPrice(list.ct_price * list.ct_qty) }}</span></td>
                     </tr>
                   </tbody>
                 </table>

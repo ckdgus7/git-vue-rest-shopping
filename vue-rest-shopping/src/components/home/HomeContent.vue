@@ -9,7 +9,7 @@
     <br />
     <div>
       <h1>
-        2. FE 개발방법 / Foldering &nbsp; &nbsp; &nbsp;
+        2. Foldering &nbsp; &nbsp; &nbsp;
         <span class="open-api"><a href="" @click.prevent="$emit('openDevList', 'dev')">Open Dev List View</a></span>
       </h1>
     </div>
@@ -24,22 +24,22 @@
       <li>게시글 수정</li>
       <li>게시글 삭제</li>
     </ol>
+    <h1>4. Check List (Memo)</h1>
+    <ol>
+      <li>Memo 리스트</li>
+      <li>Memo Drag&Drop</li>
+    </ol>
     <h1>4. Check List (Shopping)</h1>
     <ol>
       <li>쇼핑 상품 리스트</li>
       <li>쇼핑 상품 상세보기</li>
-    </ol>
-    <h1>5. Check List (Memo)</h1>
-    <ol>
-      <li>Memo 리스트</li>
-      <li>Memo 등록</li>
-      <li>Memo 수정</li>
-      <li>Memo 삭제</li>
+      <li>리스트에서 장바구니 추가 / 리스트</li>
+      <li>상세보기에서 장바구니 추가 / 리스트</li>
     </ol>
     <h1>6. Check List (Interest Item)</h1>
     <ol>
       <li>인기 상품 Chart</li>
-      <li>카테고리 Search</li>
+      <li>Search Tab</li>
     </ol>
   </div>
 </template>

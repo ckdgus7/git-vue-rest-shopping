@@ -1,7 +1,7 @@
 import { mapGetters, mapActions } from 'vuex';
 export default {
   created () {
-    if(!this.GET_BOARD_LIST.list) {
+    if(this.$route.params.bid && !this.GET_BOARD_LIST.list) {
 			this.FETCH_BOARD(this.$route.params.bid === 'bbs' ? 1 : 2);
 		}
   },

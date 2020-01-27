@@ -7,9 +7,9 @@
   </span>
   <router-link class="nav-link" to="/board/bbs">BBS</router-link> |
   <router-link class="nav-link" to="/board/notice">Notice</router-link> |
-  <router-link class="nav-link" to="/memo">Memo</router-link> |
+  <router-link class="nav-link" to="/memo">Memo (Drag&Drop)</router-link> |
   <router-link class="nav-link" to="/shopping">Shopping List</router-link> |
-  <router-link class="nav-link" to="/interest-item">interest Chart</router-link>
+  <router-link class="nav-link" to="/interest-item">Interest Cart Item (Chart)</router-link>
 </div>
 </template>
 <style scoped>

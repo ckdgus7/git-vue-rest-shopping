@@ -60,7 +60,7 @@
                   </section>
                   <div id="sit_tot_price"></div>
                   <div id="sit_ov_btn">
-                    <button type="button" value="장바구니" title="장바구니" class="sit_btn_cart">장바구니</button>
+                    <button type="button" value="장바구니" title="장바구니 담기" class="sit_btn_cart" @click="openCartModal(GET_SHOPPING)">장바구니 담기</button>
                     <button type="button" @click="shopList" title="상품 리스트 보기" value="상품 리스트 보기" class="sit_btn_buy">상품 리스트 보기</button>
                     <!-- <button type="submit" onclick="document.pressed=this.value;" value="바로구매" class="sit_btn_buy">바로구매</button> -->
                   </div>
@@ -71,14 +71,16 @@
         </div>
       </div>
     </div>
+    <CartModal v-if="showCartModal" @closeCartLModal="closeCartModal" />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import shopListMixin from '../mixin/shopListMixin.js';
+import cartAddMixin from '../mixin/cartAddmixin.js';
 export default {
-  mixins: [shopListMixin],
+  mixins: [shopListMixin, cartAddMixin],
   created () {
     const it_id = this.$route.params.viewid;
     this.DETAIL_SHOPPING({it_id});

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = '//jswrap.ivyro.net/restapi/';
+const BASE_URL = 'http://jswrap.ivyro.net/restapi/';
 const request = (method, url, params) => {
   return axios({
     method,

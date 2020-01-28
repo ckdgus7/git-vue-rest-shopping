@@ -4,16 +4,16 @@
       <div id="container">
         <h2 id="container_title"><span>{{ GET_BOARD_LIST.board_title }}</span></h2>
         <!-- 게시물 읽기 시작 { -->
-        <article id="bo_v" style="width:100%">
+        <article id="bo_v" style="width:100%; padding: 20px">
           <header>
             <h2>
-              <span class="bo_v_tit">{{ GET_BOARD.wr_title }}</span>
+              <span class="bo_v_tit">제목 : {{ GET_BOARD.wr_title }}</span>
             </h2>
           </header>
           <section id="bo_v_info">
               <h2>페이지 정보</h2>
               <div class="profile_info">
-                <div class="pf_img"><img src="http://jswrap.ivyro.net/img/no_profile.gif" alt="profile_image"></div>
+                <!-- <div class="pf_img"><img src="http://jswrap.ivyro.net/img/no_profile.gif" alt="profile_image"></div> -->
                 <div class="profile_info_ct">
                   <span class="sound_only">작성자</span> 
                   <strong><span class="sv_guest">{{ GET_BOARD.wr_user }}</span></strong><br>
@@ -36,14 +36,10 @@
                   <router-link class="btn_b01 btn" :to="`/board/${GET_BOARD_LIST.board_id}/write`">글쓰기</router-link>
                 </li>
                 <li v-if="GET_BOARD_LIST.board_id === 'bbs'">
-                  <ul class="is_view_btn"> 
-                    <li>
-                      <router-link class="btn_b01 btn" :to="`/board/${GET_BOARD_LIST.board_id}/update/${GET_BOARD.wr_id}`">수정</router-link>
-                    </li>
-                    <li>
-                      <a class="btn_b01 btn" href="" @click.prevent="deleteBoardData()">삭제</a>
-                    </li>
-                  </ul>
+                  <router-link class="btn_b01 btn" :to="`/board/${GET_BOARD_LIST.board_id}/update/${GET_BOARD.wr_id}`">수정</router-link>
+                </li>
+                <li v-if="GET_BOARD_LIST.board_id === 'bbs'">
+                  <a class="btn_b01 btn" href="" @click.prevent="deleteBoardData()">삭제</a>
                 </li>
               </ul>
               </div>
@@ -59,7 +55,7 @@
           <section id="bo_vc" v-if="GET_BOARD_LIST.board_id === 'qna'">
             <h2>댓글목록</h2>
             <article id="c_2" >
-              <div class="pf_img"><img src="http://jswrap.ivyro.net/img/no_profile.gif" alt="profile_image"></div>
+              <!-- <div class="pf_img"><img src="http://jswrap.ivyro.net/img/no_profile.gif" alt="profile_image"></div> -->
               <div class="cm_wrap">
                 <header style="z-index:2">
                   <h2>댓글 테스터님의  댓글</h2>

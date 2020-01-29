@@ -1,2 +1,2 @@
 # git-vue-rest-shopping
-실전 api php shopping maill
+API VueJS board/shopping-maill/chart/drag&drop

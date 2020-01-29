@@ -1,6 +1,6 @@
 import { mapActions } from 'vuex';
-import CartModal from '../components/shop/CartModal.vue';
 import { formatPrice } from '../utils/index.js';
+import CartModal from '../components/shop/CartModal.vue';
 export default {
   components: {
     CartModal
@@ -18,7 +18,7 @@ export default {
     openCartModal ({it_id, it_name, it_price, it_img}) {
       this.INSERT_CART({it_id, it_name, it_price, it_img})
         .then(() => {
-          if( confirm('장바구니를 여시겠습니까?') ) {
+          if( confirm(`${it_name} 제품을 장바구니에 담았습니다.\n장바구니를 여시겠습니까?`) ) {
             this.FETCH_CART();
             this.$nextTick(() => {
               this.showCartModal = true;

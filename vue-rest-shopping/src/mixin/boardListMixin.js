@@ -1,5 +1,9 @@
 import { mapGetters, mapActions } from 'vuex';
+import BoardTitle from '../components/board/title.vue';
 export default {
+  components: {
+    BoardTitle
+  },
   created () {
     if(this.$route.params.bid && !this.GET_BOARD_LIST.list) {
 			this.FETCH_BOARD(this.$route.params.bid === 'bbs' ? 1 : 2);
@@ -7,8 +11,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'GET_BOARD_LIST',
-      'GET_BOARD'
+      'GET_BOARD_LIST'
     ])
   },
   methods: {

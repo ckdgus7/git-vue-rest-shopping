@@ -15,7 +15,7 @@
 			
 						<div class="bo_w_info write_div">
 							<label for="wr_name" class="sound_only">이름<strong>필수</strong></label>
-							<input type="text" name="wr_name" ref="wr_name" id="wr_name" v-model.trim="this.getBoardUser" required class="frm_input half_input required" placeholder="이름">
+							<input type="text" name="wr_name" ref="wr_name" id="wr_name" :value="GET_BOARD.wr_user"  required class="frm_input half_input required" placeholder="이름">
 						</div>
 		
 			
@@ -23,7 +23,7 @@
 							<label for="wr_subject" class="sound_only">제목<strong>필수</strong></label>
 						
 							<div id="autosave_wrapper" class="write_div">
-								<input type="text" name="wr_subject" v-model.trim="this.getBoardTitle" id="wr_subject" required class="frm_input full_input required" size="50">
+								<input type="text" name="wr_subject" ref="wr_subject" :value="GET_BOARD.wr_title" id="wr_subject" required class="frm_input full_input required" size="50">
 							</div>
 						
 						</div>
@@ -32,7 +32,7 @@
 							<label for="wr_content" class="sound_only">내용<strong>필수</strong></label>
 							<div class="wr_content ">
 								<span class="sound_only">웹에디터 시작</span>
-								<textarea id="wr_content" name="wr_content" v-model="this.getBoardContent" class="" maxlength="65536" style="width:100%;height:300px"></textarea>
+								<textarea id="wr_content" name="wr_content" ref="wr_content" :value="GET_BOARD.wr_content" class="" maxlength="65536" style="width:100%;height:300px"></textarea>
 								<span class="sound_only">웹 에디터 끝</span>                    
 							</div>
 						</div>
@@ -52,34 +52,17 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-import BoardTitle from '../components/board/title.vue';
+import { mapGetters, mapActions } from 'vuex';
 import boardListMixin from '../mixin/boardListMixin.js';
 export default {
 	mixins: [boardListMixin],
-	components: {
-		BoardTitle
-	},
-	data () {
-		return {
-			wr_name: '',
-			wr_subject: '',
-			wr_content: ''
-		}
-	},
 	created () {
     this.setBoardData(this.$route);
 	},
   computed: {
-		getBoardUser () {
-			return this.GET_BOARD.wr_user;
-		},
-		getBoardTitle () {
-			return this.GET_BOARD.wr_title;
-		},
-		getBoardContent () {
-			return this.GET_BOARD.wr_content;
-		}
+    ...mapGetters([
+      'GET_BOARD'
+    ])
   },
 	mounted () {
     this.$refs.wr_name.focus();
@@ -102,14 +85,19 @@ export default {
       return info;
     },
     setBoardData (to) {
-      this.DETAIL_BOARD(this.getBoardNum(to))
-        .then(() => {
-        });
+      this.DETAIL_BOARD({
+				bid: this.getBoardNum(to),
+				pageType: 'update'
+			})
+			.then(() => {
+			});
     },
 		updateBoardData () {
-			const { wr_name,wr_subject,wr_content } = this;
 			const bid = this.GET_BOARD_LIST.board_id;
-      const wr_id = this.GET_BOARD.wr_id;
+			const wr_id = this.GET_BOARD.wr_id;
+			const wr_name = this.$refs.wr_name.value;
+			const wr_subject = this.$refs.wr_subject.value;
+			const wr_content = this.$refs.wr_content.value;
 			this.UPDATE_BOARD({bid,wr_id,wr_name,wr_subject,wr_content})
 				.then(({ data }) => {
             this.$router.push(`/board/${data}`);

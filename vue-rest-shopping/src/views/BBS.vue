@@ -17,14 +17,13 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import BoardTitle from '../components/board/title.vue';
 import BoardTop from '../components/board/top.vue';
 import BoardList from '../components/board/list.vue';
 import BoardBttom from '../components/board/bottom.vue';
+import boardListMixin from '../mixin/boardListMixin.js';
 export default {
+  mixins: [boardListMixin],
   components: {
-    BoardTitle,
     BoardTop,
     BoardList,
     BoardBttom
@@ -37,15 +36,7 @@ export default {
       this.setBoardData(to);
     }
   },
-  computed: {
-    ...mapGetters([
-      'GET_BOARD_LIST'
-    ])
-  },
   methods: {
-    ...mapActions([
-      'FETCH_BOARD'
-    ]),
     getBoardNum (to) {
       let boardNum = 0;
       if(to.path.indexOf('bbs') > -1) {

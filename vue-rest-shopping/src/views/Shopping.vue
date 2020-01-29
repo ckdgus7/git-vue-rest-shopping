@@ -36,7 +36,9 @@
         </div>
       </div>
     </div>
-    <CartModal v-if="showCartModal" @closeCartLModal="closeCartModal" />
+    <transition name="component-fade" mode="out-in">
+      <CartModal v-if="showCartModal" @closeCartLModal="closeCartModal" />
+    </transition>
   </div>
 </template>
 

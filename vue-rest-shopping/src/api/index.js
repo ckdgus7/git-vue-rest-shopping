@@ -12,20 +12,22 @@ export const board = {
   FETCH_BOARD (bid) {
     return request('GET', `${BASE_URL}boardDataList.php`, {bid});
   },
-  DETAIL_BOARD ({bid, wr_id}) {
-    return request('GET', `${BASE_URL}boardDataDetail.php`, {bid, wr_id});
+  DETAIL_BOARD (payload) {
+    return request('GET', `${BASE_URL}boardDataDetail.php`, payload);
   },
-  INSERT_BOARD ({bid, wr_name, wr_subject, wr_content}) {
-    return request('GET', `${BASE_URL}boardDataInsert.php`, {bid, wr_name, wr_subject, wr_content});
+  INSERT_BOARD (payload) {
+    payload.wr_content = encodeURIComponent(payload.wr_content);
+    return request('GET', `${BASE_URL}boardDataInsert.php`, payload);
   },
-  UPDATE_BOARD ({bid, wr_id, wr_name, wr_subject, wr_content}) {
-    return request('GET', `${BASE_URL}boardDataUpdate.php`, {bid, wr_id, wr_name, wr_subject, wr_content});
+  UPDATE_BOARD (payload) {
+    payload.wr_content = encodeURIComponent(payload.wr_content);
+    return request('GET', `${BASE_URL}boardDataUpdate.php`, payload);
   },
-  DELETE_BOARD ({bid, wr_id}) {
-    return request('GET', `${BASE_URL}boardDataDelete.php`, {bid, wr_id});
+  DELETE_BOARD (payload) {
+    return request('GET', `${BASE_URL}boardDataDelete.php`, payload);
   },
-  UPDATE_POS_BOARD ({bid, wr_id, wr_1}) {
-    return request('GET', `${BASE_URL}boardPosDataUpdate.php`, {bid, wr_id, wr_1});
+  UPDATE_POS_BOARD (payload) {
+    return request('GET', `${BASE_URL}boardPosDataUpdate.php`, payload);
   }
 }
 export const shop = {
@@ -38,8 +40,8 @@ export const shop = {
   FETCH_CART () {
     return request('GET', `${BASE_URL}shopDataCartList.php`);
   },
-  INSERT_CART ({it_id, it_name, it_price, it_img}) {
-    return request('GET', `${BASE_URL}shopDataCartInsert.php`, {it_id, it_name, it_price, it_img});
+  INSERT_CART (payload) {
+    return request('GET', `${BASE_URL}shopDataCartInsert.php`, payload);
   },
   DELETE_CART ({ct_id}) {
     return request('GET', `${BASE_URL}shopDataCartDelete.php`, {ct_id});

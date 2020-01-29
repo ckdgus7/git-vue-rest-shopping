@@ -1,6 +1,7 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import * as api from '../api'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import * as api from '../api';
+import { replaceAll } from '../utils/index.js';
 
 Vue.use(Vuex)
 
@@ -58,8 +59,12 @@ export default new Vuex.Store({
       commit('FETCH_BOARD', response.data);
       return response;
     },
-    async DETAIL_BOARD ({ commit }, bid) {
-      const response = await api.board.DETAIL_BOARD(bid);
+    async DETAIL_BOARD ({ commit }, payload) {
+      const response = await api.board.DETAIL_BOARD(payload.bid);
+      response.data.wr_content = decodeURIComponent(response.data.wr_content);
+      if(payload.pageType == 'view') {
+        response.data.wr_content = replaceAll(response.data.wr_content, '\n', '<br>');
+      }
       commit('DETAIL_BOARD', response.data);
       return response;
     },

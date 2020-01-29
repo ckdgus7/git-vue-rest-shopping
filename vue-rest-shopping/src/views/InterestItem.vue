@@ -1,7 +1,9 @@
 <template>
   <div class="small">
-    <button @click="fillData('price')">상품 조회수별 인기제품</button> | 
-    <button @click="fillData('month')">월별 인기제품</button>
+    <div class="btn-wrap">
+      <button @click="fillData('price')">상품 조회수별 인기제품</button> | 
+      <button @click="fillData('month')">월 조회수별 인기제품</button>
+    </div>
     <LineChart :chart-data="datacollection"></LineChart>
   </div>
 </template>
@@ -39,7 +41,7 @@ export default {
           datasets: [
             {
               label: ['월 조회수별 인기제품'],
-              backgroundColor: '#f87979',
+              backgroundColor: 'green',
               data: [51, 8, 22, 13, 35, 22, 55, 25, 46, 23, 16, 47]
             }
           ]
@@ -52,7 +54,16 @@ export default {
 
 <style>
   .small {
-    max-width: 600px;
-    margin:  150px auto;
+    max-width: 700px;
+    margin:  10px auto;
+  }
+  .btn-wrap {
+    margin-top:  30px;
+    margin-left:  30px;
+    margin-bottom:  30px;
+  }
+  .btn-wrap button {
+    width: 200px;
+    height: 30px;
   }
 </style>

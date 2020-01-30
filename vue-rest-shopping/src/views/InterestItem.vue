@@ -1,51 +1,38 @@
 <template>
   <div class="small">
     <div class="btn-wrap">
-      <button @click="fillData('price')">상품 조회수별 인기제품</button> | 
-      <button @click="fillData('month')">월 조회수별 인기제품</button>
+      <button @click="fillData('hit')">상품 조회수별 인기제품</button> | 
+      <button @click="fillData('price')">월별 주문통계</button>
     </div>
-    <LineChart :chart-data="datacollection"></LineChart>
+    <LineChart :chart-data="GET_CHART_DATA"></LineChart>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import LineChart from '../components/chart/BarChart.js';
 export default {
   components: {
     LineChart
   },
-  data () {
-    return {
-      datacollection: null
-    }
+  created () {
+    this.FETCH_SHOP_HIT_ITEM();
   },
-  mounted () {
-    this.fillData('price');
+  computed: {
+    ...mapGetters([
+      'GET_CHART_DATA'
+    ])
   },
   methods: {
+    ...mapActions([
+      'FETCH_SHOP_HIT_ITEM',
+      'FETCH_SHOP_PRICE_ITEM'
+    ]),
     fillData (type) {
-      if ( type === 'price') {
-        this.datacollection = {
-          labels: ['item1', 'item2', 'item3'],
-          datasets: [
-            {
-              label: '상품 조회수별 인기제품',
-              backgroundColor: '#f87979',
-              data: [5, 8, 22]
-            }
-          ]
-        }
+      if ( type === 'hit') {
+        this.FETCH_SHOP_HIT_ITEM();
       } else {
-        this.datacollection = {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-          datasets: [
-            {
-              label: ['월 조회수별 인기제품'],
-              backgroundColor: 'green',
-              data: [51, 8, 22, 13, 35, 22, 55, 25, 46, 23, 16, 47]
-            }
-          ]
-        }
+        this.FETCH_SHOP_PRICE_ITEM();
       }
     }
   }

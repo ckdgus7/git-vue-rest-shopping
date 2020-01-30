@@ -49,8 +49,11 @@ export const shop = {
   DELETE_ALL_CART () {
     return request('GET', `${BASE_URL}shopDataCartDelete.php`);
   },
-  INTEREST_SHOP_ITEM() {
-
+  FETCH_SHOP_HIT_ITEM() {
+    return request('GET', `${BASE_URL}shopDataInterestHit.php`);
+  },
+  FETCH_SHOP_PRICE_ITEM() {
+    return request('GET', `${BASE_URL}shopDataInterestPrice.php`);
   }
 }
 

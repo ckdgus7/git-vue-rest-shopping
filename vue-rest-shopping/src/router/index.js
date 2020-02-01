@@ -10,35 +10,29 @@ import Shopping from '../views/Shopping.vue';
 import ShoppingView from '../views/ShoppingView.vue';
 import Memo from '../views/Memo.vue';
 import InterestItem from '../views/InterestItem.vue';
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
+import pageLoading from '../mixin/routerMixin.js';
 
 Vue.use(VueRouter);
-Vue.use(Loading);
 
 const routes = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/home',
+    beforeEnter: (to, from, next) => {
+      pageLoading(next);
+    }
   },
   {
     path: '/home',
     name: 'home',
     component: Home,
     beforeEnter: (to, from, next) => {
-      let loader = Vue.$loading.show({
-        container: null,
-        canCancel: true
-      });
       if(to.path.indexOf('bbs') > -1) {
         store.state.boardNum = 1;
       } else {
         store.state.boardNum = 2;
       }
-      next();
-      setTimeout(() => {
-        loader.hide();
-      }, 300);
+      pageLoading(next);
     }
   },
   {
@@ -46,14 +40,7 @@ const routes = [
     name: 'boardlist',
     component: BBS,
     beforeEnter: (to, from, next) => {
-      let loader = Vue.$loading.show({
-        container: null,
-        canCancel: true
-      });
-      next();
-      setTimeout(() => {
-        loader.hide();
-      }, 300);
+      pageLoading(next);
     }
   },
   {
@@ -61,14 +48,7 @@ const routes = [
     name: 'boardview',
     component: BBSView,
     beforeEnter: (to, from, next) => {
-      let loader = Vue.$loading.show({
-        container: null,
-        canCancel: true
-      });
-      next();
-      setTimeout(() => {
-        loader.hide();
-      }, 300);
+      pageLoading(next);
     }
   },
   {
@@ -76,14 +56,7 @@ const routes = [
     name: 'boardwrite',
     component: BBSWrite,
     beforeEnter: (to, from, next) => {
-      let loader = Vue.$loading.show({
-        container: null,
-        canCancel: true
-      });
-      next();
-      setTimeout(() => {
-        loader.hide();
-      }, 300);
+      pageLoading(next);
     }
   },
   {
@@ -91,14 +64,7 @@ const routes = [
     name: 'boardupdate',
     component: BBSUpdate,
     beforeEnter: (to, from, next) => {
-      let loader = Vue.$loading.show({
-        container: null,
-        canCancel: true
-      });
-      next();
-      setTimeout(() => {
-        loader.hide();
-      }, 300);
+      pageLoading(next);
     }
   },
   {
@@ -106,14 +72,7 @@ const routes = [
     name: 'memo',
     component: Memo,
     beforeEnter: (to, from, next) => {
-      let loader = Vue.$loading.show({
-        container: null,
-        canCancel: true
-      });
-      next();
-      setTimeout(() => {
-        loader.hide();
-      }, 300);
+      pageLoading(next);
     }
   },
   {
@@ -121,14 +80,7 @@ const routes = [
     name: 'shopping',
     component: Shopping,
     beforeEnter: (to, from, next) => {
-      let loader = Vue.$loading.show({
-        container: null,
-        canCancel: true
-      });
-      next();
-      setTimeout(() => {
-        loader.hide();
-      }, 300);
+      pageLoading(next);
     }
   },
   {
@@ -136,14 +88,7 @@ const routes = [
     name: 'shoppingview',
     component: ShoppingView,
     beforeEnter: (to, from, next) => {
-      let loader = Vue.$loading.show({
-        container: null,
-        canCancel: true
-      });
-      next();
-      setTimeout(() => {
-        loader.hide();
-      }, 300);
+      pageLoading(next);
     }
   },
   {
@@ -151,14 +96,7 @@ const routes = [
     name: 'interestItem',
     component: InterestItem,
     beforeEnter: (to, from, next) => {
-      let loader = Vue.$loading.show({
-        container: null,
-        canCancel: true
-      });
-      next();
-      setTimeout(() => {
-        loader.hide();
-      }, 300);
+      pageLoading(next);
     }
   }
 ];

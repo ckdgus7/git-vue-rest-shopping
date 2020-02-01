@@ -33,7 +33,7 @@ export default {
   },
   watch: {
     '$route' (to) {
-      this.setBoardData(to);
+      this.setBoardData(to, true);
     }
   },
   methods: {
@@ -46,9 +46,19 @@ export default {
       }
       return boardNum;
     },
-    setBoardData (to) {
+    setBoardData (to, isFirst = false) {
+      let loader = null;
+      if(isFirst) {
+        loader = this.$loading.show({
+          container: null,
+          canCancel: true
+        });
+      }
       this.FETCH_BOARD(this.getBoardNum(to))
         .then(() => {
+          setTimeout(() => {
+            if(loader !== null) loader.hide();
+          }, 300);
         });
     }
   }

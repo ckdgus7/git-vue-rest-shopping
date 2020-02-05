@@ -21,7 +21,9 @@ export default {
           if( confirm(`${it_name} 제품을 장바구니에 담았습니다.\n장바구니를 여시겠습니까?`) ) {
             this.FETCH_CART();
             this.$nextTick(() => {
-              this.showCartModal = true;
+              setTimeout(() => {
+                this.showCartModal = true;
+              }, 500);
             });
           }
         });

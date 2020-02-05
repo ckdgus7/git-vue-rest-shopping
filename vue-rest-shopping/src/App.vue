@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <Navigation />
-    <transition name="page-fade" mode="out-in">
+    <!-- <transition name="page-fade" mode="out-in"> -->
       <router-view />
-    </transition>
+    <!-- </transition> -->
   </div>
 </template>
 <script>

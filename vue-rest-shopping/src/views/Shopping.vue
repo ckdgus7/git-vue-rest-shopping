@@ -1,5 +1,6 @@
 <template>
   <div class="shop">
+    <carousel :data="data"></carousel>
     <div id="wrapper">
       <div id="container">
         <div class="shop-content">
@@ -45,12 +46,32 @@
 <script>
 import shopListMixin from '../mixin/shopListMixin.js';
 import cartAddMixin from '../mixin/cartAddmixin.js';
+
+// Vue.use(VueCarousel);
 export default {
+  data() {
+    return {
+      data: [
+        '<div class="example-slide"><img src="https://media.istockphoto.com/photos/blank-banner-picture-id482858783?k=6&m=482858783&s=612x612&w=0&h=LKLlv3FN_ELjarwZ6xffQAPo_KFGmDG-2DGDzknET8w="></div>',
+        '<div class="example-slide"><img src="https://media.istockphoto.com/photos/blank-banner-picture-id482858783?k=6&m=482858783&s=612x612&w=0&h=LKLlv3FN_ELjarwZ6xffQAPo_KFGmDG-2DGDzknET8w="></div>',
+        '<div class="example-slide"><img src="https://media.istockphoto.com/photos/blank-banner-picture-id482858783?k=6&m=482858783&s=612x612&w=0&h=LKLlv3FN_ELjarwZ6xffQAPo_KFGmDG-2DGDzknET8w="></div>',
+      ],
+    };
+  },
   mixins: [shopListMixin, cartAddMixin]
 }
 </script>
 
 <style>
+  .example-slide {
+    align-items: center;
+    background-color: #666;
+    color: #999;
+    display: flex;
+    font-size: 1.5rem;
+    justify-content: center;
+    min-height: 10rem;
+  }
 #container .shop-content {
     position: relative;
     padding: 9px 55px;

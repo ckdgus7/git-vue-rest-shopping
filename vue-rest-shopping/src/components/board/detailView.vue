@@ -25,16 +25,16 @@
       <div id="bo_v_top">
         <ul class="btn_bo_user bo_v_com">
           <li>
-            <router-link :style="`font-size: 15px;`" :to="`/board/${GET_BOARD_LIST.board_id}`">목록</router-link>
+            <router-link :class="`event-btn`" :to="`/board/${GET_BOARD_LIST.board_id}`">목록</router-link>
           </li>
           <li v-if="GET_BOARD_LIST.board_id === 'bbs'">
-            <router-link :style="`font-size: 15px;`" :to="`/board/${GET_BOARD_LIST.board_id}/write`">글쓰기</router-link>
+            <router-link :class="`event-btn`" :to="`/board/${GET_BOARD_LIST.board_id}/write`">글쓰기</router-link>
           </li>
           <li v-if="GET_BOARD_LIST.board_id === 'bbs'">
-            <router-link :style="`font-size: 15px;`" :to="`/board/${GET_BOARD_LIST.board_id}/update/${GET_BOARD.wr_id}`">수정</router-link>
+            <router-link :class="`event-btn`" :to="`/board/${GET_BOARD_LIST.board_id}/update/${GET_BOARD.wr_id}`">수정</router-link>
           </li>
           <li v-if="GET_BOARD_LIST.board_id === 'bbs'">
-            <a style="font-size: 15px;" href="" @click.prevent="deleteBoardData()">삭제</a>
+            <a class="event-btn" href="" @click.prevent="deleteBoardData()">삭제</a>
           </li>
         </ul>
       </div>
@@ -52,12 +52,12 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 export default {
+  props: ['GET_BOARD_LIST'],
   created () {
     this.setBoardData(this.$route);
   },
   computed: {
     ...mapGetters([
-      'GET_BOARD_LIST',
       'GET_BOARD'
     ])
   },
@@ -100,7 +100,12 @@ export default {
 </script>
 
 <style scoped>
-.event-btn {
+a.event-btn {
   font-size: 15px;
+}
+.bo_v_com li {
+  width: 80px;
+  height: 30px;
+  margin-top: 10px;
 }
 </style>

@@ -25,7 +25,7 @@
                     <th scope="col">소계</th>
                 </tr>
                 </thead>
-                <tbody>
+                <!-- <tbody> -->
                   <tr v-for="(list ,i) in GET_CART_LIST.list" :key="`${list.ct_id}-${i}`">
                     <td class="td_chk chk_box">
                       <label for="ct_chk_0"><span></span><b class="sound_only">상품</b></label>
@@ -42,7 +42,7 @@
                     <td class="td_dvr">후불</td>
                     <td class="td_numbig text_right"><span id="sell_price_0" class="total_prc">{{ getPrice(list.ct_price * list.ct_qty) }}</span></td>
                   </tr>
-                </tbody>
+                <!-- </tbody> -->
               </table>
               <div class="btn_cart_del">
                 <!-- <button type="button">선택삭제</button> -->
@@ -122,6 +122,13 @@ export default {
 
 
 <style scoped>
+.list-enter-active, .list-leave-active {
+  transition: all .2s;
+}
+.list-enter, .list-leave-to {
+  opacity: 0;
+  /* transform: translateY(10px); */
+}
 .modal-mask {
   position: fixed;
   z-index: 9998;

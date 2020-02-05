@@ -3,8 +3,8 @@
     <div id="container_wr">
       <div id="container">
 				<BoardTitle><template slot="board_title">[ {{ GET_BOARD_LIST.board_title }} ]</template></BoardTitle>
-        <DetailView />
-        <DetailComment />
+        <DetailView :GET_BOARD_LIST="GET_BOARD_LIST" />
+        <DetailComment :GET_BOARD_LIST="GET_BOARD_LIST"/>
       </div>
     </div>
   </div>

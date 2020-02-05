@@ -1,8 +1,8 @@
 <template>
   <div>
-    <article id="bo_v" style="width:100%; padding: 20px">
+    <article id="bo_v" style="width:100%; padding: 20px" v-if="GET_BOARD_LIST.board_id === 'qna'">
       <!-- 댓글 시작 { -->
-      <section id="bo_vc" v-if="this.$route.params.bid === 'qna'">
+      <section id="bo_vc">
         <h2>댓글목록</h2>
         <article id="c_2" >
           <!-- <div class="pf_img"><img src="http://jswrap.ivyro.net/img/no_profile.gif" alt="profile_image"></div> -->
@@ -31,7 +31,7 @@
       </section>
       <!-- } 댓글 끝 -->
       <!-- 댓글 쓰기 시작 { -->
-      <aside id="bo_vc_w" class="bo_vc_w" v-if="this.$route.params.bid === 'qna'">
+      <aside id="bo_vc_w" class="bo_vc_w" >
         <h2>댓글쓰기</h2>
         <form name="fviewcomment" id="fviewcomment" action="" method="post" autocomplete="off">
           <span class="sound_only">내용</span>
@@ -56,7 +56,7 @@
 
 <script>
 export default {
-
+  props: ['GET_BOARD_LIST']
 }
 </script>
 

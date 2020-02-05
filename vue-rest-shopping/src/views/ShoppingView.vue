@@ -71,9 +71,7 @@
         </div>
       </div>
     </div>
-    <transition name="component-fade" mode="out-in">
-      <CartModal v-if="showCartModal" @closeCartLModal="closeCartModal" />
-    </transition>
+    <CartModal v-if="showCartModal" @closeCartLModal="closeCartModal" />
   </div>
 </template>
 

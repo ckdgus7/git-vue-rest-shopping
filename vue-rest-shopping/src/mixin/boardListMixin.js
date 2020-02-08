@@ -5,7 +5,7 @@ export default {
     BoardTitle
   },
   created () {
-    if(this.$route.params.bid) {
+    if(this.$route.params.bid && !this.GET_BOARD_LIST) {
       const bid = this.$route.params.bid === 'bbs' ? 1 : 2;
 			this.FETCH_BOARD({ bid });
 		}

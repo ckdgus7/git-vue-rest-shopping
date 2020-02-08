@@ -43,16 +43,12 @@ export default {
   },
   watch: {
     kword: lodash.debounce( function() {
-      if(this.$route.params.bid && this.kword) {
+      if(this.$route.params.bid) {
         const bid = this.$route.params.bid === 'bbs' ? 1 : 2;
         const kword = this.kword;
-          this.FETCH_BOARD({ bid, kword });
+        this.FETCH_BOARD({ bid, kword });
       }
-    }, 200),
-    '$route' () {
-      const bid = this.$route.params.bid === 'bbs' ? 1 : 2;
-			this.FETCH_BOARD({ bid });
-    }
+    }, 200)
   },
   methods: {
     searchList () {

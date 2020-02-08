@@ -3,9 +3,12 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import VueCarousel from '@chenfengyuan/vue-carousel';
-Vue.use(VueCarousel);
+import VueLodash from 'vue-lodash';
 
 Vue.config.productionTip = false;
+
+Vue.use(VueCarousel);
+Vue.use(VueLodash, { name: 'lodash' });
 
 new Vue({
   router,

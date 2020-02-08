@@ -17,7 +17,6 @@ export default {
   mixins: [boardListMixin]
 }
 </script>
-
 <style>
 
 </style>

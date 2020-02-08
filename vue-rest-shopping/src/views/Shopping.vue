@@ -1,14 +1,19 @@
 <template>
   <div class="shop">
-    <carousel :data="data"></carousel>
+    <carousel :data="carouselData"></carousel>
     <div id="wrapper">
       <div id="container">
         <div class="shop-content">
-          <div id="wrapper_title">Shopping List</div>
+          <div>
+            <div style="float: left;" id="wrapper_title">Shopping List</div>
+            <div style="float: right; margin-top: 25px;">검색 : 
+              <input type="text" @keyup="searchList" ref="searchtext" placeholder="검색어입력" style="height: 30px; width: 200px;">
+            </div>
+          </div>
           <div id="sct">
-            <ul class="sct sct_10 lists-row">
+            <transition-group name="list" tag="ul" class="sct sct_10 lists-row">
               <li v-for="(shopList, i) in GET_SHOPPING_LIST.list" :key="`${shopList.it_id}-${i}`" 
-                class="sct_li col-row-3" data-css="nocss" style="height:auto">
+                class="sct_li col-row-3 list-item" data-css="nocss" style="height:auto">
                 <div class="sct_img">
                     <router-link :to="`/shopping/view/${shopList.it_id}`">
                       <img :src="shopList.it_img" style="width: 230px; height: 153px;">
@@ -32,7 +37,7 @@
                   </div>
                 </div>
               </li>
-            </ul>
+            </transition-group>
           </div>
         </div>
       </div>
@@ -44,21 +49,36 @@
 </template>
 
 <script>
+import keySearch from 'lodash';
 import shopListMixin from '../mixin/shopListMixin.js';
 import cartAddMixin from '../mixin/cartAddmixin.js';
 
 // Vue.use(VueCarousel);
 export default {
+  mixins: [shopListMixin, cartAddMixin],
   data() {
     return {
-      data: [
+      carouselData: [
         '<div class="example-slide"><img src="https://media.istockphoto.com/photos/blank-banner-picture-id482858783?k=6&m=482858783&s=612x612&w=0&h=LKLlv3FN_ELjarwZ6xffQAPo_KFGmDG-2DGDzknET8w="></div>',
         '<div class="example-slide"><img src="https://media.istockphoto.com/photos/blank-banner-picture-id482858783?k=6&m=482858783&s=612x612&w=0&h=LKLlv3FN_ELjarwZ6xffQAPo_KFGmDG-2DGDzknET8w="></div>',
         '<div class="example-slide"><img src="https://media.istockphoto.com/photos/blank-banner-picture-id482858783?k=6&m=482858783&s=612x612&w=0&h=LKLlv3FN_ELjarwZ6xffQAPo_KFGmDG-2DGDzknET8w="></div>',
       ],
+      kword: ''
     };
   },
-  mixins: [shopListMixin, cartAddMixin]
+  watch: {
+    kword: keySearch.debounce( function() {
+      const kword = this.kword;
+      if(kword) {
+        this.FETCH_SHOPPING({ kword });
+      }
+    }, 200)
+  },
+  methods: {
+    searchList () {
+      this.kword = this.$refs.searchtext.value;
+    }
+  }
 }
 </script>
 

@@ -3,7 +3,7 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   created () {
     if(!this.GET_SHOPPING_LIST.list) {
-      this.FETCH_SHOPPING();
+      this.FETCH_SHOPPING({ kword: '' });
     }
   },
   computed: {

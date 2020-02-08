@@ -31,4 +31,11 @@ ol li {
 .component-fade-enter, .component-fade-leave-to {
   opacity: 0;
 }
+.list-enter-active, .list-leave-active {
+  transition: all .7s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(10px);
+}
 </style>

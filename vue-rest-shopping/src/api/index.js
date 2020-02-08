@@ -9,8 +9,8 @@ const request = (method, url, params) => {
   });
 }
 export const board = {
-  FETCH_BOARD (bid) {
-    return request('GET', `${BASE_URL}boardDataList.php`, {bid});
+  FETCH_BOARD ({ bid, kword }) {
+    return request('GET', `${BASE_URL}boardDataList.php`, { bid, kword });
   },
   DETAIL_BOARD (payload) {
     return request('GET', `${BASE_URL}boardDataDetail.php`, payload);
@@ -31,8 +31,8 @@ export const board = {
   }
 }
 export const shop = {
-  FETCH_SHOPPING () {
-    return request('GET', `${BASE_URL}shopDataList.php`);
+  FETCH_SHOPPING ({ kword }) {
+    return request('GET', `${BASE_URL}shopDataList.php`, { kword });
   },
   DETAIL_SHOPPING ({it_id}) {
     return request('GET', `${BASE_URL}shopDataDetail.php`, {it_id});

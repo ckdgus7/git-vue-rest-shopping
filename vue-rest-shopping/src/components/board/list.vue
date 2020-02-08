@@ -1,5 +1,8 @@
 <template>
   <div class="tbl_head01 tbl_wrap">
+    <div style="float: right;">검색 : 
+      <input type="text" @keyup="searchList" ref="searchtext" placeholder="검색어입력" style="height: 30px; width: 200px;margin-bottom: 10px;">
+    </div>
     <table>
       <caption>자유게시판 목록</caption>
       <thead>
@@ -11,10 +14,9 @@
           <th scope="col">날짜</th>
         </tr>
       </thead>
-      <tbody>
-        <tr class=" even" v-for="listData in this.GET_BOARD_LIST.list" :key="listData.wr_id">
+      <transition-group name="list" tag="tbody">
+        <tr v-for="listData in this.GET_BOARD_LIST.list" :key="listData.wr_id" class="list-item">
           <td class="td_num2">{{ listData.wr_id }}</td>
-
           <td class="td_subject" style="padding-left:0px">
             <div class="bo_tit">
               <router-link :to="`/board/${GET_BOARD_LIST.board_id}/view/${listData.wr_id}`">{{ listData.wr_title }}</router-link>
@@ -24,18 +26,38 @@
           <td class="td_num">{{ listData.wr_count }}</td>
           <td class="td_datetime">{{ listData.wr_date }}</td>
         </tr>
-      </tbody>
+      </transition-group>
     </table>
   </div>
 </template>
 
 <script>
+import lodash from 'lodash';
 import boardListMixin from '../../mixin/boardListMixin.js';
 export default {
-  mixins: [boardListMixin]
+  mixins: [boardListMixin],
+  data () {
+    return {
+      kword: ''
+    }
+  },
+  watch: {
+    kword: lodash.debounce( function() {
+      if(this.$route.params.bid && this.kword) {
+        const bid = this.$route.params.bid === 'bbs' ? 1 : 2;
+        const kword = this.kword;
+          this.FETCH_BOARD({ bid, kword });
+      }
+    }, 200),
+    '$route' () {
+      const bid = this.$route.params.bid === 'bbs' ? 1 : 2;
+			this.FETCH_BOARD({ bid });
+    }
+  },
+  methods: {
+    searchList () {
+      this.kword = this.$refs.searchtext.value;
+    }
+  }
 }
 </script>
-
-<style>
-
-</style>

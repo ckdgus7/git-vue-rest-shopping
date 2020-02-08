@@ -5,8 +5,9 @@ export default {
     BoardTitle
   },
   created () {
-    if(this.$route.params.bid && !this.GET_BOARD_LIST.list) {
-			this.FETCH_BOARD(this.$route.params.bid === 'bbs' ? 1 : 2);
+    if(this.$route.params.bid) {
+      const bid = this.$route.params.bid === 'bbs' ? 1 : 2;
+			this.FETCH_BOARD({ bid });
 		}
   },
   computed: {

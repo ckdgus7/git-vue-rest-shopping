@@ -1,8 +1,8 @@
 import * as api from '../api';
 import { replaceAll } from '../utils/index.js';
 export default {
-  async FETCH_BOARD ({ commit }, bid) {
-    const response = await api.board.FETCH_BOARD(bid);
+  async FETCH_BOARD ({ commit }, { bid, kword }) {
+    const response = await api.board.FETCH_BOARD({ bid, kword });
     commit('FETCH_BOARD', response.data);
     return response;
   },
@@ -32,8 +32,8 @@ export default {
     commit('FETCH_BOARD', response.data);
     return response;
   },
-  async FETCH_SHOPPING ({ commit }) {
-    const response = await api.shop.FETCH_SHOPPING();
+  async FETCH_SHOPPING ({ commit }, { kword }) {
+    const response = await api.shop.FETCH_SHOPPING({ kword });
     commit('FETCH_SHOPPING', response.data);
     return response;
   },

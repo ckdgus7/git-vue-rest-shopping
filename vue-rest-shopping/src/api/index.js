@@ -31,8 +31,8 @@ export const board = {
   }
 }
 export const shop = {
-  FETCH_SHOPPING ({ kword }) {
-    return request('GET', `${BASE_URL}shopDataList.php`, { kword });
+  FETCH_SHOPPING ({ kword, ls, la }) {
+    return request('GET', `${BASE_URL}shopDataList.php`, { kword, ls, la });
   },
   DETAIL_SHOPPING ({it_id}) {
     return request('GET', `${BASE_URL}shopDataDetail.php`, {it_id});

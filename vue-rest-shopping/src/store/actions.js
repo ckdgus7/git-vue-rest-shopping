@@ -32,8 +32,8 @@ export default {
     commit('FETCH_BOARD', response.data);
     return response;
   },
-  async FETCH_SHOPPING ({ commit }, { kword }) {
-    const response = await api.shop.FETCH_SHOPPING({ kword });
+  async FETCH_SHOPPING ({ commit }, { kword, ls, la }) {
+    const response = await api.shop.FETCH_SHOPPING({ kword, ls, la });
     commit('FETCH_SHOPPING', response.data);
     return response;
   },

@@ -14,7 +14,7 @@
       </h1>
     </div>
     <br />
-    <h1>2. FE 기술조사 : vue / vuex / vue-router / axios / dragula / vue-chartjs / vue-lodash / vue-carousel</h1>
+    <h1>2. FE 기술조사 : vue / vuex / vue-router / axios / dragula / vue-chartjs / vue-lodash / vue-carousel / vue-infinite-scrolling</h1>
     <br />
     <h1>3. Check List (Board)</h1>
     <ol>
@@ -31,7 +31,7 @@
     </ol>
     <h1>4. Check List (Shopping)</h1>
     <ol>
-      <li>쇼핑 상품 리스트 (검색기능 추가)</li>
+      <li>쇼핑 상품 리스트 (검색기능 추가 / 마우스 스크롤 시 More Item)</li>
       <li>쇼핑 상품 상세보기</li>
       <li>리스트에서 장바구니 추가 / 리스트</li>
       <li>상세보기에서 장바구니 추가 / 리스트</li>

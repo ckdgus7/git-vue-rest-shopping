@@ -1,5 +1,5 @@
 <template>
-  <div class="shop">
+  <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
     <carousel :data="carouselData"></carousel>
     <div id="wrapper">
       <div id="container">
@@ -49,13 +49,13 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import keySearch from 'lodash';
-import shopListMixin from '../mixin/shopListMixin.js';
 import cartAddMixin from '../mixin/cartAddmixin.js';
 
 // Vue.use(VueCarousel);
 export default {
-  mixins: [shopListMixin, cartAddMixin],
+  mixins: [cartAddMixin],
   data() {
     return {
       carouselData: [
@@ -63,20 +63,55 @@ export default {
         '<div class="example-slide"><img src="https://media.istockphoto.com/photos/blank-banner-picture-id482858783?k=6&m=482858783&s=612x612&w=0&h=LKLlv3FN_ELjarwZ6xffQAPo_KFGmDG-2DGDzknET8w="></div>',
         '<div class="example-slide"><img src="https://media.istockphoto.com/photos/blank-banner-picture-id482858783?k=6&m=482858783&s=612x612&w=0&h=LKLlv3FN_ELjarwZ6xffQAPo_KFGmDG-2DGDzknET8w="></div>',
       ],
-      kword: ''
+      kword: '',
+      busy: true,
+      ls: 0,
+      la: 9
     };
+  },
+  created () {
+    const kword = '';
+    const ls = this.ls;
+    const la = this.la;
+    this.FETCH_SHOPPING({ kword, ls, la })
+      .then(() => {
+        this.busy = false;
+      });
+  },
+  computed: {
+    ...mapGetters([
+      'GET_SHOPPING_LIST'
+    ])
   },
   watch: {
     kword: keySearch.debounce( function() {
       const kword = this.kword;
+      const ls = '';
+      const la = '';
       if(kword) {
-        this.FETCH_SHOPPING({ kword });
+        this.FETCH_SHOPPING({ kword, ls, la });
       }
     }, 200)
   },
   methods: {
+    ...mapActions([
+      'FETCH_SHOPPING'
+    ]),
     searchList () {
       this.kword = this.$refs.searchtext.value;
+    },
+    loadMore () {
+      this.busy = true;
+      this.la += 9;
+      if(this.la <= this.GET_SHOPPING_LIST.total_count) {
+        setTimeout(() => {
+          const kword = '';
+          this.FETCH_SHOPPING({ kword, ls: this.ls, la: this.la })
+            .then(() => {
+              this.busy = false;
+            });
+        }, 300);
+      }
     }
   }
 }

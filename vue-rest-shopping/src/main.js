@@ -4,11 +4,13 @@ import router from './router';
 import store from './store';
 import VueCarousel from '@chenfengyuan/vue-carousel';
 import VueLodash from 'vue-lodash';
+import infiniteScroll from 'vue-infinite-scroll';
 
 Vue.config.productionTip = false;
 
 Vue.use(VueCarousel);
 Vue.use(VueLodash, { name: 'lodash' });
+Vue.use(infiniteScroll);
 
 new Vue({
   router,

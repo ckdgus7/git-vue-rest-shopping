@@ -1,15 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import store from '../store'
-import Home from '../views/Home.vue';
-import BBS from '../views/BBS.vue';
-import BBSView from '../views/BBSView.vue';
-import BBSWrite from '../views/BBSWrite.vue';
-import BBSUpdate from '../views/BBSUpdate.vue';
-import Shopping from '../views/Shopping.vue';
-import ShoppingView from '../views/ShoppingView.vue';
-import Memo from '../views/Memo.vue';
-import InterestItem from '../views/InterestItem.vue';
+import store from '../store';
 import pageLoading from '../mixin/routerMixin.js';
 
 Vue.use(VueRouter);
@@ -25,7 +16,7 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: Home,
+    component: () => import('../views/Home.vue'),
     beforeEnter: (to, from, next) => {
       if(to.path.indexOf('bbs') > -1) {
         store.state.boardNum = 1;
@@ -38,7 +29,7 @@ const routes = [
   {
     path: '/board/:bid',
     name: 'boardlist',
-    component: BBS,
+    component: () => import('../views/BBS.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
@@ -46,7 +37,7 @@ const routes = [
   {
     path: '/board/:bid/view/:viewid',
     name: 'boardview',
-    component: BBSView,
+    component: () => import('../views/BBSView.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
@@ -54,7 +45,7 @@ const routes = [
   {
     path: '/board/:bid/write',
     name: 'boardwrite',
-    component: BBSWrite,
+    component: () => import('../views/BBSWrite.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
@@ -62,7 +53,7 @@ const routes = [
   {
     path: '/board/:bid/update/:viewid',
     name: 'boardupdate',
-    component: BBSUpdate,
+    component: () => import('../views/BBSUpdate.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
@@ -70,7 +61,7 @@ const routes = [
   {
     path: '/memo',
     name: 'memo',
-    component: Memo,
+    component: () => import('../views/Memo.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
@@ -78,7 +69,7 @@ const routes = [
   {
     path: '/shopping',
     name: 'shopping',
-    component: Shopping,
+    component: () => import('../views/Shopping.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
@@ -86,7 +77,7 @@ const routes = [
   {
     path: '/shopping/view/:viewid',
     name: 'shoppingview',
-    component: ShoppingView,
+    component: () => import('../views/ShoppingView.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
@@ -94,10 +85,15 @@ const routes = [
   {
     path: '/interest-item',
     name: 'interestItem',
-    component: InterestItem,
+    component: () => import('../views/InterestItem.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
+  },
+  {
+    path: '*',
+    name: 'notFoundPage',
+    component: () => import('../views/NotFoundPage.vue')
   }
 ];
 

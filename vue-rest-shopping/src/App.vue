@@ -14,7 +14,11 @@ export default {
   }
 }
 </script>
+
 <style>
+@import './assets/css/reset.css';
+@import './assets/css/common.css';
+
 ol li {
   margin-left: 30px;
 }

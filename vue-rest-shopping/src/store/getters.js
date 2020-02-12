@@ -1,4 +1,13 @@
 export default {
+  GET_IS_LOGIN (state) {
+    return state.login.isLogin;
+  },
+  GET_USER_INFO (state) {
+    return state.login.userInfo;
+  },
+  GET_AUTH_TOKEN (state) {
+    return state.login.token;
+  },
   GET_BOARD_LIST (state) {
     return state.board.listDatas;
   },

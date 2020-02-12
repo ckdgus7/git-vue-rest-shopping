@@ -1,13 +1,3 @@
 <template>
-  <div>Not Found Page</div>
+  <div><img src="../assets/images/page-not-found.jpg" style="height: 500px;"></div>
 </template>
-
-<script>
-export default {
-
-}
-</script>
-
-<style>
-
-</style>

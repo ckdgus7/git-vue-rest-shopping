@@ -1,4 +1,9 @@
 export default {
+  login: {
+    isLogin: false,
+    userInfo: {},
+    token: ''
+  },
   board: {
     listDatas: [],
     detailData: {}

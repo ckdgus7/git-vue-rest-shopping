@@ -8,10 +8,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    redirect: '/home',
-    beforeEnter: (to, from, next) => {
-      pageLoading(next);
-    }
+    name: 'rootpath',
+    redirect: '/login'
   },
   {
     path: '/home',
@@ -23,6 +21,22 @@ const routes = [
       } else {
         store.state.boardNum = 2;
       }
+      pageLoading(next);
+    }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/LoginForm.vue'),
+    beforeEnter: (to, from, next) => {
+      pageLoading(next);
+    }
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: () => import('../views/SignupForm.vue'),
+    beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
   },

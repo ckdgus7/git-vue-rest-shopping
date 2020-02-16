@@ -1,7 +1,7 @@
 <template>
 <div id="nav">
   <span class="logo">
-    <router-link to="/">
+    <router-link to="/home">
     JS Wrap
     </router-link>
   </span>

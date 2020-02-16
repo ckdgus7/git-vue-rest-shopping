@@ -1,6 +1,6 @@
-export const formatPrice = (price) => new Intl.NumberFormat().format(price);
-export const replaceAll = (str, searchStr, replaceStr) => str.split(searchStr).join(replaceStr);
-export const addCommas = (nStr) =>
+const formatPrice = (price) => new Intl.NumberFormat().format(price);
+const replaceAll = (str, searchStr, replaceStr) => str.split(searchStr).join(replaceStr);
+const addCommas = (nStr) =>
 {
 	const oStr = nStr.toString();
 	const x = oStr.split('.');
@@ -13,7 +13,14 @@ export const addCommas = (nStr) =>
 	return x1 + x2;
 }
 
-export const validateEmail = (email) => {
+const validateEmail = (email) => {
   var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
+}
+
+export {
+	formatPrice,
+	replaceAll,
+	addCommas,
+	validateEmail
 }

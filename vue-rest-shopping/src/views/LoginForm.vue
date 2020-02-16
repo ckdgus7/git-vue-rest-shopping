@@ -13,11 +13,11 @@
         </div>
         <div>
           <label for="password">pw:</label>
-          <input id="password" type="text" v-model="password" />
+          <input id="password" type="password" v-model="password" />
           <p class="validation-text">
-            <span class="warning" v-if="!isPasswordValid && password">
+            <!-- <span class="warning" v-if="!isPasswordValid && password">
               Please enter an email address
-            </span>
+            </span> -->
           </p>
         </div>
         <button
@@ -34,15 +34,14 @@
 </template>
 
 <script>
-import { validateEmail } from '@/utils/index.js';
+import { validateEmail } from '../utils/index.js';
+import { saveUserToCookie } from '../utils/cookies.js';
 
 export default {
   data() {
     return {
-      // form values
       username: '',
       password: '',
-      // log
       logMessage: '',
     };
   },
@@ -54,11 +53,7 @@ export default {
   methods: {
     async submitForm() {
       try {
-        // const userData = {
-        //   username: this.username,
-        //   password: this.password,
-        // };
-        // await this.$store.dispatch('LOGIN', userData);
+        saveUserToCookie(this.username);
         this.$router.push('/home');
       } catch (error) {
         console.log(error.response.data);

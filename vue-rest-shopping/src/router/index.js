@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import store from '../store';
 import pageLoading from '../mixin/routerMixin.js';
 
 Vue.use(VueRouter);
@@ -16,21 +15,13 @@ const routes = [
     name: 'home',
     component: () => import('../views/Home.vue'),
     beforeEnter: (to, from, next) => {
-      if(to.path.indexOf('bbs') > -1) {
-        store.state.boardNum = 1;
-      } else {
-        store.state.boardNum = 2;
-      }
       pageLoading(next);
     }
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import('../views/LoginForm.vue'),
-    beforeEnter: (to, from, next) => {
-      pageLoading(next);
-    }
+    component: () => import('../views/LoginForm.vue')
   },
   {
     path: '/signup',

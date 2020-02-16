@@ -14,8 +14,8 @@
 
 3. FE 기술조사 : vue / vuex / vue-router / axios / dragula / vue-chartjs / vue-lodash / vue-carousel / vue-infinite-scrolling
 
-4. Playground (Service)
-    게시판
+4. Playground (Service) - http://jswrap.ivyro.net
+    게시판 
       게시글 리스트 (검색기능 추가)
       게시글 상세보기
       게시글 등록

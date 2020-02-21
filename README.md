@@ -42,10 +42,7 @@
 - api
   ```javascript
   ```
-- store
-  ```javascript
-  ```
-- api 호출 방식 의도
+- api 호출 방식
   - api 공통 처리는 ~/api 에서 처리
 
 

@@ -43,12 +43,10 @@
   ```javascript
   ```
 - store
-- ~/store/systemManagement/mainBanner.js
   ```javascript
   ```
 - api 호출 방식 의도
   - api 공통 처리는 ~/api 에서 처리
-    - request / response 시에 필수 처리 하는 곳이 생길 것이라 판단
 
 
 ## 코딩 스타일

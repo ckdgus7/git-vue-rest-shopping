@@ -1,6 +1,12 @@
 import * as api from '../api';
 import { replaceAll } from '../utils/index.js';
 export default {
+  async LOGIN ({ commit }, username) {
+    commit('LOGIN', username);
+  },
+  async LOGOUT ({ commit }) {
+    commit('LOGOUT');
+  },
   async FETCH_BOARD ({ commit }, { bid, kword }) {
     const response = await api.board.FETCH_BOARD({ bid, kword });
     commit('FETCH_BOARD', response.data);

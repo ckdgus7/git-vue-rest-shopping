@@ -4,7 +4,7 @@
       <form @submit.prevent="submitForm" class="form">
         <div>
           <label for="username">id:</label>
-          <input id="username" type="text" v-model="username" />
+          <input id="username" type="text" value="test@test.com" v-model="username" />
           <p class="validation-text">
             <span class="warning" v-if="!isUsernameValid && username">
               Please enter an email address
@@ -13,7 +13,7 @@
         </div>
         <div>
           <label for="password">pw:</label>
-          <input id="password" type="password" v-model="password" />
+          <input id="password" type="password" value="1111" v-model="password" />
           <p class="validation-text">
             <!-- <span class="warning" v-if="!isPasswordValid && password">
               Please enter an email address
@@ -34,16 +34,23 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import { validateEmail } from '../utils/index.js';
-import { saveUserToCookie } from '../utils/cookies.js';
+import { getUserFromCookie } from '../utils/cookies.js';
 
 export default {
-  data() {
+  data () {
     return {
-      username: '',
-      password: '',
+      username: 'test@test.com',
+      password: '1111',
       logMessage: '',
     };
+  },
+  created () {
+    const username = getUserFromCookie();
+    if(username) {
+      this.$router.replace('/home');
+    }
   },
   computed: {
     isUsernameValid() {
@@ -51,22 +58,21 @@ export default {
     },
   },
   methods: {
+    ...mapActions([
+      'LOGIN'
+    ]),
     async submitForm() {
       try {
-        saveUserToCookie(this.username);
+        await this.LOGIN(this.username);
         this.$router.push('/home');
       } catch (error) {
-        console.log(error.response.data);
         this.logMessage = error.response.data;
       } finally {
-        this.initForm();
+        this.username = '';
+        this.password = '';
       }
-    },
-    initForm() {
-      this.username = '';
-      this.password = '';
-    },
-  },
+    }
+  }
 };
 </script>
 

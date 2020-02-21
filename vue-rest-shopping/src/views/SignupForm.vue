@@ -13,7 +13,7 @@
         </div>
         <div>
           <label for="password">pw: </label>
-          <input id="password" type="text" v-model="password" />
+          <input id="password" type="password" v-model="password" />
         </div>
         <div>
           <label for="nickname">nickname: </label>
@@ -21,13 +21,14 @@
         </div>
         <button type="submit" class="btn">회원 가입</button>
       </form>
-      <p class="log">{{ logMessage }}</p>
+      <!-- <p class="log">{{ logMessage }}</p> -->
     </div>
   </div>
 </template>
 
 <script>
-import { validateEmail } from '@/utils/index.js';
+import { validateEmail } from '../utils/index.js';
+import { saveUserToCookie, getUserFromCookie } from '../utils/cookies.js';
 export default {
   data() {
     return {
@@ -37,6 +38,12 @@ export default {
       logMessage: '',
     };
   },
+  created () {
+    const username = getUserFromCookie();
+    if(username) {
+      this.$router.replace('/home');
+    }
+  },
   computed: {
     isUsernameValid() {
       return validateEmail(this.username);
@@ -44,14 +51,9 @@ export default {
   },
   methods: {
     async submitForm() {
-      const userData = {
-        username: this.username,
-        password: this.password,
-        nickname: this.nickname,
-      };
-      console.log(userData.username);
-      this.logMessage = `${userData.username} 님이 가입되었습니다`;
-      this.initForm();
+      saveUserToCookie(this.username);
+      this.$store.login.isLogin = true;
+      this.$router.push('/home');
     },
     initForm() {
       this.username = '';

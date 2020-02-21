@@ -7,10 +7,30 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex';
+import { getUserFromCookie } from './utils/cookies.js';
 import Navigation from './components/navigation.vue';
 export default {
   components: {
     Navigation
+  },
+  data () {
+    return {
+      isLogin: false,
+      username: ''
+    }
+  },
+  created () {
+    const username = getUserFromCookie();
+    if(username) {
+      this.isLogin = true;
+      this.username = username;
+    }
+  },
+  methods: {
+    ...mapActions([
+      'LOGOUT'
+    ])
   }
 }
 </script>

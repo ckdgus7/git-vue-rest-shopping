@@ -1,8 +1,8 @@
 <template>
   <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
-    <carousel :data="carouselData"></carousel>
     <div id="wrapper">
       <div id="container">
+        <ImgCarousel></ImgCarousel>
         <div class="shop-content">
           <div>
             <div style="float: left;" id="wrapper_title">Shopping List</div>
@@ -52,17 +52,15 @@
 import { mapGetters, mapActions } from 'vuex';
 import keySearch from 'lodash';
 import cartAddMixin from '../mixin/cartAddmixin.js';
+import ImgCarousel from '../components/shop/ImgCarousel.vue';
 
-// Vue.use(VueCarousel);
 export default {
   mixins: [cartAddMixin],
+  components: {
+    ImgCarousel
+  },
   data() {
     return {
-      carouselData: [
-        '<div class="example-slide"><img src="https://media.istockphoto.com/photos/blank-banner-picture-id482858783?k=6&m=482858783&s=612x612&w=0&h=LKLlv3FN_ELjarwZ6xffQAPo_KFGmDG-2DGDzknET8w="></div>',
-        '<div class="example-slide"><img src="https://media.istockphoto.com/photos/blank-banner-picture-id482858783?k=6&m=482858783&s=612x612&w=0&h=LKLlv3FN_ELjarwZ6xffQAPo_KFGmDG-2DGDzknET8w="></div>',
-        '<div class="example-slide"><img src="https://media.istockphoto.com/photos/blank-banner-picture-id482858783?k=6&m=482858783&s=612x612&w=0&h=LKLlv3FN_ELjarwZ6xffQAPo_KFGmDG-2DGDzknET8w="></div>',
-      ],
       kword: '',
       busy: true,
       ls: 0,

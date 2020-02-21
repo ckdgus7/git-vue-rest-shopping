@@ -11,17 +11,22 @@ const routes = [
     redirect: '/login'
   },
   {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/LoginForm.vue')
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: () => import('../views/SignupForm.vue')
+  },
+  {
     path: '/home',
     name: 'home',
     component: () => import('../views/Home.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('../views/LoginForm.vue')
   },
   {
     path: '/signup',

@@ -9,8 +9,8 @@ const getUserFromCookie = () => {
   );
 }
 
-const deleteCookie = (value) => {
-  document.cookie = `${value}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+const deleteCookie = () => {
+  document.cookie = `til_user= ; expires = Thu, 01 Jan 1970 00:00:00 GMT;`;
 }
 
 export {

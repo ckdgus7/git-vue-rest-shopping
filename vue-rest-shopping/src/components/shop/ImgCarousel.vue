@@ -1,18 +1,15 @@
 <template>
-  <carousel :data="data"></carousel>
+  <carousel :data="carouselData"></carousel>
 </template>
 
 <script>
-import Vue from 'vue';
-import VueCarousel from '@chenfengyuan/vue-carousel';
-Vue.use(VueCarousel);
   export default {
     data() {
       return {
-        data: [
-          '<div class="example-slide">Slide 1</div>',
-          '<div class="example-slide">Slide 2</div>',
-          '<div class="example-slide">Slide 3</div>',
+        carouselData: [
+          '<div class="example-slide"><img style="width: 100%; height: 300px;" src="https://media.istockphoto.com/photos/blank-banner-picture-id482858783?k=6&m=482858783&s=612x612&w=0&h=LKLlv3FN_ELjarwZ6xffQAPo_KFGmDG-2DGDzknET8w="></div>',
+          '<div class="example-slide"><img src="https://cdn.pixabay.com/photo/2018/05/17/16/03/compass-3408928_960_720.jpg" style="width: 100%; height: 300px;"></div>',
+          '<div class="example-slide"><img style="width: 100%; height: 300px;" src="https://media.istockphoto.com/photos/blank-banner-picture-id482858783?k=6&m=482858783&s=612x612&w=0&h=LKLlv3FN_ELjarwZ6xffQAPo_KFGmDG-2DGDzknET8w="></div>',
         ],
       };
     },

@@ -1,7 +1,7 @@
 export default {
   login: {
     isLogin: false,
-    userInfo: {},
+    username: '',
     token: ''
   },
   board: {

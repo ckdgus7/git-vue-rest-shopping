@@ -6,23 +6,29 @@
     </router-link>
   </span>
   <span class="menu" v-if="GET_IS_LOGIN">
-    <router-link class="nav-link" to="/board/bbs">BBS</router-link> |
-    <!-- <router-link class="nav-link" to="/board/notice">Notice</router-link> | -->
-    <router-link class="nav-link" to="/memo">Memo (Drag&Drop)</router-link> |
-    <router-link class="nav-link" to="/shopping">Shopping List</router-link> |
-    <router-link class="nav-link" to="/interest-item">Interest Cart Item (Chart)</router-link> |
+    <span v-for="(menu) in gnbMenu.LOGIN_AFTER" :key="menu.mkey">
+      <router-link class="nav-link" :to="menu.linkUrl">{{ menu.label }}</router-link> |
+    </span>
+    <a href="https://github.com/ckdgus7/git-vue-rest-shopping" target="_blank" style="color:red;">GitHub</a> |
     <a href="" @click.prevent="procLogout" style="color:red;">LogOut</a>
     <span style="margin-left:50px;">{{ GET_USER_NAME }} 님 로그인중</span>
   </span>
   <span class="menu" v-else>
-    <router-link class="nav-link" to="/login">Login</router-link> |
-    <router-link class="nav-link" to="/signup">SignUp</router-link>
+    <span v-for="(menu) in gnbMenu.LOGIN_PREV" :key="menu.mkey">
+      <router-link class="nav-link" :to="menu.linkUrl">{{ menu.label }}</router-link> |
+    </span>
   </span>
 </div>
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import gnb from '../data/menu/gnb.js';
 export default {
+  data () {
+    return {
+      gnbMenu: gnb
+    }
+  },
   computed: {
     ...mapGetters([
       'GET_IS_LOGIN',

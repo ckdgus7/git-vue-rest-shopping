@@ -21,17 +21,17 @@ const routes = [
     component: () => import('../views/SignupForm.vue')
   },
   {
-    path: '/home',
-    name: 'home',
-    component: () => import('../views/Home.vue'),
+    path: '/signup',
+    name: 'signup',
+    component: () => import('../views/SignupForm.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
   },
   {
-    path: '/signup',
-    name: 'signup',
-    component: () => import('../views/SignupForm.vue'),
+    path: '/home',
+    name: 'home',
+    component: () => import('../views/Home.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }

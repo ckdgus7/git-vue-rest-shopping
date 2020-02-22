@@ -1,13 +1,10 @@
 <template>
   <div id="app">
     <Navigation />
-    <!-- <transition name="page-fade" mode="out-in"> -->
-      <router-view />
-    <!-- </transition> -->
+    <router-view />
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
 import { getUserFromCookie } from './utils/cookies.js';
 import Navigation from './components/navigation.vue';
 export default {
@@ -26,11 +23,6 @@ export default {
       this.isLogin = true;
       this.username = username;
     }
-  },
-  methods: {
-    ...mapActions([
-      'LOGOUT'
-    ])
   }
 }
 </script>

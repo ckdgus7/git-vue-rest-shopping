@@ -1,4 +1,5 @@
-export default {
+import { deepFreeze } from '../../utils/deepFreeze.js';
+const gnb = deepFreeze({
   LOGIN_PREV: [
     {
       linkUrl: '/login',
@@ -12,6 +13,11 @@ export default {
     }
   ],
   LOGIN_AFTER: [
+    {
+      linkUrl: '/home',
+      label: 'HOME',
+      mkey: 'home'
+    },
     {
       linkUrl: '/board/bbs',
       label: 'BBS',
@@ -33,4 +39,8 @@ export default {
       mkey: 'interestitem'
     }
   ]
+});
+
+export default {
+  ...gnb
 }

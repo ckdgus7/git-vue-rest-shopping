@@ -8,7 +8,9 @@ const routes = [
   {
     path: '/',
     name: 'rootpath',
-    redirect: '/login'
+    beforeEnter: (to, from, next) => {
+      pageLoading(next, true);
+    }
   },
   {
     path: '/login',

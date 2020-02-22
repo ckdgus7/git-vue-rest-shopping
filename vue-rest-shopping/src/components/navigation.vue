@@ -1,9 +1,7 @@
 <template>
 <div id="nav">
   <span class="logo">
-    <router-link to="/home">
-    JS Wrap
-    </router-link>
+    최창현 Playground
   </span>
   <span class="menu" v-if="GET_IS_LOGIN">
     <span v-for="(menu) in gnbMenu.LOGIN_AFTER" :key="menu.mkey">
@@ -57,7 +55,7 @@ export default {
 #nav .menu {
   margin-left: 30px;
 }
-#nav .logo >a {
+#nav .logo {
   padding: 5px; 
   width: 140px; 
   height: 40px; 

@@ -1,6 +1,6 @@
-# SPA GUIDE
+# [SPA GUIDE]
 
-# libs
+## libs
 ```bash
 axios / composition-api / dragula / vue-chartjs / vue-lodash / vue-carousel / vue-infinite-scrolling
 ```
@@ -60,3 +60,27 @@ axios / composition-api / dragula / vue-chartjs / vue-lodash / vue-carousel / vu
   - 화면상에 데이터를 주입할 때, 되도록 computed 에서 메소드를 구성하고 활용되도록 구성
   - 컴포넌트 재활용성을 높이기 위함
 
+
+
+## [Project Info]
+
+- API Server Info : LAPM (Linux, Apache, php5, mysql 5)
+- FE 기술조사 : vue / vuex / vue-router / axios / composition-api / dragula / vue-chartjs / vue-lodash / vue-carousel / vue-infinite-scrolling
+- Playground (Service) - http://jswrap.ivyro.net
+  - 게시판 
+    - 게시글 리스트 (검색기능 추가)
+    - 게시글 상세보기
+    - 게시글 등록
+    - 게시글 수정
+    - 게시글 삭제
+
+  - Memo 리스트
+    - Memo Drag&Drop
+
+  - 쇼핑 상품 리스트 (검색기능 추가 / 마우스 스크롤 시 More Item)
+    - 쇼핑 상품 상세보기
+    - 리스트에서 장바구니 추가 / 리스트
+    - 상세보기에서 장바구니 추가 / 리스트
+
+  - 인기 상품 Chart
+    - Search Tab

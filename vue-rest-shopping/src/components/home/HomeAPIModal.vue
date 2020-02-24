@@ -1,5 +1,5 @@
 <template>
-  <Modal @close="closeModal">
+  <Modal @close="closeModal()">
     <h3 slot="header">API List</h3>
     <div slot="body">
       <br />
@@ -38,24 +38,21 @@
         <li>Shopping Interest : http://jswrap.ivyro.net/restapi/shopDataInterest.php</li>
       </ol>
     </div>
-    <!-- <template slot="footer">
-      <button class="modal-default-button" @click="$emit('close')">
-        CLOSE
-      </button>
-    </template> -->
   </Modal>
 </template>
 
 <script>
-
 import Modal from '../Modal.vue';
 export default {
   components: {
     Modal
   },
-  methods: {
-    closeModal () {
-      this.$emit('closeAPIList', 'api');
+  setup (props, vm) {
+    function closeModal () {
+      vm.emit('closeAPIList');
+    }
+    return {
+      closeModal
     }
   }
 }

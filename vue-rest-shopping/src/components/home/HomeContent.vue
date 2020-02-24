@@ -3,14 +3,14 @@
     <div>
       <h1>
         1. API Server Info : LAPM (Linux, Apache, php5, mysql 5) &nbsp; &nbsp; &nbsp;
-        <span class="open-api"><a href="" @click.prevent="$emit('openAPIList', 'api')">Open API List View</a> (<span style="color:red;">click!</span>)</span>
+        <span class="open-api"><a href="" @click.prevent="$emit('openAPIList', 'api')">Open API List View (<span style="color:red;">click!</span>)</a></span>
       </h1>
     </div>
     <br />
     <div>
       <h1>
         2. Foldering &nbsp; &nbsp; &nbsp;
-        <span class="open-api"><a href="" @click.prevent="$emit('openDevList', 'dev')">Open Dev List View</a> (<span style="color:red;">click!</span>)</span>
+        <span class="open-api"><a :href="gitLink" target="_blank">README.md (<span style="color:red;">GitHub click!</span>)</a></span>
       </h1>
     </div>
     <br />
@@ -43,7 +43,17 @@
     </ol>
   </div>
 </template>
-
+<script>
+import { getGitLink } from '../../cpa_function/common/gitLink.js';
+export default {
+  setup () {
+    const gitLink = getGitLink();
+    return {
+      gitLink
+    }
+  }
+}
+</script>
 <style scoped>
 ol {
   line-height: 30px;

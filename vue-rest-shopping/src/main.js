@@ -5,12 +5,15 @@ import store from './store';
 import VueCarousel from '@chenfengyuan/vue-carousel';
 import VueLodash from 'vue-lodash';
 import infiniteScroll from 'vue-infinite-scroll';
+import VueCompositionApi from '@vue/composition-api';
+
 
 Vue.config.productionTip = false;
 
 Vue.use(VueCarousel);
 Vue.use(VueLodash, { name: 'lodash' });
 Vue.use(infiniteScroll);
+Vue.use(VueCompositionApi);
 
 new Vue({
   router,

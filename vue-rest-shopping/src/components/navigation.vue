@@ -7,7 +7,7 @@
     <span v-for="(menu) in gnbMenu.LOGIN_AFTER" :key="menu.mkey">
       <router-link class="nav-link" :to="menu.linkUrl">{{ menu.label }}</router-link> |
     </span>
-    <a href="https://github.com/ckdgus7/git-vue-rest-shopping" target="_blank" style="color:red;">GitHub</a> |
+    <a :href="gitLink" target="_blank" style="color:red;">GitHub</a> |
     <a href="" @click.prevent="procLogout" style="color:red;">LogOut</a>
     <span style="margin-left:50px;">{{ GET_USER_NAME }} 님 로그인중</span>
   </span>
@@ -24,7 +24,8 @@ import gnb from '../data/menu/gnb.js';
 export default {
   data () {
     return {
-      gnbMenu: gnb
+      gnbMenu: gnb,
+      gitLink: process.env.VUE_APP_GITHUB_URL
     }
   },
   computed: {

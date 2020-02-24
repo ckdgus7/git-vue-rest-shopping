@@ -2,35 +2,30 @@
   <div class="home">
     <HomeContent @openAPIList="openModal" @openDevList="openModal" />
     <HomeAPIModal v-if="this.showHomeAPIModal" @closeAPIList="closeModal" />
-    <HomeDevModal v-if="this.showHomeDevModal" @closeDevList="closeModal" />
   </div>
 </template>
 
 <script>
-
+import { ref } from '@vue/composition-api';
 import HomeContent from '../components/home/HomeContent.vue';
 import HomeAPIModal from '../components/home/HomeAPIModal.vue';
-import HomeDevModal from '../components/home/HomeDevModal.vue';
 export default {
   components : {
     HomeAPIModal,
-    HomeContent,
-    HomeDevModal
+    HomeContent
   },
-  data () {
-    return {
-      showHomeAPIModal: false,
-      showHomeDevModal: false
+  setup () {
+    let showHomeAPIModal = ref(false);
+    const openModal = () => {
+      showHomeAPIModal.value = true;
     }
-  },
-  methods: {
-    openModal (type) {
-      if (type == 'api') this.showHomeAPIModal = true;
-      else this.showHomeDevModal = true;
-    },
-    closeModal (type) {
-      if (type == 'api') this.showHomeAPIModal = false;
-      else this.showHomeDevModal = false;
+    const closeModal = () => {
+      showHomeAPIModal.value = false;
+    }
+    return {
+      showHomeAPIModal,
+      openModal,
+      closeModal
     }
   }
 }

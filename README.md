@@ -1,5 +1,9 @@
 # SPA GUIDE
 
+# libs
+```bash
+axios / composition-api / dragula / vue-chartjs / vue-lodash / vue-carousel / vue-infinite-scrolling
+```
 ## 프로젝트 구조
 ```bash
 ├─api                                             # API
@@ -12,6 +16,7 @@
 │  ├─memo
 │  ├─news
 │  └─shop
+├─cpa_function                                     # composition-api functions
 ├─mixin                                            # mixin 설정
 ├─router                                           # router 설정
 ├─store
@@ -47,6 +52,7 @@
 
 
 ## 코딩 스타일
+- composition-api 
 - async await 을 기본으로 활용
 - mapGetters / mapStates / mapActions / mapMutations
   - 대문자로 선언

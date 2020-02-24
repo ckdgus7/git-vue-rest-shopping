@@ -4,6 +4,7 @@
 
 2. Foldering        
     api : API CRUD Axios 연결
+    cpa_function : composition-api functions
     assets : Image 등 Asset Data
     components : Page들에서 사용될 컴포넌트
     mixin : component에서 공통 호출 함수
@@ -12,7 +13,7 @@
     utils : 수식 등 공통 함수 정의
     views : router에서 지정된 Page List
 
-3. FE 기술조사 : vue / vuex / vue-router / axios / dragula / vue-chartjs / vue-lodash / vue-carousel / vue-infinite-scrolling
+3. FE 기술조사 : vue / vuex / vue-router / axios / composition-api / dragula / vue-chartjs / vue-lodash / vue-carousel / vue-infinite-scrolling
 
 4. Playground (Service) - http://jswrap.ivyro.net
     게시판 

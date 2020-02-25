@@ -33,6 +33,7 @@
 
 <script>
 import { ref, computed, watch } from '@vue/composition-api';
+import _ from 'lodash';
 export default {
   setup (props, ctx) {
     const store = ctx.root.$options.store;
@@ -44,17 +45,16 @@ export default {
     const searchWord = () => {
       keywords.value = searchtext.value.value;
     }
-    watch(  () => keywords.value,
-    kword => {
-      setTimeout( () => {
+    watch( 
+      () => keywords.value,
+      _.debounce((kword) => {
         const info = {
           bid: 1,
           kword
         };
         store._actions.FETCH_BOARD[0](info);
-      }, 800);
-    },
-    { lazy: true }
+      }, 500),
+      { lazy: true }
     );
     return {
       GET_BOARD_LIST,

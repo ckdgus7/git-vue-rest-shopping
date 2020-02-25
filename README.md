@@ -84,3 +84,18 @@ axios / composition-api / dragula / vue-chartjs / vue-lodash / vue-carousel / vu
 
   - 인기 상품 Chart
     - Search Tab
+
+
+## [Vue vs Composition API Lifecycle Hook]
+```bash
+vue vs Composition API
+```
+- beforeCreate -> use setup()
+- created -> use setup()
+- beforeMount -> onBeforeMount
+- mounted -> onMounted
+- beforeUpdate -> onBeforeUpdate
+- updated -> onUpdated
+- beforeDestroy -> onBeforeUnmount
+- destroyed -> onUnmounted
+- errorCaptured -> onErrorCaptured

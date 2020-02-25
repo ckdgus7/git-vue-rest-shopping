@@ -1,22 +1,24 @@
 <template>
   <div id="bo_btn_top">
     <div id="bo_list_total">
-      <span>Total <i style="color:red;">{{ this.GET_BOARD_LIST.board_count }}</i>건</span>
+      <span>Total <span style="color:red;">{{ GET_BOARD_LIST.board_count }}</span>건</span>
     </div>
-    <ul class="btn_bo_user" v-if="this.GET_BOARD_LIST.board_id === 'bbs'">
-      <li>
-        <router-link class="btn_b01 btn" :to="`/board/${GET_BOARD_LIST.board_id}/write`">글쓰기</router-link>
-      </li>        	        
-    </ul>
+    <ListBtn />
   </div>
 </template>
 
 <script>
-import boardListMixin from '../../mixin/boardListMixin.js';
+import { mapGetters } from 'vuex';
+import ListBtn from './listBtn.vue';
 export default {
-  mixins: [boardListMixin]
+  props: ['board_count'],
+  components: {
+    ListBtn
+  },
+  computed: {
+    ...mapGetters([
+      'GET_BOARD_LIST'
+    ])
+  }
 }
 </script>
-<style>
-
-</style>

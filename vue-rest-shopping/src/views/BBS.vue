@@ -3,12 +3,12 @@
     <div id="wrapper">
       <div id="container_wr">
         <div id="container">
-          <BoardTitle><template slot="board_title">[ {{ this.GET_BOARD_LIST.board_title }} ]</template></BoardTitle>
+          <BoardTitle><template slot="board_title">[ {{ GET_BOARD_LIST.board_title }} ]</template></BoardTitle>
           <div id="bo_list" style="width:100%">
             
             <BoardTop />
             <BoardList />
-            <BoardBttom />
+            <BoardBottom />
           </div>
         </div>
       </div>
@@ -17,49 +17,26 @@
 </template>
 
 <script>
+import { computed } from '@vue/composition-api';
+import BoardTitle from '../components/board/title.vue';
 import BoardTop from '../components/board/top.vue';
 import BoardList from '../components/board/list.vue';
-import BoardBttom from '../components/board/bottom.vue';
-import boardListMixin from '../mixin/boardListMixin.js';
+import BoardBottom from '../components/board/bottom.vue';
+
 export default {
-  mixins: [boardListMixin],
   components: {
+    BoardTitle,
     BoardTop,
     BoardList,
-    BoardBttom
+    BoardBottom
   },
-  created () {
-    this.setBoardData(this.$route);
-  },
-  watch: {
-    '$route' (to) {
-      this.setBoardData(to, true);
-    }
-  },
-  methods: {
-    getBoardNum (to) {
-      let boardNum = 0;
-      if(to.path.indexOf('bbs') > -1) {
-        boardNum = 1;
-      } else {
-        boardNum = 2;
-      }
-      return boardNum;
-    },
-    setBoardData (to, isFirst = false) {
-      let loader = null;
-      if(isFirst) {
-        loader = this.$loading.show({
-          container: null,
-          canCancel: true
-        });
-      }
-      this.FETCH_BOARD(this.getBoardNum(to))
-        .then(() => {
-          setTimeout(() => {
-            if(loader !== null) loader.hide();
-          }, 300);
-        });
+  setup(porps, ctx) {
+    ctx.root.$options.store._actions.FETCH_BOARD[0]({ bid:1 });
+    const GET_BOARD_LIST = computed(() => {
+      return ctx.root.$options.store.getters.GET_BOARD_LIST;
+    });
+    return {
+      GET_BOARD_LIST
     }
   }
 }

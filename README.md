@@ -37,6 +37,7 @@ axios / composition-api / dragula / vue-chartjs / vue-lodash / vue-carousel / vu
 
 ### mixins
 - 각 카테고리 별 공통 Vue API 함수 제공
+  (composition-api로 마이그레이션 단계로 미사용 예정)
 
 
 ### store

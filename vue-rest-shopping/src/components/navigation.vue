@@ -19,28 +19,32 @@
 </div>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { reactive, computed } from '@vue/composition-api';
+import { injectStore } from '../composition_func/common/storeProvider.js';
 import gnb from '../data/menu/gnb.js';
 export default {
-  data () {
-    return {
+  setup (props, { root: { $router } }) {
+    const { getters, actions } = injectStore();
+    const state = reactive({
       gnbMenu: gnb,
       gitLink: process.env.VUE_APP_GITHUB_URL
+    });
+    const GET_IS_LOGIN = computed( () => {
+      return getters.GET_IS_LOGIN;
+    });
+    const GET_USER_NAME = computed( () => {
+      return getters.GET_USER_NAME;
+    });
+    const procLogout = async () => {
+      await actions.LOGOUT[0](GET_USER_NAME);
+      $router.replace('/login');
     }
-  },
-  computed: {
-    ...mapGetters([
-      'GET_IS_LOGIN',
-      'GET_USER_NAME'
-    ])
-  },
-  methods: {
-    ...mapActions([
-      'LOGOUT'
-    ]),
-    async procLogout () {
-      await this.LOGOUT(this.GET_USER_NAME);
-      this.$router.replace('/login');
+    return {
+      GET_IS_LOGIN,
+      GET_USER_NAME,
+      procLogout,
+      gnbMenu: state.gnbMenu,
+      gitLink: state.gitLink
     }
   }
 }

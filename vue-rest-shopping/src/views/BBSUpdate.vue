@@ -3,7 +3,7 @@
 	<div id="wrapper">
 		<div id="container_wr">
 			<div id="container">
-				<BoardTitle><template slot="board_title">[ {{ GET_BOARD_LIST.board_title }} 글쓰기 ]</template></BoardTitle>
+				<BoardTitle><template slot="board_title">[ 자유게시판 업데이트 ]</template></BoardTitle>
 				<!-- skin : basic -->
 				<section id="bo_w">
 
@@ -15,7 +15,7 @@
 			
 						<div class="bo_w_info write_div">
 							<label for="wr_name" class="sound_only">이름<strong>필수</strong></label>
-							<input type="text" name="wr_name" ref="wr_name" id="wr_name" :value="GET_BOARD.wr_user"  required class="frm_input half_input required" placeholder="이름">
+							<input type="text" name="wr_name" ref="nameInput" id="wr_name" :value="GET_BOARD.wr_user"  required class="frm_input half_input required" placeholder="이름">
 						</div>
 		
 			
@@ -23,7 +23,7 @@
 							<label for="wr_subject" class="sound_only">제목<strong>필수</strong></label>
 						
 							<div id="autosave_wrapper" class="write_div">
-								<input type="text" name="wr_subject" ref="wr_subject" :value="GET_BOARD.wr_title" id="wr_subject" required class="frm_input full_input required" size="50">
+								<input type="text" name="wr_subject" ref="subjectInput" :value="GET_BOARD.wr_title" id="wr_subject" required class="frm_input full_input required" size="50">
 							</div>
 						
 						</div>
@@ -32,7 +32,7 @@
 							<label for="wr_content" class="sound_only">내용<strong>필수</strong></label>
 							<div class="wr_content ">
 								<span class="sound_only">웹에디터 시작</span>
-								<textarea id="wr_content" name="wr_content" ref="wr_content" :value="GET_BOARD.wr_content" class="" maxlength="65536" style="width:100%;height:300px"></textarea>
+								<textarea id="wr_content" name="wr_content" ref="contentInput" :value="GET_BOARD.wr_content" class="" maxlength="65536" style="width:100%;height:300px"></textarea>
 								<span class="sound_only">웹 에디터 끝</span>                    
 							</div>
 						</div>
@@ -52,61 +52,54 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import boardListMixin from '../mixin/boardListMixin.js';
+import { ref, computed, onMounted } from '@vue/composition-api';
+import { injectStore } from '../composition_func/common/storeProvider.js';
+import BoardTitle from '../components/board/title.vue';
 export default {
-	mixins: [boardListMixin],
-	created () {
-    this.setBoardData(this.$route);
+  components: {
+    BoardTitle
 	},
-  computed: {
-    ...mapGetters([
-      'GET_BOARD'
-    ])
-  },
-	mounted () {
-    this.$refs.wr_name.focus();
-	},
-	methods: {
-		...mapActions([
-      'DETAIL_BOARD',
-			'UPDATE_BOARD'
-		]),
-    getBoardNum (to) {
-      let info = {
-        bid: 1,
-        wr_id: to.params.viewid
-      };
-      if(to.params.bid == 'bbs') {
-        info.bid = 1;
-      } else {
-        info.bid = 2;
-      }
-      return info;
-    },
-    setBoardData (to) {
-      this.DETAIL_BOARD({
-				bid: this.getBoardNum(to),
-				pageType: 'update'
-			})
-			.then(() => {
-			});
-    },
-		updateBoardData () {
-			const bid = this.GET_BOARD_LIST.board_id;
-			const wr_id = this.GET_BOARD.wr_id;
-			const wr_name = this.$refs.wr_name.value;
-			const wr_subject = this.$refs.wr_subject.value;
-			const wr_content = this.$refs.wr_content.value;
-			this.UPDATE_BOARD({bid,wr_id,wr_name,wr_subject,wr_content})
+	setup (props, { root: { $router, _route } }) {
+		const { getters, actions } = injectStore();
+		const GET_BOARD_LIST = computed( () => getters.GET_BOARD_LIST );
+		const GET_BOARD = computed( () => getters.GET_BOARD );
+		const nameInput = ref(null);
+		const subjectInput = ref(null);
+		const contentInput = ref(null);
+		const updateBoardData = () => {
+			const bid = 'bbs';
+			const wr_id = GET_BOARD.value.wr_id;
+			const wr_name = nameInput.value.value;
+			const wr_subject = subjectInput.value.value;
+			const wr_content = contentInput.value.value;
+			actions.UPDATE_BOARD[0]({ bid, wr_id, wr_name, wr_subject, wr_content })
 				.then(({ data }) => {
-            this.$router.push(`/board/${data}`);
+            $router.push(`/board/${data}`);
         });
-		},
-		updateCancel () {
-			const bid = this.$route.params.bid;
-			const viewid = this.$route.params.viewid;
-			this.$router.push(`/board/${bid}/view/${viewid}`);
+		};
+		const updateCancel = () => {
+			const bid = _route.params.bid;
+			const viewid = _route.params.viewid;
+			$router.push(`/board/${bid}/view/${viewid}`);
+		};
+    actions.DETAIL_BOARD[0]({
+			bid: {
+				bid: 1,
+				wr_id: _route.params.viewid
+			},
+			pageType: 'update'
+		});
+		onMounted( () => {
+			nameInput.value.focus();
+		});
+		return {
+			nameInput,
+			subjectInput,
+			contentInput,
+			GET_BOARD_LIST,
+			GET_BOARD,
+			updateBoardData,
+			updateCancel
 		}
 	}
 }

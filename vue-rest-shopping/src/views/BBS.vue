@@ -18,6 +18,7 @@
 
 <script>
 import { computed } from '@vue/composition-api';
+import { injectStore } from '../composition_func/common/storeProvider.js';
 import BoardTitle from '../components/board/title.vue';
 import BoardTop from '../components/board/top.vue';
 import BoardList from '../components/board/list.vue';
@@ -30,11 +31,12 @@ export default {
     BoardList,
     BoardBottom
   },
-  setup(porps, ctx) {
-    ctx.root.$options.store._actions.FETCH_BOARD[0]({ bid:1 });
+  setup() {
+    const { getters, actions } = injectStore();
     const GET_BOARD_LIST = computed(() => {
-      return ctx.root.$options.store.getters.GET_BOARD_LIST;
+      return getters.GET_BOARD_LIST;
     });
+    actions.FETCH_BOARD[0]({ bid:1 });
     return {
       GET_BOARD_LIST
     }

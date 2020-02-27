@@ -44,7 +44,7 @@
   </div>
 </template>
 <script>
-import { getGitLink } from '../../cpa_function/common/gitLink.js';
+import { getGitLink } from '../../composition_func/common/gitLink.js';
 export default {
   setup () {
     const gitLink = getGitLink();

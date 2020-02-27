@@ -47,9 +47,9 @@ export default {
   components: {
     Modal
   },
-  setup (props, vm) {
+  setup (props, { emit }) {
     function closeModal () {
-      vm.emit('closeAPIList');
+      emit('closeAPIList');
     }
     return {
       closeModal

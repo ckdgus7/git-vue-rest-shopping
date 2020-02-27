@@ -5,24 +5,14 @@
   </div>
 </template>
 <script>
-import { getUserFromCookie } from './utils/cookies.js';
+import { provideStore } from './composition_func/common/storeProvider.js';
 import Navigation from './components/navigation.vue';
 export default {
   components: {
     Navigation
   },
-  data () {
-    return {
-      isLogin: false,
-      username: ''
-    }
-  },
-  created () {
-    const username = getUserFromCookie();
-    if(username) {
-      this.isLogin = true;
-      this.username = username;
-    }
+  setup (props, { root: { $store }}) {
+    provideStore($store);
   }
 }
 </script>

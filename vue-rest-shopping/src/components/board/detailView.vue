@@ -25,15 +25,15 @@
       <div id="bo_v_top">
         <ul class="btn_bo_user bo_v_com">
           <li>
-            <router-link :class="`event-btn`" :to="`/board/${GET_BOARD_LIST.board_id}`">목록</router-link>
+            <router-link :class="`event-btn`" :to="`/board/bbs`">목록</router-link>
           </li>
-          <li v-if="GET_BOARD_LIST.board_id === 'bbs'">
-            <router-link :class="`event-btn`" :to="`/board/${GET_BOARD_LIST.board_id}/write`">글쓰기</router-link>
+          <li>
+            <router-link :class="`event-btn`" :to="`/board/bbs/write`">글쓰기</router-link>
           </li>
-          <li v-if="GET_BOARD_LIST.board_id === 'bbs'">
-            <router-link :class="`event-btn`" :to="`/board/${GET_BOARD_LIST.board_id}/update/${GET_BOARD.wr_id}`">수정</router-link>
+          <li>
+            <router-link :class="`event-btn`" :to="`/board/bbs/update/${GET_BOARD.wr_id}`">수정</router-link>
           </li>
-          <li v-if="GET_BOARD_LIST.board_id === 'bbs'">
+          <li>
             <a class="event-btn" href="" @click.prevent="deleteBoardData()">삭제</a>
           </li>
         </ul>
@@ -50,50 +50,31 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { computed } from '@vue/composition-api';
+import { injectStore } from '../../composition_func/common/storeProvider.js';
 export default {
-  props: ['GET_BOARD_LIST'],
-  created () {
-    this.setBoardData(this.$route);
-  },
-  computed: {
-    ...mapGetters([
-      'GET_BOARD'
-    ])
-  },
-  methods: {
-    ...mapActions([
-      'DETAIL_BOARD',
-      'DELETE_BOARD'
-    ]),
-    getBoardNum (to) {
-      let info = {
-        bid: 1,
-        wr_id: to.params.viewid
-      };
-      if(to.params.bid == 'bbs') {
-        info.bid = 1;
-      } else {
-        info.bid = 2;
-      }
-      return info;
-    },
-    setBoardData (to) {
-      this.DETAIL_BOARD({
-				bid: this.getBoardNum(to),
-				pageType: 'view'
-			})
-      .then(() => {
-      });
-    },
-    deleteBoardData () {
+  setup (props, { root: { $router, _route } }) {
+    const { getters, actions } = injectStore();
+    const GET_BOARD = computed( () => getters.GET_BOARD );
+    const deleteBoardData = () => {
       if(!window.confirm('삭제 하시겠습니까?')) return;
-      const bid = this.GET_BOARD_LIST.board_id;
-      const wr_id = this.GET_BOARD.wr_id;
-      this.DELETE_BOARD({bid, wr_id})
+      const bid = 'bbs';
+      const wr_id = GET_BOARD.value.wr_id;
+      actions.DELETE_BOARD[0]({ bid, wr_id })
         .then(({ data }) => {
-          this.$router.push(`/board/${data}`);
+          $router.push(`/board/${data}`);
         });
+    };
+    actions.DETAIL_BOARD[0]({
+      bid: {
+        bid: 1,
+        wr_id: _route.params.viewid
+      },
+      pageType: 'view'
+    });
+    return {
+      GET_BOARD,
+      deleteBoardData
     }
   }
 }

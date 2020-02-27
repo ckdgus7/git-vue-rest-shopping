@@ -15,8 +15,8 @@
         </tr>
       </thead>
       <transition-group name="list" tag="tbody">
-        <tr v-for="listData in GET_BOARD_LIST.list" :key="listData.wr_id" class="list-item">
-          <td class="td_num2">{{ listData.wr_id }}</td>
+        <tr v-for="(listData, k) in GET_BOARD_LIST.list" :key="`${listData.wr_id}_${k}`" class="list-item">
+          <td class="td_num2">{{ ++k }}</td>
           <td class="td_subject" style="padding-left:0px">
             <div class="bo_tit">
               <router-link :to="`/board/${GET_BOARD_LIST.board_id}/view/${listData.wr_id}`">{{ listData.wr_title }}</router-link>
@@ -33,28 +33,32 @@
 
 <script>
 import { ref, computed, watch } from '@vue/composition-api';
-import _ from 'lodash';
+import { injectStore } from '../../composition_func/common/storeProvider.js';
+import lodash from 'lodash';
 export default {
-  setup (props, ctx) {
-    const store = ctx.root.$options.store;
+  setup () {
+    const { getters, actions } = injectStore();
     const keywords = ref('');
     const searchtext = ref(null);
     const GET_BOARD_LIST = computed(() => {
-      return store.getters.GET_BOARD_LIST;
+      return getters.GET_BOARD_LIST;
     });
     const searchWord = () => {
       keywords.value = searchtext.value.value;
     }
-    watch( 
-      () => keywords.value,
-      _.debounce((kword) => {
-        const info = {
-          bid: 1,
-          kword
-        };
-        store._actions.FETCH_BOARD[0](info);
-      }, 500),
-      { lazy: true }
+    watch( () => keywords.value,
+      lodash.debounce( 
+        (kword) => {
+          const info = {
+            bid: 1,
+            kword
+          };
+          actions.FETCH_BOARD[0](info);
+        }, 
+      200),
+      { 
+        lazy: true 
+      }
     );
     return {
       GET_BOARD_LIST,

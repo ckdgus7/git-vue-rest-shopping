@@ -11,7 +11,6 @@
 import { mapGetters } from 'vuex';
 import ListBtn from './listBtn.vue';
 export default {
-  props: ['board_count'],
   components: {
     ListBtn
   },

@@ -53,7 +53,7 @@ axios / composition-api / dragula / vue-chartjs / vue-lodash / vue-carousel / vu
 
 
 ## 코딩 스타일
-- composition-api (코딩 구분을 위해 HOME, BBS 페이지 컴포넌트만 적용)
+- composition-api 리팩토링
 - async await 을 기본으로 활용
 - mapGetters / mapStates / mapActions / mapMutations
   - 대문자로 선언
@@ -69,7 +69,7 @@ axios / composition-api / dragula / vue-chartjs / vue-lodash / vue-carousel / vu
 - FE 기술조사 : vue / vuex / vue-router / axios / composition-api / dragula / vue-chartjs / vue-lodash / vue-carousel / vue-infinite-scrolling
 - Playground (Service) - http://jswrap.ivyro.net
 
-  - 게시판 (composition-api 적용)
+  - 게시판
     - 게시글 리스트 (검색기능 추가)
     - 게시글 상세보기
     - 게시글 등록

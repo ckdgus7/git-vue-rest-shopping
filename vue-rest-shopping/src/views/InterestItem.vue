@@ -4,36 +4,34 @@
       <button @click="fillData('hit')">상품 조회수별 인기제품</button> | 
       <button @click="fillData('price')">월별 주문통계</button>
     </div>
-    <LineChart :chart-data="GET_CHART_DATA"></LineChart>
+    <BarChart :chart-data="GET_CHART_DATA"></BarChart>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import LineChart from '../components/chart/BarChart.js';
+import { computed } from '@vue/composition-api';
+import { injectStore }  from '../composition_func/common/storeProvider.js';
+import BarChart from '../components/chart/BarChart.js';
 export default {
   components: {
-    LineChart
+    BarChart
   },
-  created () {
-    this.FETCH_SHOP_HIT_ITEM();
-  },
-  computed: {
-    ...mapGetters([
-      'GET_CHART_DATA'
-    ])
-  },
-  methods: {
-    ...mapActions([
-      'FETCH_SHOP_HIT_ITEM',
-      'FETCH_SHOP_PRICE_ITEM'
-    ]),
-    fillData (type) {
+  setup () {
+    const { getters, actions } = injectStore();
+    const GET_CHART_DATA = computed( () => getters.GET_CHART_DATA);
+    const fillData = (type) => {
       if ( type === 'hit') {
-        this.FETCH_SHOP_HIT_ITEM();
+        actions.FETCH_SHOP_HIT_ITEM[0]();
       } else {
-        this.FETCH_SHOP_PRICE_ITEM();
+        actions.FETCH_SHOP_PRICE_ITEM[0]();
       }
+    }
+    
+    actions.FETCH_SHOP_HIT_ITEM[0]();
+
+    return {
+      GET_CHART_DATA,
+      fillData
     }
   }
 }

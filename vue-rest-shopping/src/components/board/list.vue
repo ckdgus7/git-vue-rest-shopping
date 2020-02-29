@@ -1,7 +1,7 @@
 <template>
   <div class="tbl_head01 tbl_wrap">
     <div style="float: right;">검색 : 
-      <input type="text" @keyup="searchWord" ref="searchtext" placeholder="검색어입력" style="height: 30px; width: 200px;margin-bottom: 10px;">
+      <input type="text" @keyup="searchList" ref="searchtext" placeholder="검색어입력" style="height: 30px; width: 200px;margin-bottom: 10px;">
     </div>
     <table>
       <caption>자유게시판 목록</caption>
@@ -32,38 +32,19 @@
 </template>
 
 <script>
-import { ref, computed, watch } from '@vue/composition-api';
+import { computed } from '@vue/composition-api';
 import { injectStore } from '../../composition_func/common/storeProvider.js';
-import lodash from 'lodash';
+import { useListFilter } from '../../composition_func/common/listFilter.js';
 export default {
-  setup () {
+  setup (props, ctx) {
     const { getters, actions } = injectStore();
-    const keywords = ref('');
-    const searchtext = ref(null);
     const GET_BOARD_LIST = computed(() => {
       return getters.GET_BOARD_LIST;
     });
-    const searchWord = () => {
-      keywords.value = searchtext.value.value;
-    }
-    watch( () => keywords.value,
-      lodash.debounce( 
-        (kword) => {
-          const info = {
-            bid: 1,
-            kword
-          };
-          actions.FETCH_BOARD[0](info);
-        }, 
-      200),
-      { 
-        lazy: true 
-      }
-    );
+    const { searchList } = useListFilter(actions.FETCH_BOARD[0], { bid: 1 }, ctx);
     return {
       GET_BOARD_LIST,
-      searchWord,
-      searchtext
+      searchList
     }
   }
 }

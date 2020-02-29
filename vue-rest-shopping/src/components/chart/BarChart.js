@@ -1,42 +1,46 @@
+import { reactive, onMounted } from '@vue/composition-api';
 import { Bar, mixins } from 'vue-chartjs';
-const { reactiveProp } = mixins;
 
+const { reactiveProp } = mixins;
 export default {
   extends: Bar,
   mixins: [reactiveProp],
   props: ['chart-data'],
-  data: () => ({
-    options: {
-      responsive: true,
-      maintainAspectRatio: true,
-      tooltips: {
-        callbacks: {
-              label: function(tooltipItem, data) {
-                const value = data.datasets[0].data[tooltipItem.index];
-                if(parseInt(value) >= 1000){
-                  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원';
-                } else {
-                  return value + '원';
-                }
+  setup (props) {
+    const chartData = reactive({
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        tooltips: {
+          callbacks: {
+            label: function(tooltipItem, data) {
+              let value = data.datasets[0].data[tooltipItem.index];
+              value = isNaN(value) ? parseInt(value) : value;
+              if(parseInt(value) >= 1000){
+                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+              } else {
+                return value;
               }
-        }
-      },
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero:true,
-            userCallback: function(value) {
+            }
+          }
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero:true,
+              userCallback: function(value) {
                 value = value.toString();
                 value = value.split(/(?=(?:...)*$)/);
                 value = value.join(',');
                 return value;
+              }
             }
-          }
-        }]
+          }]
+        }
       }
-    }
-   }),
-  mounted () {
-    this.renderChart(this.chartData, this.options);
+    });
+    onMounted( function() {
+      this.renderChart(props.chartData, chartData.options);
+    });
   }
 }

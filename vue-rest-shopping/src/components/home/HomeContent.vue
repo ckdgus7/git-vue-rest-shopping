@@ -9,12 +9,12 @@
     <br />
     <div>
       <h1>
-        2. Foldering &nbsp; &nbsp; &nbsp;
+        2. Site SPA Guide &nbsp; &nbsp; &nbsp;
         <span class="open-api"><a :href="gitLink" target="_blank">README.md (<span style="color:red;">GitHub click!</span>)</a></span>
       </h1>
     </div>
     <br />
-    <h1>2. FE 기술조사 : vue / vuex / vue-router / axios / dragula / vue-chartjs / vue-lodash / vue-carousel / vue-infinite-scrolling</h1>
+    <h1>2. FE 기술조사 : vue / vuex / vue-router / axios / composition-api / dragula / vue-chartjs / vue-lodash / vue-carousel / vue-infinite-scrolling</h1>
     <br />
     <h1>3. Check List (Board)</h1>
     <ol>

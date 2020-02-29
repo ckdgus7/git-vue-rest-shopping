@@ -2,7 +2,7 @@
   <div class="board-wrapper">
     <div class="board">
       <div class="board-header">
-        <span class="board-header-btn board-title">메모장 (dragula : Card를 drag&drop 해보세요)</span>
+				<BoardTitle><template slot="board_title">메모장 (dragula : Card를 drag&drop 해보세요)</template></BoardTitle>
       </div>
       <div class="list-section-wrapper">
         <div class="list-section">
@@ -15,7 +15,10 @@
               <div class="card-list">
                 <div class="card-item">
                     <div>{{ listData.wr_title }}</div>
-                    <div>{{ listData.wr_content }}</div>
+                    <div style="margin-top: 20px;">
+                      <div>내용 :</div>
+                      <div style="margin-top: 5px;" v-html="setContent(listData.wr_content)"></div>
+                    </div>
                 </div>
               </div>
             </div>
@@ -27,71 +30,71 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import BoardTitle from '../components/board/title.vue';
+import { ref, computed, onUpdated } from '@vue/composition-api';
+import { injectStore } from '../composition_func/common/storeProvider.js';
+import { replaceAll } from '../utils/index.js';
 import dragula from 'dragula';
 import 'dragula/dist/dragula.css';
-import boardListMixin from '../mixin/boardListMixin.js';
 export default {
-  data() {
-    return {
-      drakeList: null
-    }
+  components: {
+    BoardTitle
   },
-  mixins: [boardListMixin],
-  created () {
-    this.setBoardData(1);
-  },
-  updated () {
-    if (this.drakeList) this.drakeList.destroy();
-    const targetParent = '.list-section';
-    const targetItem = '.list';
-    this.dradrakeListke = dragula([...this.$el.querySelectorAll(targetParent)])
-    .on('drop', (el, wrapper) => {
-      const targetCard = {
-        id: el.firstChild.dataset.cardId * 1, 
-        pos: 65535,
-      }
-      let prevCard = null
-      let nextCard = null
-
-      Array.from(wrapper.querySelectorAll(targetItem))
-        .forEach((el, idx, arr) => {
-          const cardId = el.dataset.cardId * 1;
-
-          if (targetCard.id === cardId) {
-            prevCard = idx > 0 ? {
-              pos: arr[idx - 1].dataset.cardPos * 1
-            } : null;
-            nextCard = idx < arr.length - 1 ? {
-              pos: arr[idx + 1].dataset.cardPos * 1
-            } : null;
-          }
-        })
-
-      if (!prevCard && nextCard) targetCard.pos = nextCard.pos / 2;
-      else if (!nextCard && prevCard) targetCard.pos = prevCard.pos * 2;
-      else if (nextCard && prevCard) targetCard.pos = (prevCard.pos + nextCard.pos) / 2;
-      this.updateBoardData(targetCard);
-    });
-  },
-  methods: {
-    ...mapActions([
-			'UPDATE_POS_BOARD'
-    ]),
-    setBoardData (num) {
-      this.FETCH_BOARD(num)
-        .then(() => {
-        });
-    },
-		updateBoardData (targetCard) {
+  setup (props, { root: { $el } }) {
+    const { getters, actions } = injectStore();
+    const drakeList = ref(null);
+    const GET_BOARD_LIST = computed( () => getters.GET_BOARD_LIST);
+    
+		const updateBoardData = (targetCard) => {
 			const bid = 'bbs';
       const wr_id = targetCard.id;
       const wr_1 = targetCard.pos;
-			this.UPDATE_POS_BOARD({bid,wr_id,wr_1})
-				.then(() => {
-            this.setBoardData(1);
-        });
-		}
+			actions.UPDATE_POS_BOARD[0]({bid,wr_id,wr_1});
+    };
+
+    const setContent = (wr_content) => {
+      let cont = decodeURIComponent(wr_content);
+      cont = replaceAll(cont, '\n', '<br>');
+      return cont;
+    };
+
+    onUpdated ( () => {
+      if (drakeList.value) drakeList.value.destroy();
+      drakeList.value = dragula([...$el.querySelectorAll('.list-section')])
+      .on('drop', (el, wrapper) => {
+        const targetCard = {
+          id: el.firstChild.dataset.cardId * 1, 
+          pos: 65535,
+        }
+        let prevCard = null
+        let nextCard = null
+
+        Array.from(wrapper.querySelectorAll('.list'))
+          .forEach((el, idx, arr) => {
+            const cardId = el.dataset.cardId * 1;
+            if (targetCard.id === cardId) {
+              prevCard = idx > 0 ? {
+                pos: arr[idx - 1].dataset.cardPos * 1
+              } : null;
+              nextCard = idx < arr.length - 1 ? {
+                pos: arr[idx + 1].dataset.cardPos * 1
+              } : null;
+            }
+          })
+
+        if (!prevCard && nextCard) targetCard.pos = nextCard.pos / 2;
+        else if (!nextCard && prevCard) targetCard.pos = prevCard.pos * 2;
+        else if (nextCard && prevCard) targetCard.pos = (prevCard.pos + nextCard.pos) / 2;
+        updateBoardData(targetCard);
+      });
+    });
+
+    actions.FETCH_BOARD[0]({bid:1});
+
+    return {
+      GET_BOARD_LIST,
+      setContent
+    }
   }
 }
 </script>
@@ -141,7 +144,7 @@ export default {
 .list-wrapper {
   display: inline-block;
   min-height: 300px;
-  width: 372px;
+  /* width: 372px; */
   vertical-align: top;
   margin-right: 5px;
 }
@@ -169,6 +172,8 @@ export default {
   /* overflow-y: scroll; */
 }
 .card-item {
+  
+  height: 300px;
   background-color: #fff;
   border-radius: 3px;
   margin: 8px;

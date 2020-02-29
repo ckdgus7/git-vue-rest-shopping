@@ -27,9 +27,9 @@ export default {
     const response = await api.board.DELETE_BOARD(payload);
     return response;
   },
-  async UPDATE_POS_BOARD ({ commit }, payload) {
+  async UPDATE_POS_BOARD (_, payload) {
     const response = await api.board.UPDATE_POS_BOARD(payload);
-    commit('FETCH_BOARD', response.data);
+    // commit('FETCH_BOARD', response.data);
     return response;
   }
 }

@@ -14,9 +14,9 @@ export default (next, isHome=false) => {
     loader.hide();
   }, 300);
   if(username) {
+    store.state.login.isLogin = true;
+    store.state.login.username = username;
     if(isHome) {
-      store.state.login.isLogin = true;
-      store.state.login.username = username;
       next('/home');
     } else {
       next();

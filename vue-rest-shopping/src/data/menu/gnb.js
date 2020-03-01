@@ -7,7 +7,7 @@ const gnb = deepFreeze({
       mkey: 'login'
     },
     {
-      linkUrl: '/login',
+      linkUrl: '/signup',
       label: 'SignUp',
       mkey: 'signup'
     }

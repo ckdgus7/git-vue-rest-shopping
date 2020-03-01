@@ -28,7 +28,7 @@
 
 <script>
 import { validateEmail } from '../utils/index.js';
-import { saveUserToCookie, getUserFromCookie } from '../utils/cookies.js';
+import { saveUserToCookie } from '../utils/cookies.js';
 export default {
   data() {
     return {
@@ -37,12 +37,6 @@ export default {
       nickname: '',
       logMessage: '',
     };
-  },
-  created () {
-    const username = getUserFromCookie();
-    if(username) {
-      this.$router.replace('/home');
-    }
   },
   computed: {
     isUsernameValid() {

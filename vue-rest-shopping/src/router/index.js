@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import pageLoading from '../mixin/routerMixin.js';
+import pageLoading from './pageLoading.js';
 
 Vue.use(VueRouter);
 
@@ -21,14 +21,6 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: () => import('../views/SignupForm.vue')
-  },
-  {
-    path: '/signup',
-    name: 'signup',
-    component: () => import('../views/SignupForm.vue'),
-    beforeEnter: (to, from, next) => {
-      pageLoading(next);
-    }
   },
   {
     path: '/home',

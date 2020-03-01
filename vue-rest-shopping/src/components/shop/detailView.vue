@@ -29,8 +29,14 @@
                       <tr class="tr_price">
                           <th scope="row">판매가격</th>
                           <td>
-                              <strong>{{ new Intl.NumberFormat().format(GET_SHOPPING.it_price) }}원</strong>
-                              <input type="hidden" id="it_price" value="28000">
+                              <strong>{{ new Intl.NumberFormat().format(totalPrice) }}원</strong>
+                              <!-- <strong>{{ new Intl.NumberFormat().format(GET_SHOPPING.it_price) }}원</strong> -->
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">개수</th>
+                          <td>
+                              <input type="number" value="1" id="it_num" v-model="it_num" style="width: 30px;">
                           </td>
                       </tr>
                       <tr>
@@ -76,7 +82,7 @@
 </template>
 
 <script>
-import { computed }  from '@vue/composition-api';
+import { ref, computed }  from '@vue/composition-api';
 import { injectStore }  from '../../composition_func/common/storeProvider.js';
 import { useAddCart } from '../../composition_func/shopping/addCart.js';
 import CartModal from '../../components/shop/CartModal.vue';
@@ -88,16 +94,19 @@ export default {
   setup (props, ctx) {
     const { getters, actions } = injectStore();
     const it_id = ctx.root._route.params.viewid;
+    const it_num = ref(1);
     const GET_SHOPPING = computed( () => getters.GET_SHOPPING );
-    const { showCartModal, addCartItem, closeCartModal } = useAddCart(ctx, actions);
-    const shopList = () => {
-      ctx.root.$router.push('/shopping');
-    };
+    const totalPrice = computed( () => it_num.value * parseInt(getters.GET_SHOPPING.it_price) );
+    const { showCartModal, addCartItem, closeCartModal } = useAddCart(ctx, actions, it_num);
+    const shopList = () => ctx.root.$router.push('/shopping');
+
     actions.DETAIL_SHOPPING[0]({it_id});
 
     return {
       GET_SHOPPING,
       shopList,
+      totalPrice,
+      it_num,
       showCartModal, 
       addCartItem, 
       closeCartModal

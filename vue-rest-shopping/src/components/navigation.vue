@@ -4,24 +4,27 @@
     최창현 Playground
   </span>
   <span class="menu" v-if="GET_IS_LOGIN">
-    <span v-for="(menu) in gnbMenu.LOGIN_AFTER" :key="menu.mkey">
-      <router-link class="nav-link" :to="menu.linkUrl">{{ menu.label }}</router-link> |
+    <span v-for="(menu, k) in gnbMenu.LOGIN_AFTER" :key="`${menu.mkey}_${k}`">
+      <router-link class="nav-link" :to="menu.linkUrl">{{ menu.label }}</router-link> {{ isLastIndex(gnbMenu.LOGIN_AFTER, k) ? '' : '|' }}
     </span>
-    <a :href="gitLink" target="_blank" style="color:red;">GitHub</a> |
-    <a href="" @click.prevent="procLogout" style="color:red;">LogOut</a>
-    <span style="margin-left:50px;">{{ GET_USER_NAME }} 님 로그인중</span>
+    <span style="margin-left: 30px;">
+      <a :href="gitLink" target="_blank" style="color:red;">GitHub</a> |
+      <a href="" @click.prevent="procLogout" style="color:red;">LogOut</a> |
+      <span style="border-bottom: 1px;">{{ GET_USER_NAME }} 님 로그인중</span>
+    </span>
   </span>
   <span class="menu" v-else>
-    <span v-for="(menu) in gnbMenu.LOGIN_PREV" :key="menu.mkey">
-      <router-link class="nav-link" :to="menu.linkUrl">{{ menu.label }}</router-link> |
+    <span v-for="(menu, k) in gnbMenu.LOGIN_PREV" :key="`${menu.mkey}_${k}`">
+      <router-link class="nav-link" :to="menu.linkUrl">{{ menu.label }}</router-link> {{ isLastIndex(gnbMenu.LOGIN_PREV, k) ? '' : '|' }}
     </span>
   </span>
 </div>
 </template>
 <script>
-import { reactive, computed } from '@vue/composition-api';
+import { reactive, computed, onUpdated } from '@vue/composition-api';
 import { injectStore } from '../composition_func/common/storeProvider.js';
 import gnb from '../data/menu/gnb.js';
+import { checkLoopLastIndex } from '../utils/checkLoopLastIndex.js';
 export default {
   setup (props, { root: { $router } }) {
     const { getters, actions } = injectStore();
@@ -39,12 +42,19 @@ export default {
       await actions.LOGOUT[0](GET_USER_NAME);
       $router.replace('/login');
     }
+    onUpdated( () => {
+      
+    });
+    const isLastIndex = (loop, key) => {
+      return checkLoopLastIndex(loop, key);
+    };
     return {
       GET_IS_LOGIN,
       GET_USER_NAME,
       procLogout,
       gnbMenu: state.gnbMenu,
-      gitLink: state.gitLink
+      gitLink: state.gitLink,
+      isLastIndex
     }
   }
 }

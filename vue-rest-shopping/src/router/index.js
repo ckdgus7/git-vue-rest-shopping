@@ -15,17 +15,17 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('../views/LoginForm.vue')
+    component: () => import(/* webpackChunkName: "login" */ '../views/LoginForm.vue')
   },
   {
     path: '/signup',
     name: 'signup',
-    component: () => import('../views/SignupForm.vue')
+    component: () => import(/* webpackChunkName: "signup" */ '../views/SignupForm.vue')
   },
   {
     path: '/home',
     name: 'home',
-    component: () => import('../views/Home.vue'),
+    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
@@ -33,7 +33,7 @@ const routes = [
   {
     path: '/board/:bid',
     name: 'boardlist',
-    component: () => import('../views/BBS.vue'),
+    component: () => import(/* webpackChunkName: "boardlist" */ '../views/BBS.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
@@ -41,7 +41,7 @@ const routes = [
   {
     path: '/board/:bid/view/:viewid',
     name: 'boardview',
-    component: () => import('../views/BBSView.vue'),
+    component: () => import(/* webpackChunkName: "boardview" */ '../views/BBSView.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
@@ -49,7 +49,7 @@ const routes = [
   {
     path: '/board/:bid/write',
     name: 'boardwrite',
-    component: () => import('../views/BBSWrite.vue'),
+    component: () => import(/* webpackChunkName: "boardwrite" */ '../views/BBSWrite.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
@@ -57,7 +57,7 @@ const routes = [
   {
     path: '/board/:bid/update/:viewid',
     name: 'boardupdate',
-    component: () => import('../views/BBSUpdate.vue'),
+    component: () => import(/* webpackChunkName: "boardupdate" */ '../views/BBSUpdate.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
@@ -65,7 +65,7 @@ const routes = [
   {
     path: '/memo',
     name: 'memo',
-    component: () => import('../views/Memo.vue'),
+    component: () => import(/* webpackChunkName: "memo" */ '../views/Memo.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
@@ -73,7 +73,7 @@ const routes = [
   {
     path: '/shopping',
     name: 'shopping',
-    component: () => import('../views/Shopping.vue'),
+    component: () => import(/* webpackChunkName: "shopping" */ '../views/Shopping.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
@@ -81,7 +81,7 @@ const routes = [
   {
     path: '/shopping/view/:viewid',
     name: 'shoppingview',
-    component: () => import('../views/ShoppingView.vue'),
+    component: () => import(/* webpackChunkName: "shoppingview" */ '../views/ShoppingView.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
@@ -89,7 +89,7 @@ const routes = [
   {
     path: '/interest-item',
     name: 'interestItem',
-    component: () => import('../views/InterestItem.vue'),
+    component: () => import(/* webpackChunkName: "interestItem" */ '../views/InterestItem.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
@@ -97,7 +97,7 @@ const routes = [
   {
     path: '*',
     name: 'notFoundPage',
-    component: () => import('../views/NotFoundPage.vue')
+    component: () => import(/* webpackChunkName: "notFoundPage" */ '../views/NotFoundPage.vue')
   }
 ];
 

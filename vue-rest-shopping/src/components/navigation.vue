@@ -5,17 +5,27 @@
   </span>
   <span class="menu" v-if="GET_IS_LOGIN">
     <span v-for="(menu, k) in gnbMenu.LOGIN_AFTER" :key="`${menu.mkey}_${k}`">
-      <router-link class="nav-link" :to="menu.linkUrl">{{ menu.label }}</router-link> {{ isLastIndex(gnbMenu.LOGIN_AFTER, k) ? '' : '|' }}
+      <router-link class="nav-link" :to="{
+        name: menu.mkey
+      }">
+        {{ menu.label }}
+      </router-link> 
+      {{ isLastIndex(gnbMenu.LOGIN_AFTER, k) ? '' : '|' }}
     </span>
     <span style="margin-left: 30px;">
       <a :href="gitLink" target="_blank" style="color:red;">GitHub</a> |
       <a href="" @click.prevent="procLogout" style="color:red;">LogOut</a> |
-      <span style="border-bottom: 1px;">{{ GET_USER_NAME }} 님 로그인중</span>
+      <span style="border-bottom: 1px;">{{ GET_USER_NAME }} 님 로그인 중...</span>
     </span>
   </span>
   <span class="menu" v-else>
     <span v-for="(menu, k) in gnbMenu.LOGIN_PREV" :key="`${menu.mkey}_${k}`">
-      <router-link class="nav-link" :to="menu.linkUrl">{{ menu.label }}</router-link> {{ isLastIndex(gnbMenu.LOGIN_PREV, k) ? '' : '|' }}
+      <router-link class="nav-link" :to="{
+        name: menu.mkey
+      }">
+        {{ menu.label }}
+      </router-link> 
+      {{ isLastIndex(gnbMenu.LOGIN_PREV, k) ? '' : '|' }}
     </span>
   </span>
 </div>
@@ -79,8 +89,8 @@ export default {
   color: white; 
   font-size: 20px;
 }
-#nav a.router-link-exact-active {
-  color: #42b983;
+#nav a.ckdgus-restapi-exact-active {
+  color: red;
 }
 #nav a.nav-link.viewed {
   color: #42b983;

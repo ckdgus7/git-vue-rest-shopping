@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <Navigation />
-    <router-view />
+    <router-view :key="$route.path" />
   </div>
 </template>
 <script>
-import { provideStore } from './composition_func/common/storeProvider.js';
-import Navigation from './components/navigation.vue';
+import { provideStore } from '@/composition_func/common/storeProvider.js';
+import Navigation from '@/components/navigation.vue';
 export default {
   components: {
     Navigation

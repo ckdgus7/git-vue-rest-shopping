@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import pageLoading from './pageLoading.js';
+import pageLoading from '@/router/pageLoading.js';
 
 Vue.use(VueRouter);
 
@@ -8,6 +8,7 @@ const routes = [
   {
     path: '/',
     name: 'rootpath',
+    prpos: true,
     beforeEnter: (to, from, next) => {
       pageLoading(next, true);
     }
@@ -15,57 +16,112 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import(/* webpackChunkName: "login" */ '../views/LoginForm.vue')
+    prpos: true,
+    component: () => import(/* webpackChunkName: "login" */ '@/views/LoginForm.vue')
   },
   {
     path: '/signup',
     name: 'signup',
-    component: () => import(/* webpackChunkName: "signup" */ '../views/SignupForm.vue')
+    prpos: true,
+    component: () => import(/* webpackChunkName: "signup" */ '@/views/SignupForm.vue')
   },
   {
     path: '/home',
     name: 'home',
-    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue'),
+    prpos: true,
+    component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
   },
   {
-    path: '/board/:bid',
-    name: 'boardlist',
-    component: () => import(/* webpackChunkName: "boardlist" */ '../views/BBS.vue'),
-    beforeEnter: (to, from, next) => {
-      pageLoading(next);
-    }
+    path: '/board',
+    name: 'board',
+    prpos: true,
+    component: () => import(/* webpackChunkName: "board" */ '@/views/Board.vue'),
+    // beforeEnter: (to, from, next) => {
+    //   pageLoading(next);
+    // },
+    children: [
+      { 
+        path: 'bbs', 
+        name: 'bbs',
+        prpos: true,
+        component: () => import(/* webpackChunkName: "bbs" */ '@/views/BBS.vue' ),
+        beforeEnter: (to, from, next) => {
+          pageLoading(next);
+        }
+      },
+      {
+        path: 'bbs/view/:viewid',
+        name: 'boardview',
+        prpos: true,
+        component: () => import(/* webpackChunkName: "boardview" */ '@/views/BBSView.vue'),
+        beforeEnter: (to, from, next) => {
+          pageLoading(next);
+        }
+      },
+      {
+        path: 'bbs/write',
+        name: 'boardwrite',
+        prpos: true,
+        component: () => import(/* webpackChunkName: "boardwrite" */ '@/views/BBSWrite.vue'),
+        beforeEnter: (to, from, next) => {
+          pageLoading(next);
+        }
+      },
+      {
+        path: 'bbs/update/:viewid',
+        name: 'boardupdate',
+        prpos: true,
+        component: () => import(/* webpackChunkName: "boardupdate" */ '@/views/BBSUpdate.vue'),
+        beforeEnter: (to, from, next) => {
+          pageLoading(next);
+        }
+      }
+    ]
   },
-  {
-    path: '/board/:bid/view/:viewid',
-    name: 'boardview',
-    component: () => import(/* webpackChunkName: "boardview" */ '../views/BBSView.vue'),
-    beforeEnter: (to, from, next) => {
-      pageLoading(next);
-    }
-  },
-  {
-    path: '/board/:bid/write',
-    name: 'boardwrite',
-    component: () => import(/* webpackChunkName: "boardwrite" */ '../views/BBSWrite.vue'),
-    beforeEnter: (to, from, next) => {
-      pageLoading(next);
-    }
-  },
-  {
-    path: '/board/:bid/update/:viewid',
-    name: 'boardupdate',
-    component: () => import(/* webpackChunkName: "boardupdate" */ '../views/BBSUpdate.vue'),
-    beforeEnter: (to, from, next) => {
-      pageLoading(next);
-    }
-  },
+  // {
+  //   path: '/board/bbs',
+  //   name: 'bbs',
+  //   prpos: true,
+  //   component: () => import(/* webpackChunkName: "bbs" */ '@/views/BBS.vue'),
+  //   beforeEnter: (to, from, next) => {
+  //     pageLoading(next);
+  //   }
+  // },
+  // {
+  //   path: '/board/bbs/view/:viewid',
+  //   name: 'boardview',
+  //   prpos: true,
+  //   component: () => import(/* webpackChunkName: "boardview" */ '@/views/BBSView.vue'),
+  //   beforeEnter: (to, from, next) => {
+  //     pageLoading(next);
+  //   }
+  // },
+  // {
+  //   path: '/board/bbs/write',
+  //   name: 'boardwrite',
+  //   prpos: true,
+  //   component: () => import(/* webpackChunkName: "boardwrite" */ '@/views/BBSWrite.vue'),
+  //   beforeEnter: (to, from, next) => {
+  //     pageLoading(next);
+  //   }
+  // },
+  // {
+  //   path: '/board/bbs/update/:viewid',
+  //   name: 'boardupdate',
+  //   prpos: true,
+  //   component: () => import(/* webpackChunkName: "boardupdate" */ '@/views/BBSUpdate.vue'),
+  //   beforeEnter: (to, from, next) => {
+  //     pageLoading(next);
+  //   }
+  // },
   {
     path: '/memo',
     name: 'memo',
-    component: () => import(/* webpackChunkName: "memo" */ '../views/Memo.vue'),
+    prpos: true,
+    component: () => import(/* webpackChunkName: "memo" */ '@/views/Memo.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
@@ -73,7 +129,8 @@ const routes = [
   {
     path: '/shopping',
     name: 'shopping',
-    component: () => import(/* webpackChunkName: "shopping" */ '../views/Shopping.vue'),
+    prpos: true,
+    component: () => import(/* webpackChunkName: "shopping" */ '@/views/Shopping.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
@@ -81,29 +138,33 @@ const routes = [
   {
     path: '/shopping/view/:viewid',
     name: 'shoppingview',
-    component: () => import(/* webpackChunkName: "shoppingview" */ '../views/ShoppingView.vue'),
+    prpos: true,
+    component: () => import(/* webpackChunkName: "shoppingview" */ '@/views/ShoppingView.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
   },
   {
     path: '/interest-item',
-    name: 'interestItem',
-    component: () => import(/* webpackChunkName: "interestItem" */ '../views/InterestItem.vue'),
+    name: 'interestitem',
+    prpos: true,
+    component: () => import(/* webpackChunkName: "interestItem" */ '@/views/InterestItem.vue'),
     beforeEnter: (to, from, next) => {
       pageLoading(next);
     }
   },
   {
-    path: '*',
+    path: '/404',
+    alias: '*',
     name: 'notFoundPage',
-    component: () => import(/* webpackChunkName: "notFoundPage" */ '../views/NotFoundPage.vue')
+    component: () => import(/* webpackChunkName: "notFoundPage" */ '@/views/NotFoundPage.vue')
   }
 ];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
+  linkExactActiveClass: 'ckdgus-restapi-exact-active',
   routes
 });
 

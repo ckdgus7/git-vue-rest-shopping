@@ -31,7 +31,7 @@ const gnb = deepFreeze({
     {
       linkUrl: '/shopping',
       label: 'Shopping List',
-      mkey: 'shoppinglist'
+      mkey: 'shopping'
     },
     {
       linkUrl: '/interest-item',

@@ -4,7 +4,7 @@ import { getUserFromCookie } from '../utils/cookies.js';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 Vue.use(Loading);
-export default (next, isHome=false) => {
+export default (to, from, next) => {
   const loader = Vue.$loading.show({
     container: null,
     canCancel: true
@@ -13,15 +13,20 @@ export default (next, isHome=false) => {
   setTimeout(() => {
     loader.hide();
   }, 300);
-  if(username) {
-    store.state.login.isLogin = true;
-    store.state.login.username = username;
-    if(isHome) {
-      next('/home');
+  if(to.matched.some(record => record.meta.requiresAuth)) {
+    if(username) {
+      store.state.login.isLogin = true;
+      store.state.login.username = username;
+      if(to.name=="rootpath") {
+        next('/home');
+      } else {
+        next();
+      }
     } else {
-      next();
+      next('/login');
     }
   } else {
-    next('/login');
+    next();
+    return;
   }
 }

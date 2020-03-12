@@ -9,7 +9,7 @@
             <BoardTop />
             <BoardList />
             <BoardBottom />
-          </div>
+          </div> 
         </div>
       </div>
     </div>

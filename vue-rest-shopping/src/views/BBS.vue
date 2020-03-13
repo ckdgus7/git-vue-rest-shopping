@@ -31,8 +31,7 @@ export default {
     BoardList,
     BoardBottom
   },
-  setup(props, ctx) {
-    console.log(ctx);
+  setup() {
     const { getters, actions } = injectStore();
     const GET_BOARD_LIST = computed(() => {
       return getters.GET_BOARD_LIST;

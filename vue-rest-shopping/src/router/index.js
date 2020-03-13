@@ -4,11 +4,25 @@ import pageLoading from '@/router/pageLoading.js';
 
 Vue.use(VueRouter);
 
+const routePages = {
+  login: () => import(/* webpackChunkName: "login" */ '@/views/LoginForm.vue'),
+  signup: () => import(/* webpackChunkName: "signup" */ '@/views/SignupForm.vue'),
+  home: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
+  board: () => import(/* webpackChunkName: "board" */ '@/views/Board.vue'),
+  bbs: () => import(/* webpackChunkName: "bbs" */ '@/views/BBS.vue'),
+  boardview: () => import(/* webpackChunkName: "boardview" */ '@/views/BBSView.vue'),
+  boardwrite: () => import(/* webpackChunkName: "boardwrite" */ '@/views/BBSWrite.vue'),
+  boardupdate: () => import(/* webpackChunkName: "boardupdate" */ '@/views/BBSUpdate.vue'),
+  memo: () => import(/* webpackChunkName: "memo" */ '@/views/Memo.vue'),
+  shopping: () => import(/* webpackChunkName: "shopping" */ '@/views/Shopping.vue'),
+  shoppingview: () => import(/* webpackChunkName: "shoppingview" */ '@/views/ShoppingView.vue'),
+  interestitem: () => import(/* webpackChunkName: "interestitem" */ '@/views/InterestItem.vue'),
+  notFoundPage: () => import(/* webpackChunkName: "notFoundPage" */ '@/views/NotFoundPage.vue'),
+}
 const routes = [
   {
     path: '/',
     name: 'rootpath',
-    prpos: true,
     meta: {
       requiresAuth: true
     }
@@ -16,119 +30,116 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    prpos: true,
-    component: () => import(/* webpackChunkName: "login" */ '@/views/LoginForm.vue')
+    props: true,
+    component: routePages.login
   },
   {
     path: '/signup',
     name: 'signup',
-    prpos: true,
-    component: () => import(/* webpackChunkName: "signup" */ '@/views/SignupForm.vue')
+    component: routePages.signup
   },
   {
     path: '/home',
     name: 'home',
-    prpos: true,
     meta: {
       requiresAuth: true
     },
-    component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue')
+    component: routePages.home
   },
   {
     path: '/board',
     name: 'board',
-    prpos: true,
     meta: {
       requiresAuth: true
     },
-    component: () => import(/* webpackChunkName: "board" */ '@/views/Board.vue'),
+    component: routePages.board,
     children: [
       { 
         path: 'bbs', 
         name: 'bbs',
-        prpos: true,
+        props: (route) => {
+          return route.query.s || '';
+        },
         meta: {
           requiresAuth: true
         },
-        component: () => import(/* webpackChunkName: "bbs" */ '@/views/BBS.vue')
+        component: routePages.bbs
       },
       {
         path: 'bbs/view/:viewid',
         name: 'boardview',
-        prpos: true,
+        props: true,
         meta: {
           requiresAuth: true
         },
-        component: () => import(/* webpackChunkName: "boardview" */ '@/views/BBSView.vue')
+        component: routePages.boardview
       },
       {
         path: 'bbs/write',
         name: 'boardwrite',
-        prpos: true,
+        props: true,
         meta: {
           requiresAuth: true
         },
-        component: () => import(/* webpackChunkName: "boardwrite" */ '@/views/BBSWrite.vue')
+        component: routePages.boardwrite
       },
       {
         path: 'bbs/update/:viewid',
         name: 'boardupdate',
-        prpos: true,
+        props: true,
         meta: {
           requiresAuth: true
         },
-        component: () => import(/* webpackChunkName: "boardupdate" */ '@/views/BBSUpdate.vue')
+        component: routePages.boardupdate
       }
     ]
   },
   {
     path: '/memo',
     name: 'memo',
-    prpos: true,
     meta: {
       requiresAuth: true
     },
-    component: () => import(/* webpackChunkName: "memo" */ '@/views/Memo.vue')
+    component: routePages.memo
   },
   {
     path: '/shopping',
     name: 'shopping',
-    prpos: true,
+    props: true,
     meta: {
       requiresAuth: true
     },
-    component: () => import(/* webpackChunkName: "shopping" */ '@/views/Shopping.vue')
+    component: routePages.shopping
   },
   {
     path: '/shopping/view/:viewid',
     name: 'shoppingview',
-    prpos: true,
+    props: true,
     meta: {
       requiresAuth: true
     },
-    component: () => import(/* webpackChunkName: "shoppingview" */ '@/views/ShoppingView.vue')
+    component: routePages.shoppingview
   },
   {
     path: '/interest-item',
     name: 'interestitem',
-    prpos: true,
     meta: {
       requiresAuth: true
     },
-    component: () => import(/* webpackChunkName: "interestItem" */ '@/views/InterestItem.vue')
+    component: routePages.interestitem
   },
   {
     path: '/404',
     alias: '*',
     name: 'notFoundPage',
-    component: () => import(/* webpackChunkName: "notFoundPage" */ '@/views/NotFoundPage.vue')
+    component: routePages.notFoundPage
   }
 ];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  linkExactActiveClass: 'ckdgus-restapi-exact-active',
+  // linkExactActiveClass: 'ckdgus-restapi-nav-link-exact-active',
   routes
 });
 

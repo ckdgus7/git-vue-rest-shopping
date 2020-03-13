@@ -30,6 +30,13 @@
       </form>
       <!-- <p class="log">{{ logMessage }}</p> -->
     </div>
+    <SwiperView :swiperSlides="swiperSlides" :sOptions="sOptions">
+      <template #slide-conntent="{ slideData }">
+        <!-- swiper-slide 내부 콘텐츠 설정 -->
+        <img class="slide-img" :src="slideData.imagePath" />
+        <!-- swiper-slide 내부 콘텐츠 설정 -->
+      </template>
+    </SwiperView>
   </div>
 </template>
 
@@ -37,10 +44,30 @@
 import { mapActions } from 'vuex';
 import { validateEmail } from '../utils/index.js';
 import { getUserFromCookie } from '../utils/cookies.js';
-
+const SwiperView = () => import(/* webpackChunkName: "SwiperView" */ '../components/SwiperView.vue');
 export default {
+  components: {
+    SwiperView
+  },
   data () {
     return {
+      sOptions: {
+        loop: false
+      },
+      swiperSlides: [
+          {
+              id: 1,
+              imagePath: 'https://media.istockphoto.com/photos/blank-banner-picture-id482858783?k=6&m=482858783&s=612x612&w=0&h=LKLlv3FN_ELjarwZ6xffQAPo_KFGmDG-2DGDzknET8w='
+          },
+          {
+              id: 2,
+              imagePath: 'https://cdn.pixabay.com/photo/2018/05/17/16/03/compass-3408928_960_720.jpg'
+          },
+          {
+              id: 3,
+              imagePath: 'https://media.istockphoto.com/photos/blank-banner-picture-id482858783?k=6&m=482858783&s=612x612&w=0&h=LKLlv3FN_ELjarwZ6xffQAPo_KFGmDG-2DGDzknET8w='
+          }
+      ],
       username: 'test@test.com',
       password: '1111',
       logMessage: '',
@@ -77,6 +104,9 @@ export default {
 </script>
 
 <style scoped>
+.slide-img {
+	width: 100%;
+}
 .form-container {
   display: flex;
   align-items: center;

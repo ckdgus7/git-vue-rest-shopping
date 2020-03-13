@@ -75,7 +75,6 @@ export default {
 }
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
 }
 #nav .menu {
   margin-left: 30px;
@@ -89,7 +88,10 @@ export default {
   color: white; 
   font-size: 20px;
 }
-#nav a.ckdgus-restapi-exact-active {
+#nav a.router-link-exact-active, a.router-link-active {
+  color: red;
+}
+#nav a.ckdgus-restapi-nav-link-exact-active, a.ckdgus-restapi-nav-link-active {
   color: red;
 }
 #nav a.nav-link.viewed {

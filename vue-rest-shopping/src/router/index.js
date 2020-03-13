@@ -9,8 +9,8 @@ const routes = [
     path: '/',
     name: 'rootpath',
     prpos: true,
-    beforeEnter: (to, from, next) => {
-      pageLoading(next, true);
+    meta: {
+      requiresAuth: true
     }
   },
   {
@@ -29,129 +29,93 @@ const routes = [
     path: '/home',
     name: 'home',
     prpos: true,
-    component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
-    beforeEnter: (to, from, next) => {
-      pageLoading(next);
-    }
+    meta: {
+      requiresAuth: true
+    },
+    component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue')
   },
   {
     path: '/board',
     name: 'board',
     prpos: true,
+    meta: {
+      requiresAuth: true
+    },
     component: () => import(/* webpackChunkName: "board" */ '@/views/Board.vue'),
-    // beforeEnter: (to, from, next) => {
-    //   pageLoading(next);
-    // },
     children: [
       { 
         path: 'bbs', 
         name: 'bbs',
         prpos: true,
-        component: () => import(/* webpackChunkName: "bbs" */ '@/views/BBS.vue' ),
-        beforeEnter: (to, from, next) => {
-          pageLoading(next);
-        }
+        meta: {
+          requiresAuth: true
+        },
+        component: () => import(/* webpackChunkName: "bbs" */ '@/views/BBS.vue')
       },
       {
         path: 'bbs/view/:viewid',
         name: 'boardview',
         prpos: true,
-        component: () => import(/* webpackChunkName: "boardview" */ '@/views/BBSView.vue'),
-        beforeEnter: (to, from, next) => {
-          pageLoading(next);
-        }
+        meta: {
+          requiresAuth: true
+        },
+        component: () => import(/* webpackChunkName: "boardview" */ '@/views/BBSView.vue')
       },
       {
         path: 'bbs/write',
         name: 'boardwrite',
         prpos: true,
-        component: () => import(/* webpackChunkName: "boardwrite" */ '@/views/BBSWrite.vue'),
-        beforeEnter: (to, from, next) => {
-          pageLoading(next);
-        }
+        meta: {
+          requiresAuth: true
+        },
+        component: () => import(/* webpackChunkName: "boardwrite" */ '@/views/BBSWrite.vue')
       },
       {
         path: 'bbs/update/:viewid',
         name: 'boardupdate',
         prpos: true,
-        component: () => import(/* webpackChunkName: "boardupdate" */ '@/views/BBSUpdate.vue'),
-        beforeEnter: (to, from, next) => {
-          pageLoading(next);
-        }
+        meta: {
+          requiresAuth: true
+        },
+        component: () => import(/* webpackChunkName: "boardupdate" */ '@/views/BBSUpdate.vue')
       }
     ]
   },
-  // {
-  //   path: '/board/bbs',
-  //   name: 'bbs',
-  //   prpos: true,
-  //   component: () => import(/* webpackChunkName: "bbs" */ '@/views/BBS.vue'),
-  //   beforeEnter: (to, from, next) => {
-  //     pageLoading(next);
-  //   }
-  // },
-  // {
-  //   path: '/board/bbs/view/:viewid',
-  //   name: 'boardview',
-  //   prpos: true,
-  //   component: () => import(/* webpackChunkName: "boardview" */ '@/views/BBSView.vue'),
-  //   beforeEnter: (to, from, next) => {
-  //     pageLoading(next);
-  //   }
-  // },
-  // {
-  //   path: '/board/bbs/write',
-  //   name: 'boardwrite',
-  //   prpos: true,
-  //   component: () => import(/* webpackChunkName: "boardwrite" */ '@/views/BBSWrite.vue'),
-  //   beforeEnter: (to, from, next) => {
-  //     pageLoading(next);
-  //   }
-  // },
-  // {
-  //   path: '/board/bbs/update/:viewid',
-  //   name: 'boardupdate',
-  //   prpos: true,
-  //   component: () => import(/* webpackChunkName: "boardupdate" */ '@/views/BBSUpdate.vue'),
-  //   beforeEnter: (to, from, next) => {
-  //     pageLoading(next);
-  //   }
-  // },
   {
     path: '/memo',
     name: 'memo',
     prpos: true,
-    component: () => import(/* webpackChunkName: "memo" */ '@/views/Memo.vue'),
-    beforeEnter: (to, from, next) => {
-      pageLoading(next);
-    }
+    meta: {
+      requiresAuth: true
+    },
+    component: () => import(/* webpackChunkName: "memo" */ '@/views/Memo.vue')
   },
   {
     path: '/shopping',
     name: 'shopping',
     prpos: true,
-    component: () => import(/* webpackChunkName: "shopping" */ '@/views/Shopping.vue'),
-    beforeEnter: (to, from, next) => {
-      pageLoading(next);
-    }
+    meta: {
+      requiresAuth: true
+    },
+    component: () => import(/* webpackChunkName: "shopping" */ '@/views/Shopping.vue')
   },
   {
     path: '/shopping/view/:viewid',
     name: 'shoppingview',
     prpos: true,
-    component: () => import(/* webpackChunkName: "shoppingview" */ '@/views/ShoppingView.vue'),
-    beforeEnter: (to, from, next) => {
-      pageLoading(next);
-    }
+    meta: {
+      requiresAuth: true
+    },
+    component: () => import(/* webpackChunkName: "shoppingview" */ '@/views/ShoppingView.vue')
   },
   {
     path: '/interest-item',
     name: 'interestitem',
     prpos: true,
-    component: () => import(/* webpackChunkName: "interestItem" */ '@/views/InterestItem.vue'),
-    beforeEnter: (to, from, next) => {
-      pageLoading(next);
-    }
+    meta: {
+      requiresAuth: true
+    },
+    component: () => import(/* webpackChunkName: "interestItem" */ '@/views/InterestItem.vue')
   },
   {
     path: '/404',
@@ -166,6 +130,10 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   linkExactActiveClass: 'ckdgus-restapi-exact-active',
   routes
+});
+
+router.beforeEach( (to, from, next) => {
+  pageLoading(to, from, next);
 });
 
 export default router;

@@ -1,3 +1,8 @@
+# git clone
+## 실행
+npm install
+npm run serve
+
 # [SPA GUIDE]
 
 ## libs

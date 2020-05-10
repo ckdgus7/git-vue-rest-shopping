@@ -1,5 +1,4 @@
-# git clone
-## 실행
+# [git clone]
 npm install
 npm run serve
 
